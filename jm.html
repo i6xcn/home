@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+<title>加密解密</title>
+<style type="text/css">
+body {font-family: Arial, Helvetica, sans-serif;font-size: 13px;color: #3B5998;margin: 0;padding: 0;text-decoration:none;}
+.show_form { width:98%; margin:0px auto; text-align:center; margin-top:20px; margin-bottom:20px;}
+input{font-size: 13px; min-height: 28px; margin: 0; padding: 3px 8px; outline: none; color: #333; background-color: #fff; background-repeat: no-repeat; background-position: right center; border: 1px solid #ccc; border-radius: 3px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.075); -moz-box-sizing: border-box; box-sizing: border-box; transition: all 0.15s ease-in; -webkit-transition: all 0.15s ease-in 0; vertical-align: middle;}
+.search_button { position: relative; min-height: 28px; display: inline-block; margin: 0; padding: 4px 15px; font-size: 13px; font-weight: normal; color: #333; text-shadow: 0 1px 0 rgba(255,255,255,0.9); white-space: nowrap; background-color: #eaeaea; background-image: -moz-linear-gradient(#fafafa, #eaeaea); background-image: -webkit-linear-gradient(#fafafa, #eaeaea); background-image: linear-gradient(#fafafa, #eaeaea); background-repeat: repeat-x; border-radius: 3px; border: 1px solid #ddd; border-bottom-color: #c5c5c5; box-shadow: 0 1px 3px rgba(0,0,0,.05); vertical-align: middle; cursor: pointer; -moz-box-sizing: border-box; box-sizing: border-box; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; -webkit-appearance: none;}
+.search_button:hover,.search_button:active {background-position: 0 -15px; border-color: #ccc #ccc #b5b5b5;}
+.search_button:active { background-color: #dadada; border-color: #b5b5b5; background-image: none; box-shadow: inset 0 3px 5px rgba(0,0,0,.15);}
+.search_button:focus,input[type=text]:focus{ outline: none; border-color: #51a7e8; box-shadow: inset 0 1px 2px rgba(0,0,0,.075), 0 0 5px rgba(81,167,232,.5);}
+#search input[type=text] {font-size: 18px; width: 208px;}
+#search .search_button {padding: 6px; width: 80px;}
+#search span {margin-right:12px; font-size:14px;}
+textarea {font-size: 13px; min-height: 26px; margin: 0; padding: 3px 8px; outline: none; color: #333; background-color: #fff; background-repeat: no-repeat; background-position: right center; border: 1px solid #ccc; border-radius: 3px; box-shadow: inset 0 1px 2px rgba(0,0,0,0.075); -moz-box-sizing: border-box; box-sizing: border-box; transition: all 0.15s ease-in; -webkit-transition: all 0.15s ease-in 0; vertical-align: middle;}
+</style>
+</head>
+<body>
+<div class="show_form">
+<form name="box">
+请输入要处理的文字: <br><textarea name="ipt" cols="28" rows="6"></textarea><br><br>
+请输入一个密匙: <br><input type="text" name="pwd" value="i6x.cn"><br><br>
+<input type="button" name="btncode" value="加 密" class="search_button" style="width:108px; height:28px;" onclick="document.box.opt.value = encrypt(document.box.ipt.value, document.box.pwd.value);">
+<input type="button" name="btncode" value="解 密" class="search_button" style="width:108px; height:28px;" onclick="document.box.opt.value = decrypt(document.box.ipt.value, document.box.pwd.value);">
+<br><br><span style="margin-top:13px;margin-bottom:15px;color:#ff0000;">提示: 请不要忘记密匙，否则不能解密。</span><br>
+<textarea name="opt" rows="6" cols="28"></textarea>
+</form>
+</div>
+<script type="text/javascript">
+    function encrypt(str, pwd) {
+    	if (str == null || str.length <= 0) {
+    		alert("请输入加密内容");
+    		return;
+    	}
+    	//判断密钥是否为空
+    	if (pwd == null || pwd.length <= 0) {
+    		alert("请输入密钥");
+    		return null;
+    	}
+    	str = Base64.encode(str);
+    	//得到密钥的字符串的Unicode码
+    	var prand = "";
+    	for (var i = 0; i < pwd.length; i++) {
+    		prand += pwd.charCodeAt(i).toString();
+    		//alert(prand);
+    	}
+
+    	var sPos = Math.floor(prand.length / 5); //返回小于等于其数值参数的最大整数
+    	var mult = parseInt(prand.charAt(sPos) + prand.charAt(sPos * 2) + prand.charAt(sPos * 3) + prand.charAt(sPos * 4) + prand.charAt(sPos * 5)); //返回从字符串转换得到的整数.          (charAt返回 String 对象的指定索引处的字符。)
+    	var incr = Math.ceil(pwd.length / 2); //返回数的上限
+    	var modu = Math.pow(2, 31) - 1; //返回基数表达式的指定次幂的值
+    	if (mult < 2) {
+    		alert("您输入的密钥过于简单或者是长度太短");
+    		return null;
+    	}
+
+    	var salt = Math.round(Math.random() * 1000000000) % 100000000; //Math.round是四舍五入函数。 Math.random是返回一个伪随机数（0到1之间的double型数）
+    	prand += salt;
+
+    	while (prand.length > 10) {
+    		prand = (parseInt(prand.substring(0, 10)) + parseInt(prand.substring(10, prand.length))).toString();
+    	}
+
+    	prand = (mult * prand + incr) % modu;
+    	var enc_chr = "";
+    	var enc_str = "";
+
+    	for (var i = 0; i < str.length; i++) {
+    		enc_chr = parseInt(str.charCodeAt(i) ^ Math.floor((prand / modu) * 255));
+
+    		if (enc_chr < 16) {
+    			enc_str += "0" + enc_chr.toString(16);
+    		} else enc_str += enc_chr.toString(16);
+
+    		prand = (mult * prand + incr) % modu;
+    	}
+
+    	salt = salt.toString(16);
+
+    	while (salt.length < 8) salt = "0" + salt;
+    	enc_str += salt;
+
+    	return enc_str;
+    }
+
+    function decrypt(str, pwd) {
+    	if (str == null || str.length < 8) {
+    		alert("您输入的内容过短，请重新输入");
+    		return;
+    	}
+    	if (pwd == null || pwd.length <= 0) {
+    		alert("请输入密钥");
+    		return;
+    	}
+    	var prand = "";
+
+    	for (var i = 0; i < pwd.length; i++) {
+    		prand += pwd.charCodeAt(i).toString();
+    	}
+
+    	var sPos = Math.floor(prand.length / 5);
+    	var mult = parseInt(prand.charAt(sPos) + prand.charAt(sPos * 2) + prand.charAt(sPos * 3) + prand.charAt(sPos * 4) + prand.charAt(sPos * 5));
+    	var incr = Math.round(pwd.length / 2);
+    	var modu = Math.pow(2, 31) - 1;
+    	var salt = parseInt(str.substring(str.length - 8, str.length), 16);
+    	str = str.substring(0, str.length - 8);
+    	prand += salt;
+
+    	while (prand.length > 10) {
+    		prand = (parseInt(prand.substring(0, 10)) + parseInt(prand.substring(10, prand.length))).toString();
+    	}
+
+    	prand = (mult * prand + incr) % modu;
+    	var enc_chr = "";
+    	var enc_str = "";
+    	for (var i = 0; i < str.length; i += 2) {
+    		enc_chr = parseInt(parseInt(str.substring(i, i + 2), 16) ^ Math.floor((prand / modu) * 255));
+    		//alert(enc_chr);
+    		enc_str += String.fromCharCode(enc_chr);
+    		//alert(enc_str);
+    		prand = (mult * prand + incr) % modu;
+    	}
+    	enc_str = Base64.decode(enc_str);
+    	return enc_str;
+    }
+    var Base64 = {
+    	_keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    	encode: function(e) {
+    		var t = "";
+    		var n, r, i, s, o, u, a;
+    		var f = 0;
+    		e = Base64._utf8_encode(e);
+    		while (f < e.length) {
+    			n = e.charCodeAt(f++);
+    			r = e.charCodeAt(f++);
+    			i = e.charCodeAt(f++);
+    			s = n >> 2;
+    			o = (n & 3) << 4 | r >> 4;
+    			u = (r & 15) << 2 | i >> 6;
+    			a = i & 63;
+    			if (isNaN(r)) {
+    				u = a = 64
+    			} else if (isNaN(i)) {
+    				a = 64
+    			}
+    			t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a)
+    		}
+    		return t
+    	},
+    	decode: function(e) {
+    		var t = "";
+    		var n, r, i;
+    		var s, o, u, a;
+    		var f = 0;
+    		e = e.replace(/[^A-Za-z0-9+/=]/g, "");
+    		while (f < e.length) {
+    			s = this._keyStr.indexOf(e.charAt(f++));
+    			o = this._keyStr.indexOf(e.charAt(f++));
+    			u = this._keyStr.indexOf(e.charAt(f++));
+    			a = this._keyStr.indexOf(e.charAt(f++));
+    			n = s << 2 | o >> 4;
+    			r = (o & 15) << 4 | u >> 2;
+    			i = (u & 3) << 6 | a;
+    			t = t + String.fromCharCode(n);
+    			if (u != 64) {
+    				t = t + String.fromCharCode(r)
+    			}
+    			if (a != 64) {
+    				t = t + String.fromCharCode(i)
+    			}
+    		}
+    		t = Base64._utf8_decode(t);
+    		return t
+    	},
+    	_utf8_encode: function(e) {
+    		e = e.replace(/rn/g, "n");
+    		var t = "";
+    		for (var n = 0; n < e.length; n++) {
+    			var r = e.charCodeAt(n);
+    			if (r < 128) {
+    				t += String.fromCharCode(r)
+    			} else if (r > 127 && r < 2048) {
+    				t += String.fromCharCode(r >> 6 | 192);
+    				t += String.fromCharCode(r & 63 | 128)
+    			} else {
+    				t += String.fromCharCode(r >> 12 | 224);
+    				t += String.fromCharCode(r >> 6 & 63 | 128);
+    				t += String.fromCharCode(r & 63 | 128)
+    			}
+    		}
+    		return t
+    	},
+    	_utf8_decode: function(e) {
+    		var t = "";
+    		var n = 0;
+    		var r = c1 = c2 = 0;
+    		while (n < e.length) {
+    			r = e.charCodeAt(n);
+    			if (r < 128) {
+    				t += String.fromCharCode(r);
+    				n++
+    			} else if (r > 191 && r < 224) {
+    				c2 = e.charCodeAt(n + 1);
+    				t += String.fromCharCode((r & 31) << 6 | c2 & 63);
+    				n += 2
+    			} else {
+    				c2 = e.charCodeAt(n + 1);
+    				c3 = e.charCodeAt(n + 2);
+    				t += String.fromCharCode((r & 15) << 12 | (c2 & 63) << 6 | c3 & 63);
+    				n += 3
+    			}
+    		}
+    		return t
+    	}
+    }
+</script>
+</body>
+</html>
