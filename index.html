@@ -41,7 +41,7 @@ body,p,h1,h2,h3,h4,h5,h6,ul,ol,li,dl,dt,dd,th,td{margin:0;padding:0}body{min-wid
 	<div class="navbar">
 		<ul>
 			<li><a class="pyq">朋友圈</a></li>
-			<li><a href="https://www.youku.com/profile/index/?uid=UMzQ5ODkxOTgw" target="_blank">客片</a></li>
+			<li><a href="javascript:void(0);" onclick="openvideo()">客片</a></li>
 		</ul>
 	</div>
 	<div class="itemg">
@@ -163,6 +163,32 @@ function renderList(List) {
 			$("#vlog").append('<div class="itemg"><div class="itemg_lf"><img src="https://qnm.hunliji.com/FmXDfI8uZWhVnt9Bpc6ueJLXVHw4"></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>爱·影像 i6x.cn</em></span></div><div class="app_sm_rg"></div></div><div class="itemg_rg_sm"><p>'+title+'</p></div><div class="itemg_rg_main"><ul>'+outimg+'</ul></div></div></div>');
 		}
 	}
+}
+function openvideo(){
+	layer.prompt({formType:0,title:'客片查询',value:'请输入日期，如：20200601',shade:0.5}, function(value,index){
+		if(!/^\d{8}$/.test(value)){ layer.tips("请填写名字");layer.msg('请输入日期', {icon: 2}); return; }
+		if($('#name').val()===""){ layer.tips("请填写名字",$('#name'), { tips:[3,'#ff5983']}); return; }
+		var name = $('#name').val();
+		layer.load(0, {shade: false});
+        $.ajax({
+            url: '//i6x.18z.fun/i6x.php?type=wed',
+            type: "POST",
+            data: 'time='+value+'&name='+name,
+            success: function(res) {
+				layer.closeAll();
+                if (res.msg == false){
+                    layer.msg(res.data, {icon: 2});
+                } else {
+					layer.open({type:1,title:false,scrollbar:false,skin:'shadows',content:'<div style="padding:20px;background-color:#fff;"><textarea readonly="readonly" style="width:100%;resize:none;" rows="5">'+res.data+'</textarea></div>',btn:0});
+                }
+            },
+            error: function(e) {
+			    layer.closeAll();
+                layer.msg(e, {icon: 2});
+            }
+        });
+	});
+	$(".layui-layer-content").append("<input type=\"text\" id= \"name\" style=\"margin-top:10px;\" class=\"layui-layer-input\" placeholder=\"请输入名字\"/>");
 }
 function getToday() {
 	let date = new Date();
