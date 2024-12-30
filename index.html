@@ -165,7 +165,7 @@ function renderList(List) {
 	}
 }
 function openvideo(){
-	layer.prompt({formType:0,title:'客片查询',value:'请输入日期，如：20200601',shade:0.5}, function(value,index){
+	layer.prompt({formType:0,title:'客片查询',value:'请输入日期，如：20200601',scrollbar:false,shade:0.8}, function(value,index){
 		if(/^\d{8}$/g.test(value)==false) { layer.msg('请输入日期', {icon: 2}); return; }
 		if($('#name').val()===""){ layer.msg('请输入名字', {icon: 2}); return; }
 		var name = $('#name').val();
@@ -179,7 +179,7 @@ function openvideo(){
                 if (res.msg == false){
                     layer.msg(res.data, {icon: 2});
                 } else {
-					layer.open({type:1,title:false,scrollbar:false,skin:'shadows',content:'<div style="padding:15px;background:#fff;"><p>文件名：'+res.data.txt+'</p><p>网盘址：<a href="javascript:void(0);" onclick="copytxt(\''+res.data.url+'\')">'+res.data.url+'</a></p><p>提取码：<a href="javascript:void(0);" onclick="copytxt(\''+res.data.key+'\')">'+res.data.key+'</a></p>'+res.data.ps+'</div>',btn:0});
+					layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;background:#fff;"><p>文件名：'+res.data.txt+'</p><p>网盘址：<a href="javascript:void(0);" onclick="copytxt(\''+res.data.url+'\')">'+res.data.url+'</a></p><p>提取码：<a href="javascript:void(0);" onclick="copytxt(\''+res.data.key+'\')">'+res.data.key+'</a></p>'+res.data.ps+'</div>',btn:0});
                 }
             },
             error: function(e) {
