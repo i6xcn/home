@@ -403,6 +403,7 @@ function picdata(){
             type: "POST",
             data: 'land='+value,
             success: function(res) {
+				layer.closeAll();
                 if (res.msg == false){
                     layer.msg(res.data, {icon: 2});
                 } else {
@@ -419,7 +420,6 @@ function picdata(){
                         }
                     }
                 }
-		    	layer.closeAll();
             },
             error: function(e) {
 			    layer.closeAll();
