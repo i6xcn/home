@@ -449,8 +449,8 @@ function check_ip(ip){
         dataType: 'json',
         success: function(res) {
             layer.close(loadIndex);
-            if (res.charge == false){
-                layer.msg("IP查询接口错误", {icon: 2});
+            if (isEmpty(res.data.district)){
+                $("#ipres").html("未查到地址信息");
             } else {
                 $("#ipres").html(res.data.prov+res.data.city+res.data.district+res.data.isp);
             }
@@ -466,13 +466,13 @@ function addlocal(type,value){
     localStorage.setItem(type,data);
 };
 function eject(u,t,i,a) { 
+    var loadIndex = layer.load(0, {shade:false});
     if (t == "pic"){
-        if (i||a) { var x='<div style="position:absolute;background-color:#fff;opacity:0.8;width:100%;z-index:99;bottom:0;"><p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p></div>'; } else { var x=''; }
+        if (i||a) { var x='<div style="position:absolute;background-color:#fff;opacity:0.8;width:100%;z-index:99;"><p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p></div>'; } else { var x=''; }
         getImageWidth(u,function(w,h){
-			layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadIndex);
+            layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadIndex);
         });
     }else if(t == "video"){
-        var loadIndex = layer.load(0, {shade:false});
         var video = document.createElement('video');
         video.src = u;
         video.onloadedmetadata = function() { layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-video',skin:'layervideo',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; video.addEventListener("touchstart", function() { layer.closeAll(); },false); video.addEventListener("WeixinJSBridgeReady", function() { video.play(); }, false);<'+'/script>'}); $("#layui-video").css("overflow","hidden !important"); layer.close(loadIndex); };        
@@ -486,7 +486,10 @@ function getImageWidth(url,callback) {
     } else {
         img.onload = function () {
             callback(img.width, img.height);
-        }
+        };
+        img.onerror = function() {
+            layer.msg("图片加载失败", {icon: 2});
+        };
     }
 }
 function copytxt(d) {
@@ -520,6 +523,9 @@ function follow(d,r,t){
         }
     });
 };
+function isEmpty(value) {
+    return value === null || value === undefined || value === "" || (typeof value === "string" && value.trim() === "");
+}
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
 </body>
