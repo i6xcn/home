@@ -258,11 +258,11 @@ function LOL_data(num){
                 for (var ii = 0; ii < cards.length; ii++) {
                     var imgurl = cards[ii].img_url;
                     var origin = cards[ii].img_url_big;
-                    var Flveo  = cards[ii].mp4_url;
-                    if (Flveo === '' || Flveo.trim().length === 0){
+                    var video  = cards[ii].mp4_url;
+                    if (video === '' || video.trim().length === 0){
                         var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+origin+'\',\'pic\')"></li>';
                     }else{
-                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+Flveo+'\',\'Flveo\',\''+imgurl+'\')"><svg viewBox="0 0 72 72" class="play-btn"><circle cx="36" cy="36" fill="#FFF" fill-opacity=".80" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg></li>';
+                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+video+'\',\'video\',\''+imgurl+'\')"><svg viewBox="0 0 72 72" class="play-btn"><circle cx="36" cy="36" fill="#FFF" fill-opacity=".80" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg></li>';
                     }
                 }
                 $("#LOL-data").append('<div class="itemg"><div class="itemg_lf"><img src="'+avatar+'"></div><div class="itemg_rg"><div class="itemg_rg_tp"><span>'+user+'</span></div><div class="itemg_rg_sm">'+title+'</div><div class="itemg_rg_main"><ul>'+outimg+'</ul></div></div></div>');
@@ -432,6 +432,7 @@ function PopUpMsg(i,n) {
     if (isEmpty(n)) { return Arr[i]; }
     layer.msg(Arr[i], {icon:n});
 }
+
 function GP_data(txt,options,callback) {
     const method = options.method || 'POST';
     const data = options.data || {};
