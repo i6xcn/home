@@ -316,7 +316,7 @@ function picture(){
             var formData = new FormData();
             formData.append("file", f);
             formData.append("type", t);
-            GP_data("upimg",{upfile:'upfile',data:formData},function(list){
+            GP_data("upimg",{upfile:'upfile',data:formData,timeout:0},function(list){
                 if (list.msg){
                     PopUpMsg(6,1);
                     $("#picture-data").prepend('<li style="background-image:url('+list.data.img+');background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt(\''+list.data.img+'\')" title="点击复制图链"></li>');
@@ -363,23 +363,13 @@ function pic_del(i,n,id){
     var loadIndex = layer.load(0,{shade:false}); GP_data("upimg",{data:{land:n,del:id}},function(list){ layer.close(loadIndex); $(i).remove(); layer.msg(res.data, {icon: 1}); });
 }
 function check_ip(ip){
-    var loadIndex = layer.load(0,{shade:false,time:3000});
-    $.ajax({
-        url: 'https://qifu-api.baidubce.com/ip/geo/v1/district?ip='+ip,
-        type: "GET",
-        dataType: 'json',
-		timeout:5000,
-        success: function(res) {
-            layer.close(loadIndex);
-            if (isEmpty(res.data.district)){
-                $("#ipres").html(PopUpMsg(8));
-            } else {
-                $("#ipres").html(res.data.prov+res.data.city+res.data.district+res.data.isp);
-            }
-        },
-        error: function() {
-            layer.close(loadIndex);
-            PopUpMsg(0,2);
+    var loadIndex = layer.load(0,{shade:false});
+    GP_data(ip,{method:'GET',tp:"getip"},function(list){
+        layer.close(loadIndex);
+        if (isEmpty(list.data.district)){
+            $("#ipres").html(PopUpMsg(8));
+        } else {
+            $("#ipres").html(list.data.prov+list.data.city+list.data.district+list.data.isp);
         }
     });
 }
@@ -430,26 +420,16 @@ function copytxt(d) {
 	PopUpMsg(5,1);
 }
 function follow(d,r,t){
-    $.ajax({
-        url:"https://widget.weibo.com/public/aj_relationship.php?fuid=1797430134",
-        type:"GET",
-        dataType:"jsonp",
-		timeout:5000,
-        success: function(obj) {
-            if ((obj.data.relation == "3") || (obj.data.relation == "1")) {
-                localStorage.setItem("relation",obj.data.relation);
-                if (d == "mid"){
-                    music_url(r,t);
-                } else {
-                    window.location.href = "#"+d;
-                }
+    GP_data("1797430134",{method:'GET',tp:"weibo",dataType:"jsonp"},function(list){
+        if ((list.data.relation == "3") || (list.data.relation == "1")) {
+            localStorage.setItem("relation",list.data.relation);
+            if (d == "mid"){
+                music_url(r,t);
             } else {
-                layer.confirm(PopUpMsg(7), {icon:4,closeBtn:0,move:false,title:false}, function(index){ layer.open({type:2,title:'<img style="height:1.125rem;" src="https://weibo.com/favicon.ico"> 登录 - 微博',scrollbar:false,move:false,area:['100%','100%'],closeBtn:1,content:["https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=https%3A%2F%2Fm.weibo.cn%2Fu%2F1797430134",'no']});
-                });
+                window.location.href = "#"+d;
             }
-        },
-        error: function(xhr, status, error) {
-            PopUpMsg(0,2);
+        } else {
+            layer.confirm(PopUpMsg(7), {icon:4,closeBtn:0,move:false,title:false}, function(index){ layer.open({type:2,title:'<img style="height:1.125rem;" src="https://weibo.com/favicon.ico"> 登录 - 微博',scrollbar:false,move:false,area:['100%','100%'],closeBtn:1,content:["https://passport.weibo.cn/signin/login?entry=mweibo&res=wel&wm=3349&r=https%3A%2F%2Fm.weibo.cn%2Fu%2F1797430134",'no']}); });
         }
     });
 }
@@ -461,16 +441,23 @@ function PopUpMsg(i,n) {
     if (isEmpty(n)) { return Arr[i]; }
     layer.msg(Arr[i], {icon:n});
 }
+
 function GP_data(txt,options,callback) {
     const method = options.method || 'POST';
     const data = options.data || {};
     const headers = options.headers || {};
     const upfile = options.upfile || '';
+	const timeout = options.timeout || 5000;
+	const tp = options.tp || '';
+	const dataType = options.dataType || 'json';
+	const ubank = {weibo: "https://widget.weibo.com/public/aj_relationship.php?fuid=",getip: "https://qifu-api.baidubce.com/ip/geo/v1/district?ip=",i6xcn: "https://i6x.18z.fun/i6x.php?type="};
+	const url = ubank[tp] || ubank.i6xcn;
     $.ajax({
-        url: "//i6x.18z.fun/i6x.php?type="+txt,
+        url: url+txt,
         type: method,
         data: method === 'GET' ? null : data,
-        dataType: 'json',
+        dataType: dataType,
+        timeout: timeout,
 		contentType: upfile === 'upfile' ? false : undefined,
 		processData: upfile === 'upfile' ? false : undefined,
         headers: headers,
