@@ -325,7 +325,6 @@ function Pic(){
 }
 function picdata(){
     layer.prompt({title:false,closeBtn:0,formType:1},function (value,index) {
-        $("#img").html('');
         $("#Pic-data").html('');
         pic_data(value);
     });
@@ -433,7 +432,6 @@ function PopUpMsg(i,n) {
     if (isEmpty(n)) { return Arr[i]; }
     layer.msg(Arr[i], {icon:n});
 }
-
 function GP_data(txt,options,callback) {
     const method = options.method || 'POST';
     const data = options.data || {};
