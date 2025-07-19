@@ -360,7 +360,7 @@ function pic_data(n,p){
     });
 }
 function pic_del(i,n,id){
-    var loadIndex = layer.load(0,{shade:false}); GP_data("upimg",{data:{land:n,del:id}},function(list){ layer.close(loadIndex); $(i).remove(); layer.msg(res.data, {icon: 1}); });
+    var loadIndex = layer.load(0,{shade:false}); GP_data("upimg",{data:{land:n,del:id}},function(list){ layer.close(loadIndex); $(i).remove(); layer.msg(list.data, {icon: 1}); });
 }
 function check_ip(ip){
     var loadIndex = layer.load(0,{shade:false});
@@ -404,7 +404,7 @@ function getImageWidth(url,callback) {
             callback(img.width, img.height);
         };
         img.onerror = function() {
-			PopUpMsg(2,2);
+            PopUpMsg(2,2);
         };
     }
 }
@@ -417,7 +417,7 @@ function copytxt(d) {
     input.setSelectionRange(0, 9999);
     document.execCommand('Copy');
     input.remove();
-	PopUpMsg(5,1);
+    PopUpMsg(5,1);
 }
 function follow(d,r,t){
     GP_data("1797430134",{method:'GET',tp:"weibo",dataType:"jsonp"},function(list){
@@ -447,19 +447,19 @@ function GP_data(txt,options,callback) {
     const data = options.data || {};
     const headers = options.headers || {};
     const upfile = options.upfile || '';
-	const timeout = options.timeout || 5000;
-	const tp = options.tp || '';
-	const dataType = options.dataType || 'json';
-	const ubank = {weibo: "https://widget.weibo.com/public/aj_relationship.php?fuid=",getip: "https://qifu-api.baidubce.com/ip/geo/v1/district?ip=",i6xcn: "https://i6x.18z.fun/i6x.php?type="};
-	const url = ubank[tp] || ubank.i6xcn;
+    const timeout = options.timeout || 5000;
+    const tp = options.tp || '';
+    const dataType = options.dataType || 'json';
+    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://qifu-api.baidubce.com/ip/geo/v1/district?ip=",i6xcn:"https://i6x.18z.fun/i6x.php?type="};
+    const url = ubank[tp] || ubank.i6xcn;
     $.ajax({
         url: url+txt,
         type: method,
         data: method === 'GET' ? null : data,
         dataType: dataType,
         timeout: timeout,
-		contentType: upfile === 'upfile' ? false : undefined,
-		processData: upfile === 'upfile' ? false : undefined,
+        contentType: upfile === 'upfile' ? false : undefined,
+        processData: upfile === 'upfile' ? false : undefined,
         headers: headers,
         success: function(list) {
             callback(list);
