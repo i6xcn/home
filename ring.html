@@ -380,10 +380,10 @@ function eject(u,t,i,a) {
         getImageWidth(u,function(w,h){
             layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadIndex);
         });
-    }else if(t == "Flveo"){
-        var Flveo = document.createElement('Flveo');
-        Flveo.src = u;
-        Flveo.onloadedmetadata = function() { layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-Flveo',skin:'layerFlveo',shadeClose:true,content:'<Flveo id="myFlveo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-Flveo-orientation="portraint"><source src="'+u+'" type="Flveo/mp4"></Flveo><script type="text/javascript">var Flveo = document.getElementById("myFlveo"); Flveo.play(); Flveo.addEventListener("ended", function() { Flveo.play(); }, false); Flveo.muted = false; Flveo.addEventListener("touchstart", function() { layer.closeAll(); },false); Flveo.addEventListener("WeixinJSBridgeReady", function() { Flveo.play(); }, false);<'+'/script>'}); $("#layui-Flveo").css("overflow","hidden !important"); layer.close(loadIndex); };        
+    }else if(t == "video"){
+        var video = document.createElement('video');
+        video.src = u;
+        video.onloadedmetadata = function() { layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-video',skin:'layervideo',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; video.addEventListener("touchstart", function() { layer.closeAll(); },false); video.addEventListener("WeixinJSBridgeReady", function() { video.play(); }, false);<'+'/script>'}); $("#layui-video").css("overflow","hidden !important"); layer.close(loadIndex); };        
     }
 }
 function getImageWidth(url,callback) {
