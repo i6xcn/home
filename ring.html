@@ -25,31 +25,31 @@
     </div>
     <div class="navbar">
         <ul>
-            <li><a id="picture" href="javascript:void(0);" onclick="picture()">图床</a></li>
-            <li><a id="music" href="javascript:void(0);" onclick="music()">音乐</a></li>
-            <li><a id="playlet" href="javascript:void(0);" onclick="playlet()">短剧</a></li>
-            <li><a id="other" href="javascript:void(0);" onclick="other()">沙雕</a></li>
+            <li><a id="Pic" href="javascript:void(0);" onclick="Pic()">图床</a></li>
+            <li><a id="Mid" href="javascript:void(0);" onclick="Mid()">音乐</a></li>
+            <li><a id="Vid" href="javascript:void(0);" onclick="Vid()">短剧</a></li>
+            <li><a id="LOL" href="javascript:void(0);" onclick="LOL()">沙雕</a></li>
         </ul>
     </div>
 
-    <div id="music-assort" class="wrapper">
-        <div class="search"><div class="search-input"><div class="input-wrapper"><input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="music-input" placeholder="请输入歌名"></div></div><div id="search-btn" href="javascript:void(0);" onclick="search_click('#music-input')">搜 歌</div></div>
-        <div id="music-key"></div>
-        <div id="music-data"></div>
+    <div id="Mid-assort" class="wrapper">
+        <div class="search"><div class="search-input"><div class="input-wrapper"><input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="Mid-input" placeholder="请输入歌名"></div></div><div id="search-btn" href="javascript:void(0);" onclick="search_click('#Mid-input')">搜 歌</div></div>
+        <div id="Mid-key"></div>
+        <div id="Mid-data"></div>
     </div>
 
-    <div id="playlet-assort" class="wrapper">
-        <div class="search"><div class="search-input"><div class="input-wrapper"><input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="playlet-input" placeholder="请输入短剧名"></div></div><div id="search-btn" href="javascript:void(0);" onclick="search_click('#playlet-input')">搜 剧</div></div>
-        <div id="playlet-key"></div>
-        <div id="playlet-data"></div>
+    <div id="Vid-assort" class="wrapper">
+        <div class="search"><div class="search-input"><div class="input-wrapper"><input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="Vid-input" placeholder="请输入短剧名"></div></div><div id="search-btn" href="javascript:void(0);" onclick="search_click('#Vid-input')">搜 剧</div></div>
+        <div id="Vid-key"></div>
+        <div id="Vid-data"></div>
     </div>
 
-    <div id="other-assort" class="wrapper">
-        <div id="othe-data"></div>
-        <div id="othe-loadMore" class="loadMore"></div>
+    <div id="LOL-assort" class="wrapper">
+        <div id="LOL-data"></div>
+        <div id="LOL-loadMore" class="loadMore"></div>
     </div>
 
-    <div id="picture-assort" class="wrapper">
+    <div id="Pic-assort" class="wrapper">
         <div class="img-upload">
             <p><a href="javascript:void(0);" class="a-upload" ><input type="file" multiple accept="image/*" id="upfile">上传图片</a></p>
             <label data-hover="推荐使用"><input checked type="radio" name="type" value="wy">网易</label>
@@ -58,8 +58,8 @@
             <label data-hover="腾讯云对象存储"><input type="radio" name="type" value="bk">备用</label>
         </div>
         <fieldset style="padding:0 10px 10px;"><legend style="text-align:center;padding:0 10px;">使用说明</legend><p>1、图片托管于各大官网，最大支持10MB；</p><p>2、禁止上传违规图片，造成后果自负；</p><p>3、<a href="https://s.qiniu.com/eEFNBz" target="_blank" style="color:red;">七牛云存储</a> <a href="https://mp34.lanzout.com/iP8pR230laif" target="_blank" style="color:#0c6ad4;">七牛图床源码下载</a><a href="javascript:void(0);" onclick="picdata()">；</a></p></fieldset>
-        <div id="picture-data"></div>
-        <div id="picture-loadMore" class="loadMore"></div>
+        <div id="Pic-data"></div>
+        <div id="Pic-loadMore" class="loadMore"></div>
     </div>
 
     <div class="bottom">
@@ -71,49 +71,49 @@
 <script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/layer/3.5.1/layer.min.js"></script>
 <script type="text/javascript">
 $(function(){
-    const handler = {"#let":playlet,"#yuk":other,"#mid":music};
-    window.onload = (handler[window.location.hash] || picture)();
+    const handler = {"#V":Vid,"#S":LOL,"#Y":Mid};
+    window.onload = (handler[window.location.hash] || Pic)();
 });
 function search_click(key){
-    var txt = $(key).val();
+    const txt = $(key).val();
     if(txt.trim().length==0){
         layer.tips(PopUpMsg(9),key,{tips:[3,'#ff5983']});
         return false;
     }
-    if(key=='#music-input'){
-        music_data(txt);
-    } else if (key=='#playlet-input'){
-        playlet_data(txt);
+    if(key=='#Mid-input'){
+        Mid_data(txt);
+    } else if (key=='#Vid-input'){
+        Vid_data(txt);
     }
 }
-function music(){
-    $('#music').addClass('xhx');
-    $('#playlet').removeClass('xhx');
-    $('#other').removeClass('xhx');
-    $('#picture').removeClass('xhx');
-    $('#music-assort').show();
-    $('#music-key').show();
-    $('#music-data').hide();
-    $('#playlet-assort').hide();
-    $('#other-assort').hide();
-    $('#picture-assort').hide();
-    $('#music-input').val('');
-    window.location.hash = "mid";
+function Mid(){
+    $('#LOL-assort').hide();
+    $('#LOL').removeClass('xhx');
+    $('#Vid').removeClass('xhx');
+    $('#Vid-assort').hide();
+    $('#Pic-assort').hide();
+    $('#Pic').removeClass('xhx');
+    $('#Mid-assort').show();
+    $('#Mid-key').show();
+    $('#Mid-data').hide();
+    $('#Mid').addClass('xhx');
+    $('#Mid-input').val('');
+    window.location.hash = "Y";
     document.title = "搜音库-你想要的的歌曲库";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')");
-    var musickey = $('#music-key').html();
-    if(musickey.trim().length==0){
-        var loadIndex = layer.load(0, {shade: false});
+    const Midkey = $('#Mid-key').html();
+    if(Midkey.trim().length==0){
+        const loadIndex = layer.load(0, {shade: false});
         GP_data("music&ac=hot",{method:'GET'},function(list){
             if (list.msg){
-                var data   = list.data;
-                var number = data.length;
+                const data   = list.data;
+                const number = data.length;
                 for (var i = 0; i < number; i++) {
-                    var img = data[i].img;
-                    var author = data[i].author;
-                    var s_name = data[i].s_name;
+                    const img = data[i].img;
+                    const author = data[i].author;
+                    const s_name = data[i].s_name;
                     if (s_name != null || s_name.trim().length !== 0){
-                        $("#music-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="music_data(\''+author+' '+s_name+'\');" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+s_name+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+author+'</span></li>');
+                        $("#Mid-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Mid_data(\''+author+' '+s_name+'\');" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+s_name+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+author+'</span></li>');
                     }
                 }
             } else {
@@ -123,31 +123,31 @@ function music(){
         });
     }
 }
-function music_data(txt) {
-    var loadIndex = layer.load(0,{shade:false});
+function Mid_data(txt) {
+    const loadIndex = layer.load(0,{shade:false});
     GP_data("music&wd="+txt,{method:'GET'},function(list){
         if (list.msg){
-            var json = list.data; var number = json.length;
-            $("#music-data").text('');
+            const json = list.data; var number = json.length;
+            $("#Mid-data").text('');
             for (var i = 0; i < number; i++) {
-                var d = json[i].id;
+                const d = json[i].id;
                 if (d != null || d.trim().length !== 0){
-                    var n = json[i].name;
-                    var a = json[i].artists;
-                    var k = json[i].Key;
-                    $("#music-data").append('<div class="result-list"><div class="result-list-item"><div class="result-list-item-title">'+a+' - '+n+'</div><div class="result-content"><div class="result-content-left"><div class="result-value"><div class="result-logo" style="background-image: url(https://t14.baidu.com/it/u=729523279,2791742236&fm=179);"></div>搜音库</div></div><div class="result-list-right"><div class="result-list-value"><a href="javascript:void(0);" onclick="music_url(\''+d+'\',\''+k+'\')">获取参数</a></div></div></div></div></div></div>');
+                    const n = json[i].name;
+                    const a = json[i].artists;
+                    const k = json[i].Key;
+                    $("#Mid-data").append('<div class="result-list"><div class="result-list-item"><div class="result-list-item-title">'+a+' - '+n+'</div><div class="result-content"><div class="result-content-left"><div class="result-value"><div class="result-logo" style="background-image: url(https://t14.baidu.com/it/u=729523279,2791742236&fm=179);"></div>搜音库</div></div><div class="result-list-right"><div class="result-list-value"><a href="javascript:void(0);" onclick="Mid_url(\''+d+'\',\''+k+'\')">获取参数</a></div></div></div></div></div></div>');
                 }
             }
-            $('#music-data').show();
-            $('#music-key').hide();
-            $('#music-input').val(txt);
+            $('#Mid-data').show();
+            $('#Mid-key').hide();
+            $('#Mid-input').val(txt);
         } else {
             layer.msg(list.data, {icon: 2});
         }
         layer.close(loadIndex);
     });
 }
-function music_url(id,tk) {
+function Mid_url(id,tk) {
     if (localStorage.getItem("music") == null){  var num = "1";   } else {  var num = parseInt(localStorage.getItem("music"));  }
     var max = "5";
     var ove = '说明：剩余解析：'+ (max-num) +'次，<a href="javascript:void(0);" style="color:#ff5983;" onclick="follow(\'mid\',\''+id+'\',\''+tk+'\')">关注微博</a>后解除限制。';
@@ -159,7 +159,7 @@ function music_url(id,tk) {
         }
     }
     num++;
-    var loadIndex = layer.load(0,{shade:false});
+    const loadIndex = layer.load(0,{shade:false});
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
         if (list.msg){
             layer.open({type:1,title:false,scrollbar:false,skin:'layerpic',content:'<div style="padding:20px;"><p>歌名：'+list.data.artist+' - '+list.data.name+'</p><p>封面：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.img+'\')">'+list.data.img+'</a></p><p>地址：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.url+'\')">'+list.data.url+'</a></p><p>'+ove+'</p></div>',btn:0});
@@ -170,90 +170,90 @@ function music_url(id,tk) {
         layer.close(loadIndex);
     });
 }
-function playlet(){
-    $('#music').removeClass('xhx');
-    $('#playlet').addClass('xhx');
-    $('#other').removeClass('xhx');
-    $('#picture').removeClass('xhx');
-    $('#music-assort').hide();
-    $('#playlet-assort').show();
-    $('#playlet-key').show();
-    $('#playlet-data').hide();
-    $('#other-assort').hide();
-    $('#picture-assort').hide();
-    $('#playlet-input').val('');
-    window.location.hash = "let";
+function Vid(){
+    $('#Mid').removeClass('xhx');
+    $('#Mid-assort').hide();
+    $('#LOL-assort').hide();
+    $('#LOL').removeClass('xhx');
+    $('#Pic').removeClass('xhx');
+    $('#Pic-assort').hide();
+    $('#Vid').addClass('xhx');
+    $('#Vid-assort').show();
+    $('#Vid-key').show();
+    $('#Vid-data').hide();
+    $('#Vid-input').val('');
+    window.location.hash = "V";
     document.title = "短剧池-全网短剧集聚地";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')");
-    var playkey = $('#playlet-key').html();
+    const playkey = $('#Vid-key').html();
     if(playkey.trim().length==0){
-        var person = {"item":[{"title": "少帅夫人茶又媚","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/dc63f195691ccad9d036dafb35c8d661.jpg","category": "爱情 穿越 / 全93集"},{"title": "踹掉渣男后三个哥哥团宠我","src": "http://image.uc.cn/s/ulive_fe/s/upload/2024/fa9df0948def385ad1ecac5a9e73f8e5.jpg","category": "现代 霸总 / 全74集"},{"title": "四海","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/5c2a306d7995f3fc777a0fe4da6d94e1.jpg","category": "重生 现代 / 全97集"},{"title": "裴总每天都想父凭子贵","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/7dd2558c7b61fc3aa986a5e3b133e92d.jpg","category": "爱情 霸总/共99集"},{"title": "凭爱意将月光私有","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/acfe0bf0772f497f1b034d01ce8eabcd.jpg","category": "爱情 现代/共101集"},{"title": "我居然闪婚了禁欲男神","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/d57f881df62326677e863ad3a93bdc44.jpg","category": "爱情 穿越/共101集"},{"title": "初次相爱的我们","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/00bc405462b9ac4c960b139540a3cb3d.jpg","category": "爱情 豪门/共86集"},{"title": "落花时节又逢君","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/4564643b02567de746f75d841517a25a.jpg","category": "爱情 穿越/共85集"}] };
-        var data = person.item; var number = data.length;
+        const person = {"item":[{"title": "少帅夫人茶又媚","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/dc63f195691ccad9d036dafb35c8d661.jpg","category": "爱情 穿越 / 全93集"},{"title": "踹掉渣男后三个哥哥团宠我","src": "http://image.uc.cn/s/ulive_fe/s/upload/2024/fa9df0948def385ad1ecac5a9e73f8e5.jpg","category": "现代 霸总 / 全74集"},{"title": "四海","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/5c2a306d7995f3fc777a0fe4da6d94e1.jpg","category": "重生 现代 / 全97集"},{"title": "裴总每天都想父凭子贵","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/7dd2558c7b61fc3aa986a5e3b133e92d.jpg","category": "爱情 霸总/共99集"},{"title": "凭爱意将月光私有","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/acfe0bf0772f497f1b034d01ce8eabcd.jpg","category": "爱情 现代/共101集"},{"title": "我居然闪婚了禁欲男神","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/d57f881df62326677e863ad3a93bdc44.jpg","category": "爱情 穿越/共101集"},{"title": "初次相爱的我们","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/00bc405462b9ac4c960b139540a3cb3d.jpg","category": "爱情 豪门/共86集"},{"title": "落花时节又逢君","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/4564643b02567de746f75d841517a25a.jpg","category": "爱情 穿越/共85集"}] };
+        const data = person.item; const number = data.length;
         for (var i = 0; i < number; i++) {
-            var img  = data[i].src;
-            var name = data[i].title;
-            var ctgy = data[i].category;
+            const img  = data[i].src;
+            const name = data[i].title;
+            const ctgy = data[i].category;
             if (name != null || name.trim().length !== 0){
-                $("#playlet-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:39%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="playlet_data(\''+name+'\');" style="width:100%;padding-bottom:139%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+ctgy+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+name+'</span></li>');
+                $("#Vid-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:39%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Vid_data(\''+name+'\');" style="width:100%;padding-bottom:139%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+ctgy+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+name+'</span></li>');
             }
         }
     }
 }
-function playlet_data(txt) {
-    var loadIndex = layer.load(0,{shade:false});
+function Vid_data(txt) {
+    const loadIndex = layer.load(0,{shade:false});
     GP_data("vod&wd="+txt,{method:'GET'},function(list){
         if (list.msg){
-            var playlet = list.data;
-            $("#playlet-data").text('');
-            for (var i = 0; i < playlet.length; i++) {
-                var video = playlet[i].episode;
-                var title = playlet[i].name.replace(/\d+[-,、.]/g, '');
+            const Vid = list.data;
+            $("#Vid-data").text('');
+            for (var i = 0; i < Vid.length; i++) {
+                const video = Vid[i].episode;
+                const title = Vid[i].name.replace(/\d+[-,、.]/g, '');
                 if (video != null){
                     let txt = '';
                     for (var k = 0; k < video.length; k++) {
                         txt  += '<a href="'+video[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+video[k].name+'</a>';
                     }
-                    $("#playlet-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+title+'-'+playlet[i].marks+'-'+playlet[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+playlet[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+txt+'</div></div></div>');
+                    $("#Vid-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+title+'-'+Vid[i].marks+'-'+Vid[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+Vid[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+txt+'</div></div></div>');
                 }
             }
-            $('#playlet-data').show();
-            $('#playlet-key').hide();
-            $('#playlet-input').val(txt);
+            $('#Vid-data').show();
+            $('#Vid-key').hide();
+            $('#Vid-input').val(txt);
         } else {
             layer.msg(list.data, {icon: 2});
         }
         layer.close(loadIndex);
     });
 }
-function other(){
-    $('#music').removeClass('xhx');
-    $('#playlet').removeClass('xhx');
-    $('#other').addClass('xhx');
-    $('#picture').removeClass('xhx');
-    $('#music-assort').hide();
-    $('#playlet-assort').hide();
-    $('#other-assort').show();
-    $('#picture-assort').hide();
-    window.location.hash = "yuk";
+function LOL(){
+    $('#Mid-assort').hide();
+    $('#Mid').removeClass('xhx');
+    $('#Pic-assort').hide();
+    $('#Pic').removeClass('xhx');
+    $('#Vid-assort').hide();
+    $('#Vid').removeClass('xhx');
+    $('#LOL-assort').show();
+    $('#LOL').addClass('xhx');
+    window.location.hash = "S";
     document.title = "搞笑圈子-我的快乐源泉";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')");
-    var data = $('#othe-data').html();
+    const data = $('#LOL-data').html();
     if(data.trim().length==0){
-        other_data();
+        LOL_data();
     }
 }
-function other_data(num){
-    var loadIndex = layer.load(0,{shade:false});
+function LOL_data(num){
+    const loadIndex = layer.load(0,{shade:false});
     var page = isNaN(num) ? 0 : Number(num);
     GP_data("other&pg="+page,{method:'GET'},function(list){
         if (list.msg == false){
             layer.msg(list.data, {icon: 2});
-            $("#othe-loadMore").html(list.data);
+            $("#LOL-loadMore").html(list.data);
         } else {
-            var otherdata = list.data;
-            for (var i = 0; i < otherdata.length; i++) {
-                var user   = otherdata[i].user; var cards  = otherdata[i].cards; var title  = otherdata[i].title;
-                var avatar = otherdata[i].avatar; var outimg = "";var css = "";
+            var LOLdata = list.data;
+            for (var i = 0; i < LOLdata.length; i++) {
+                var user   = LOLdata[i].user; var cards  = LOLdata[i].cards; var title  = LOLdata[i].title;
+                var avatar = LOLdata[i].avatar; var outimg = "";var css = "";
                 if (cards.length === 1){ var css = "width:65%;padding-bottom:35%;";}
                 for (var ii = 0; ii < cards.length; ii++) {
                     var imgurl = cards[ii].img_url;
@@ -265,24 +265,24 @@ function other_data(num){
                         var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+video+'\',\'video\',\''+imgurl+'\')"><svg viewBox="0 0 72 72" class="play-btn"><circle cx="36" cy="36" fill="#FFF" fill-opacity=".80" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg></li>';
                     }
                 }
-                $("#othe-data").append('<div class="itemg"><div class="itemg_lf"><img src="'+avatar+'"></div><div class="itemg_rg"><div class="itemg_rg_tp"><span>'+user+'</span></div><div class="itemg_rg_sm">'+title+'</div><div class="itemg_rg_main"><ul>'+outimg+'</ul></div></div></div>');
+                $("#LOL-data").append('<div class="itemg"><div class="itemg_lf"><img src="'+avatar+'"></div><div class="itemg_rg"><div class="itemg_rg_tp"><span>'+user+'</span></div><div class="itemg_rg_sm">'+title+'</div><div class="itemg_rg_main"><ul>'+outimg+'</ul></div></div></div>');
             }
             var next = page+1;
-            $("#othe-loadMore").html('<div onclick="other_data('+next+')">加载更多...</div>');
+            $("#LOL-loadMore").html('<div onclick="LOL_data('+next+')">加载更多...</div>');
         }
         layer.close(loadIndex);
     });
 }
-function picture(){
-    $('#music').removeClass('xhx');
-    $('#playlet').removeClass('xhx');
-    $('#other').removeClass('xhx');
-    $('#picture').addClass('xhx');
-    $('#music-assort').hide();
-    $('#playlet-assort').hide();
-    $('#other-assort').hide();
-    $('#picture-assort').show();
-    window.location.hash = "img";
+function Pic(){
+    $('#Mid-assort').hide();
+    $('#Mid').removeClass('xhx');
+    $('#Vid-assort').hide();
+    $('#Vid').removeClass('xhx');
+    $('#LOL-assort').hide();
+    $('#LOL').removeClass('xhx');
+    $('#Pic').addClass('xhx');
+    $('#Pic-assort').show();
+    window.location.hash = "T";
     document.title = "图床-免费图片托管链接";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=1895635493,1543052772&fm=253')");
     if (localStorage.getItem("img")!=null){
@@ -290,8 +290,8 @@ function picture(){
         for (i=0;i<arrr.length;i++ ){
             data += '<li style="background-image:url('+arrr[i]+');background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt(\''+arrr[i]+'\')" title="点击复制图链"></li>';
         }
-        $("#picture-data").html(data);
-        $("#picture-data").show();
+        $("#Pic-data").html(data);
+        $("#Pic-data").show();
     }
     $("#upfile").change(function() {
     for(var i = 0; i < this.files.length; i++){
@@ -311,7 +311,7 @@ function picture(){
             GP_data("upimg",{upfile:'upfile',data:formData,timeout:0},function(list){
                 if (list.msg){
                     PopUpMsg(6,1);
-                    $("#picture-data").prepend('<li style="background-image:url('+list.data.img+');background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt(\''+list.data.img+'\')" title="点击复制图链"></li>');
+                    $("#Pic-data").prepend('<li style="background-image:url('+list.data.img+');background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt(\''+list.data.img+'\')" title="点击复制图链"></li>');
                     addlocal('img',list.data.img);
                 } else {
                     layer.msg(list.data, {icon: 2});
@@ -326,14 +326,14 @@ function picture(){
 function picdata(){
     layer.prompt({title:false,closeBtn:0,formType:1},function (value,index) {
         $("#img").html('');
-        $("#picture-data").html('');
+        $("#Pic-data").html('');
         pic_data(value);
     });
 }
 function pic_data(n,p){
     layer.load(0,{shade:false});
     var page = isNaN(p) ? 1 : Number(p);
-    $("#picture-loadMore").html('');
+    $("#Pic-loadMore").html('');
     GP_data("upimg",{data:{land:n,p:page}},function(list){
         layer.closeAll();
         if (list.msg == false){
@@ -344,10 +344,10 @@ function pic_data(n,p){
                 var img = data[i].img;
                 if (img != null || img.trim().length !== 0){
                     var id = data[i].id; var at = data[i].at; var ip = data[i].ip;
-                    $("#picture-data").append('<li id="'+id+'" style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;"><span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;line-height:20px;cursor:pointer;z-index:99;" onclick="pic_del(\'#'+id+'\',\''+n+'\',\''+id+'\')">X</span><span style="background-image:url(\''+img+'\');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject(\''+img+'\',\'pic\',\''+ip+'\',\''+at+'\')"></span></li>');
+                    $("#Pic-data").append('<li id="'+id+'" style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;"><span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;line-height:20px;cursor:pointer;z-index:99;" onclick="pic_del(\'#'+id+'\',\''+n+'\',\''+id+'\')">X</span><span style="background-image:url(\''+img+'\');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject(\''+img+'\',\'pic\',\''+ip+'\',\''+at+'\')"></span></li>');
                 }
             }
-            if (list.total > "20"){var next = page+1; $("#picture-loadMore").html('<div onclick="pic_data(\''+n+'\',\''+next+'\')">加载更多...</div>');}
+            if (list.total > "20"){var next = page+1; $("#Pic-loadMore").html('<div onclick="pic_data(\''+n+'\',\''+next+'\')">加载更多...</div>');}
         }
     });
 }
@@ -416,7 +416,7 @@ function follow(d,r,t){
         if ((list.data.relation == "3") || (list.data.relation == "1")) {
             localStorage.setItem("relation",list.data.relation);
             if (d == "mid"){
-                music_url(r,t);
+                Mid_url(r,t);
             } else {
                 window.location.href = "#"+d;
             }
