@@ -71,16 +71,8 @@
 <script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/layer/3.5.1/layer.min.js"></script>
 <script type="text/javascript">
 $(function(){
-    var hash = window.location.hash;
-    if (hash == "#let") {
-        window.onload = playlet();
-    }else if (hash == "#yuk") {
-        window.onload = other();
-    }else if (hash == "#mid") {
-        window.onload = music();
-    }else{
-        window.onload = picture();
-    }
+    const handler = {"#let":playlet,"#yuk":other,"#mid":music};
+    window.onload = (handler[window.location.hash] || picture)();
 });
 function search_click(key){
     var txt = $(key).val();
