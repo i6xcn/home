@@ -41,7 +41,7 @@
     <div class="navbar">
         <ul>
             <li><a class="pyq">朋友圈</a></li>
-            <li><a href="javascript:void(0);" onclick="wed()">客片查询</a></li>
+            <li><a href="javascript:void(0);" onclick="wedList()">客片查询</a></li>
         </ul>
     </div>
     <div class="itemg">
@@ -158,14 +158,14 @@ function renderList(List) {
         }
     }
 }
-function wed(){
+function wedList(){
     layer.open({type:1,title:'客片查询',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><textarea placeholder="请输入拍摄日期，如20200501" id="riqi" class="laye-wrap"></textarea><input type="text" id="kehu" placeholder="请输入客户姓名" class="laye-wrap"></div>',btn:['查询','取消'],yes:() => {
         const kehu = $('#kehu').val();
         const riqi = $('#riqi').val();
         if(riqi.trim().length < 8) { layer.msg('请输入正确日期', {icon: 2}); return; }
         if(kehu.trim().length < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
         layer.load(0);
-        $.ajax({ url: '//i6x.18z.fun/i6x.php?type=wed',type: "POST", timeout:5000, data: 'time='+riqi+'&name='+kehu, success: function(res) { layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res。data.ps+'</div>',btn:0}); } }, error: function(xhr, status, error) { layer.closeAll(); if (status === "timeout") { layer.msg("请求超时", {icon: 2}); } else { layer.msg(error, {icon: 2}); } }	});
+        $.ajax({ url: '//i6x.18z.fun/i6x.php?type=wed',type: "POST", timeout:5000, data: 'time='+riqi+'&name='+kehu, success: function(res) { layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res.data.ps+'</div>',btn:0}); } }, error: function(xhr, status, error) { layer.closeAll(); if (status === "timeout") { layer.msg("请求超时", {icon: 2}); } else { layer.msg(error, {icon: 2}); } }	});
         }
     });
 }
