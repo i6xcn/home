@@ -26,7 +26,7 @@
                 <div class="title_ms"><em style="color:#E91470">推荐指数：★★★★★</em></div>
             </div>
             <div class="title_ess">
-			    <p>婚礼策划、舞台搭建、场地设计、婚礼主持<br>摄影摄像、高清航拍、企业年会、开业庆典</p>
+                <p>婚礼策划、舞台搭建、场地设计、婚礼主持<br>摄影摄像、高清航拍、企业年会、开业庆典</p>
             </div>
         </div>
         <div id="slideshow">
@@ -166,8 +166,7 @@ function wedList(){
         if(kehu.trim().length < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
         layer.load(0);
         $.ajax({ url: '//i6x.18z.fun/i6x.php?type=wed',type: "POST", timeout:5000, data: 'time='+riqi+'&name='+kehu, success: function(res) { layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res.data.ps+'</div>',btn:0}); } }, error: function(xhr, status, error) { layer.closeAll(); if (status === "timeout") { layer.msg("请求超时", {icon: 2}); } else { layer.msg(error, {icon: 2}); } }	});
-        }
-    });
+    }});
 }
 function getToday() {
     let date = new Date();
