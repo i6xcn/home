@@ -72,8 +72,8 @@
         <div class="childdiv"><a href="javascript:scroll(0,0)"><b>圈子</b></a></div>
     </div>
 </div>
-<script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-M/layer/3.5.1/layer.min.js"></script>
+<script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/layer/3.5.1/layer.min.js"></script>
 <script type="text/javascript">
 $(function(){
     const handler = {"#V":Flv,"#S":LOL,"#Y":Mid};
@@ -375,7 +375,7 @@ function check_ip(ip){
     var loadIndex = layer.load(0,{shade:false});
     GP_data(ip,{method:'GET',tp:"getip"},function(list){
         layer.close(loadIndex);
-        if (isEmpty(list.data.district)){
+        if (isEmpty(list.data.city)){
             $("#ipres").html(PopUpMsg(8));
         } else {
             $("#ipres").html(list.data.prov+list.data.city+list.data.district+list.data.isp);
@@ -393,7 +393,7 @@ function addlocal(type,value){
 function eject(u,t,i,a) { 
     var loadIndex = layer.load(0, {shade:false});
     if (t == "pic"){
-        if (i||a) { var x='<div style="position:absolute;background-color:#fff;opacity:0.8;width:100%;z-index:99;"><p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p></div>'; } else { var x=''; }
+        if (i||a) { var x='<p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p>'; } else { var x=''; }
         getImageWidth(u,function(w,h){
             layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadIndex);
         });
