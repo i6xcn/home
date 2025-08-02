@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>圈子</title>
+<title>API</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -12,8 +12,7 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <style type="text/css">
-*{margin:0;padding:0}body{color:#051b28;font-size:15px;background-color:#eee;}img{border:0;vertical-align:middle;}ul,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}a{text-decoration:none}.contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}.header{padding-top:60px;background:#ff5983;}.top{background:#fff;height:60px;overflow:hidden;}.logo{position: absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;border-radius:100%;margin: 0 auto;overflow:hidden;transform: translate(-50%,-50%);}.navbar{border-bottom:#EDEDED 1px solid;overflow:hidden;}.navbar li{float:left;width:25%;text-align:center}.navbar li a{display:block;padding:8px 0;font-size:17px;color:#858585}.navbar li a:hover{color:#ff5983;background:#eeeeee;}.xhx{color:#ff5983!important;border-bottom:#ff5983 2px solid;display:block}.itemg{overflow:hidden;border-bottom:#EDEDED 1px solid;padding:10px 0;}.itemg_lf{float:left;width:15%;}.itemg_rg{float:right;width:83%;margin-right:1.5%;}.itemg_lf img{display:block;height:70%;width:70%;margin:auto;border-radius:50%;}.itemg_rg_tp{color:#C8C8C8;overflow:hidden;}.itemg_rg_tp div{width:50%;float:left}.itemg_rg_tp span{color:#0c6ad4;font-weight:700;}.itemg_rg_sm{width:98%;color:#737373;margin:10px 0;}.itemg_rg_main{overflow:hidden;}.itemg_rg_main .play-btn{left:50%;top:50%;height:30%;transform:translate(-50%,-50%);position:absolute;border:0;}.itemg_rg_main ul{display:flex;flex-wrap: wrap;}.itemg_rg_main li{list-style:none;width:31%;position:relative;height:0;padding-bottom:23%;cursor:pointer;transition: all 0.6s;border: rgb(0 0 0 / 5%) 1px solid;}.itemg_rg_main li:hover {border-radius:15px;}.itemg_rg_main li:not(:nth-child(3n)){margin-right: 2%;margin-bottom:2%}.bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;z-index:10000;}.childdiv{flex:1;text-align:center;}.bottom a{color:#fff;}.layerpic{max-width:640px;min-width:320px;width:100%;}.layervideo{max-width:640px;min-width:320px;width:100%;height:100%;background-color:transparent !important;box-shadow: 0 0 0 rgba(0,0,0,0) !important;} #layui-video{overflow:hidden !important;}.layui-layer-content p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.wrapper {margin:10px;display: none;}.wrapper .search{display: flex;align-items: center;justify-content:center;width:315px;height:50px;margin:15px auto;box-sizing: border-box;}.wrapper .search-input{flex: 1;box-sizing:border-box;padding:10px;height:100%;background-color:#f7f7f7;border-radius: 9px 0 0 9px;border: 1px solid #ff5983;display:block;overflow: hidden;}.input, .input-wrapper {outline:none;border:none;text-decoration:inherit;}.input-wrapper{display:flex;position:relative;width:100%;height:100%;-webkit-box-orient: vertical;-webkit-box-direction: normal;flex-direction: column;-webkit-box-pack: center;justify-content:center;}.input{background:none;font-size:16px;height:28px;line-height:28px;}.wrapper #search-btn{display:flex;align-items:center;justify-content:center;height:100%;width:75px;background-color:#ff5983;color:#fff;font-size:16px;font-weight: 700;border-radius: 0 9px 9px 0;cursor: pointer;}.wrapper .result-list{margin-top:10px;border-radius:10px;background-color:#f7f7f7;}.wrapper .result-list-item{padding:10px;position:relative;}.wrapper .result-content {display:flex;margin-top:10px;}.wrapper .result-content-left {width: calc(30% - 5px);margin-right: 10px;}.wrapper .result-value{width: 100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top: 5px;color:#1e80ff;display:flex;align-items:center;}.wrapper .result-logo{width:15px;height:15px;border-radius:100%;margin-right: 5px;display:block;background-position: 0% 0%;background-size:100% 100%;background-repeat:no-repeat;}.wrapper .result-list-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:5px;text-align:right;}.wrapper .result-list-value a{color: #1e80ff;}.wrapper .result-list-right{width:calc(70% - 5px);}.Pic-label{text-align:center;line-height:30px;}#PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 0 auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}#PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}fieldset{padding:0 10px 10px;border:2px solid #ccc;}legend{text-align:center;padding:0 10px;}label{position:relative;cursor:pointer;}label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;} label:hover::after {display:block;}.loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
-
+*{margin:0;padding:0}body{color:#051b28;font-size:15px;background-color:#eee;}img{border:0;vertical-align:middle;}ul,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}a{text-decoration:none}.contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}.header{padding-top:60px;background:#ff5983;}.top{background:#fff;height:60px;overflow:hidden;}.logo{position: absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;border-radius:100%;margin: 0 auto;overflow:hidden;transform: translate(-50%,-50%);}.navbar{border-bottom:#EDEDED 1px solid;overflow:hidden;}.navbar li{float:left;width:25%;text-align:center}.navbar li a{display:block;padding:8px 0;font-size:17px;color:#858585}.navbar li a:hover{color:#ff5983;background:#eeeeee;}.xhx{color:#ff5983!important;border-bottom:#ff5983 2px solid;display:block}.itemg{overflow:hidden;border-bottom:#EDEDED 1px solid;padding:10px 0;}.itemg_lf{float:left;width:15%;}.itemg_rg{float:right;width:83%;margin-right:1.5%;}.itemg_lf img{display:block;height:70%;width:70%;margin:auto;border-radius:50%;}.itemg_rg_tp{color:#C8C8C8;overflow:hidden;}.itemg_rg_tp div{width:50%;float:left}.itemg_rg_tp span{color:#0c6ad4;font-weight:700;}.itemg_rg_sm{width:98%;color:#737373;margin:10px 0;}.itemg_rg_main{overflow:hidden;}.play-btn{left:50%;top:50%;height:30%;transform:translate(-50%,-50%);position:absolute;border:0;}.itemg_rg_main ul{display:flex;flex-wrap: wrap;}.itemg_rg_main li{list-style:none;width:31%;position:relative;height:0;padding-bottom:23%;cursor:pointer;transition: all 0.6s;border: rgb(0 0 0 / 5%) 1px solid;}.itemg_rg_main li:hover {border-radius:15px;}.itemg_rg_main li:not(:nth-child(3n)){margin-right: 2%;margin-bottom:2%}.bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;z-index:10000;}.childdiv{flex:1;text-align:center;}.bottom a{color:#fff;}.layerpic{max-width:640px;min-width:320px;width:100%;}.layervideo{max-width:640px;min-width:320px;width:100%;height:100%;background-color:transparent !important;box-shadow: 0 0 0 rgba(0,0,0,0) !important;} #layui-video{overflow:hidden !important;}.layui-layer-content p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.wrapper {margin:10px;display: none;}.wrapper .search{display: flex;align-items: center;justify-content:center;width:315px;height:50px;margin:15px auto;box-sizing: border-box;}.wrapper .search-input{flex: 1;box-sizing:border-box;padding:10px;height:100%;background-color:#f7f7f7;border-radius: 9px 0 0 9px;border: 1px solid #ff5983;display:block;overflow: hidden;}.input, .input-wrapper {outline:none;border:none;text-decoration:inherit;}.input-wrapper{display:flex;position:relative;width:100%;height:100%;-webkit-box-orient: vertical;-webkit-box-direction: normal;flex-direction: column;-webkit-box-pack: center;justify-content:center;}.input{background:none;font-size:16px;height:28px;line-height:28px;}.wrapper #search-btn{display:flex;align-items:center;justify-content:center;height:100%;width:75px;background-color:#ff5983;color:#fff;font-size:16px;font-weight: 700;border-radius: 0 9px 9px 0;cursor: pointer;}.wrapper .result-list{margin-top:10px;border-radius:10px;background-color:#f7f7f7;}.wrapper .result-list-item{padding:10px;position:relative;}.wrapper .result-content {display:flex;margin-top:10px;}.wrapper .result-content-left {width: calc(30% - 5px);margin-right: 10px;}.wrapper .result-value{width: 100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top: 5px;color:#1e80ff;display:flex;align-items:center;}.wrapper .result-logo{width:15px;height:15px;border-radius:100%;margin-right: 5px;display:block;background-position: 0% 0%;background-size:100% 100%;background-repeat:no-repeat;}.wrapper .result-list-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;margin-top:5px;text-align:right;}.wrapper .result-list-value a{color: #1e80ff;}.wrapper .result-list-right{width:calc(70% - 5px);}.Pic-label{text-align:center;line-height:30px;}#PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 0 auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}#PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}fieldset{padding:0 10px 10px;border:2px solid #ccc;}legend{text-align:center;padding:0 10px;}label{position:relative;cursor:pointer;}label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;} label:hover::after {display:block;}.loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
 </style>
 <script language="javascript">if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");</script>
 </head>
@@ -76,7 +75,7 @@
 <script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/layer/3.5.1/layer.min.js"></script>
 <script type="text/javascript">
 $(function(){
-    const handler = {"#V":Flv,"#S":LOL,"#Y":Mid};
+    const handler = {"#v":Flv,"#s":LOL,"#m":Mid};
     window.onload = (handler[window.location.hash] || Pic)();
 });
 function search_click(key){
@@ -103,29 +102,44 @@ function Mid(){
     $('#Mid-data').hide();
     $('#Mid').addClass('xhx');
     $('#Mid-input').val('');
-    window.location.hash = "Y";
+    window.location.hash = "m";
     document.title = "搜音库-你想要的的歌曲库";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')");
     const Midkey = $('#Mid-key').html();
     if(Midkey.trim().length==0){
         const loadIndex = layer.load(0, {shade: false});
-        GP_data("music&ac=hot",{method:'GET'},function(list){
-            if (list.msg){
-                const data   = list.data;
-                const number = data.length;
-                for (var i = 0; i < number; i++) {
-                    const img = data[i].img;
-                    const author = data[i].author;
-                    const s_name = data[i].s_name;
-                    if (s_name != null || s_name.trim().length !== 0){
-                        $("#Mid-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Mid_data(\''+author+' '+s_name+'\');" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+s_name+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+author+'</span></li>');
-                    }
-                }
-            } else {
-                layer.msg(list.data, {icon: 2});
-            }
+        let CATCH_DATA_KEY = 'Mid_hot';
+        let CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
+        let data = JSON.parse(CATCH_DATA);
+        if (data !== null && data !== undefined && data.validDate === getToday()) {
+            Mid_hot(data.list);
             layer.close(loadIndex);
-        });
+        } else {
+            GP_data("music&ac=hot",{method:'GET'},function(list){
+                if (list.msg){
+                    window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ list, validDate: getToday(), }) ); Mid_hot(list); layer.close(loadIndex);
+                } else {
+                    layer.msg(list.data, {icon: 2});
+                }
+            });
+        }
+    }
+}
+function Mid_hot(list) {
+    if (list.msg){
+        const data   = list.data;
+        const Total = data.length;
+		const number = Math.floor(Total / 4) * 4;
+        for (var i = 0; i < number; i++) {
+            const img = data[i].img;
+            const author = data[i].author;
+            const s_name = data[i].s_name;
+            if (s_name != null || s_name.trim().length !== 0){
+                $("#Mid-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Mid_data(\''+author+' '+s_name+'\');" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+s_name+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+author+'</span></li>');
+            }
+        }
+    } else {
+        layer.msg(list.data, {icon: 2});
     }
 }
 function Mid_data(txt) {
@@ -187,21 +201,42 @@ function Flv(){
     $('#Flv-key').show();
     $('#Flv-data').hide();
     $('#Flv-input').val('');
-    window.location.hash = "V";
+    window.location.hash = "v";
     document.title = "短剧池-全网短剧集聚地";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')");
     const playkey = $('#Flv-key').html();
     if(playkey.trim().length==0){
-        const person = {"item":[{"title": "水饺皇后","src": "https://p6.qhimg.com/dmfd/224_314_75/d/dy_ce632b0e5853fe044dd11364c79ac287.jpg.webp","category": "类型: 剧情传记"},{"title": "八角笼中","src": "https://p7.qhimg.com/dmfd/224_314_75/d/dy_f153eeaa2d591ae3d2841a2f50c178a8..webp","category": "类型: 剧情动作"},{"title": "四海","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/5c2a306d7995f3fc777a0fe4da6d94e1.jpg","category": "重生 现代 / 全97集"},{"title": "皇上命我来选妃","src": "https://p3.qhimg.com/dmfd/224_314_75/d/dy_6346701f8459d5df8f114de18f01779c.jpg.webp","category": "类型: 喜剧科幻动作"},{"title": "危险关系","src": "https://p5.qhimg.com/dmfd/224_314_75/t01481c364cd67e0acf.webp","category": "类型: 剧情爱情"},{"title": "艳女郎","src": "https://p5.qhimg.com/dmfd/224_314_75/d/_hao360/video/n200906_15_171054920.jpg.webp","category": "类型: 恐怖"},{"title": "女纨绔","src": "https://mms1.baidu.com/it/u=3233312167,795475174&fm=253","category": "逆袭 穿越/共61集"},{"title": "落花时节又逢君","src": "https://image.uc.cn/s/ulive_fe/s/upload/2024/4564643b02567de746f75d841517a25a.jpg","category": "爱情 穿越/共85集"}] };
-        const data = person.item; const number = data.length;
-        for (var i = 0; i < number; i++) {
-            const img  = data[i].src;
-            const name = data[i].title;
-            const ctgy = data[i].category;
-            if (name != null || name.trim().length !== 0){
-                $("#Flv-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:39%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Flv_data(\''+name+'\');" style="width:100%;padding-bottom:139%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+ctgy+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+name+'</span></li>');
-            }
+        const loadIndex = layer.load(0, {shade: false});
+        let CATCH_DATA_KEY = 'Vod_hot';
+        let CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
+        let data = JSON.parse(CATCH_DATA);
+        if (data !== null && data !== undefined && data.validDate === getToday()) {
+            Flv_hot(data.list);
+            layer.close(loadIndex);
+        } else {
+            GP_data("vod&ac=hot",{method:'GET'},function(list){
+                if (list.msg){
+                    window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ list, validDate: getToday(), }) ); Flv_hot(list); layer.close(loadIndex);
+                } else {
+                    layer.msg(list.data, {icon: 2});
+                }
+            });
         }
+    }
+}
+function Flv_hot(list) {
+    if (list.msg){
+        const data   = list.data;
+        const Total = data.length;
+		const number = Math.floor(Total / 4) * 4;
+        for (var i = 0; i < number; i++) {
+            const img = data[i].img;
+            const remarks = data[i].remarks;
+            const title = data[i].title;
+            $("#Flv-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:39%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Flv_data(\''+title+'\')" style="width:100%;padding-bottom:139%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"><svg viewBox="0 0 36 36" class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle>  <path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+title+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+remarks+'</span></li>');
+        }
+    } else {
+        layer.msg(list.data, {icon: 2});
     }
 }
 function Flv_data(txt) {
@@ -239,7 +274,7 @@ function LOL(){
     $('#Flv').removeClass('xhx');
     $('#LOL-assort').show();
     $('#LOL').addClass('xhx');
-    window.location.hash = "S";
+    window.location.hash = "s";
     document.title = "搞笑圈子-我的快乐源泉";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')");
     const data = $('#LOL-data').html();
@@ -287,7 +322,7 @@ function Pic(){
     $('#LOL').removeClass('xhx');
     $('#Pic').addClass('xhx');
     $('#Pic-assort').show();
-    window.location.hash = "T";
+    window.location.hash = "t";
     document.title = "图床-免费图片托管链接";
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=1895635493,1543052772&fm=253')");
     if (localStorage.getItem("img")!=null){
@@ -340,7 +375,6 @@ function handleFiles(e) {
         }
     });
 }
-
 function picdata(){
     layer.prompt({title:false,closeBtn:0,formType:1},function (value,index) {
         $("#Pic-data").html('');
@@ -395,12 +429,11 @@ function eject(u,t,i,a) {
     if (t == "pic"){
         if (i||a) { var x='<p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p>'; } else { var x=''; }
         getImageWidth(u,function(w,h){
-            layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadIndex);
+            layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'});
+            layer.close(loadIndex);
         });
     }else if(t == "video"){
-        var video = document.createElement('video');
-        video.src = u;
-        video.onloadedmetadata = function() { layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-video',skin:'layervideo',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; video.addEventListener("touchstart", function() { layer.closeAll(); },false); video.addEventListener("WeixinJSBridgeReady", function() { video.play(); }, false);<'+'/script>'}); $("#layui-video").css("overflow","hidden !important"); layer.close(loadIndex); };        
+        layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-video',skin:'layervideo',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; <'+'/script>'});  $("#layui-video").css("overflow","hidden !important"); layer.close(loadIndex);
     }
 }
 function getImageWidth(url,callback) {
@@ -450,7 +483,6 @@ function PopUpMsg(i,n) {
     if (isEmpty(n)) { return Arr[i]; }
     layer.msg(Arr[i], {icon:n});
 }
-
 function GP_data(txt,options,callback) {
     const method = options.method || 'POST';
     const data = options.data || {};
@@ -477,6 +509,14 @@ function GP_data(txt,options,callback) {
             callback({msg:false,data:PopUpMsg(0)});
         }
     });
+}
+function getToday() {
+    let date = new Date();
+    let Y = date.getFullYear();
+    let M = date.getMonth()+1;
+    let D = date.getDate();
+    let H = date.getHours();
+    return `${Y}-${M}-${D}-${H}`;
 }
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
