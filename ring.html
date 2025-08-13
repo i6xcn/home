@@ -71,8 +71,8 @@
         <div class="childdiv"><a href="javascript:scroll(0,0)"><b>圈子</b></a></div>
     </div>
 </div>
-<script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/jquery/3.6.0/jquery.min.js"></script>
-<script type="text/javascript" src="https://lf6-cdn-tos.bytecdntp.com/cdn/expire-1-y/layer/3.5.1/layer.min.js"></script>
+<script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script type="text/javascript" src="https://www.sustech.edu.cn/public/layer/layer.js"></script>
 <script type="text/javascript">
 $(function(){
     const handler = {"#v":Flv,"#s":LOL,"#m":Mid};
@@ -107,27 +107,12 @@ function Mid(){
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')");
     const Midkey = $('#Mid-key').html();
     if(Midkey.trim().length==0){
-        const loadIndex = layer.load(0, {shade: false});
-        let CATCH_DATA_KEY = 'Mid_hot';
-        let CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
-        let data = JSON.parse(CATCH_DATA);
-        if (data !== null && data !== undefined && data.validDate === getToday()) {
-            Mid_hot(data.list);
-            layer.close(loadIndex);
-        } else {
-            GP_data("music&ac=hot",{method:'GET'},function(list){
-                if (list.msg){
-                    window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ list, validDate: getToday(), }) ); Mid_hot(list); layer.close(loadIndex);
-                } else {
-                    layer.msg(list.data, {icon: 2});
-                }
-            });
-        }
+		CATCH("Mid_hot","music&ac=hot");
     }
 }
 function Mid_hot(list) {
     if (list.msg){
-        const data   = list.data;
+        const data  = list.data;
         const Total = data.length;
 		const number = Math.floor(Total / 4) * 4;
         for (var i = 0; i < number; i++) {
@@ -143,7 +128,6 @@ function Mid_hot(list) {
     }
 }
 function Mid_data(txt) {
-    const loadIndex = layer.load(0,{shade:false});
     GP_data("music&wd="+txt,{method:'GET'},function(list){
         if (list.msg){
             const json = list.data; var number = json.length;
@@ -163,7 +147,6 @@ function Mid_data(txt) {
         } else {
             layer.msg(list.data, {icon: 2});
         }
-        layer.close(loadIndex);
     });
 }
 function Mid_url(id,tk) {
@@ -178,7 +161,6 @@ function Mid_url(id,tk) {
         }
     }
     num++;
-    const loadIndex = layer.load(0,{shade:false});
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
         if (list.msg){
             layer.open({type:1,title:false,scrollbar:false,skin:'layerpic',content:'<div style="padding:20px;"><p>歌名：'+list.data.artist+' - '+list.data.name+'</p><p>封面：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.img+'\')">'+list.data.img+'</a></p><p>地址：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.url+'\')">'+list.data.url+'</a></p><p>'+ove+'</p></div>',btn:0});
@@ -186,7 +168,6 @@ function Mid_url(id,tk) {
         } else {
             layer.msg(list.data, {icon: 2});
         }
-        layer.close(loadIndex);
     });
 }
 function Flv(){
@@ -206,22 +187,7 @@ function Flv(){
     $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')");
     const playkey = $('#Flv-key').html();
     if(playkey.trim().length==0){
-        const loadIndex = layer.load(0, {shade: false});
-        let CATCH_DATA_KEY = 'Vod_hot';
-        let CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
-        let data = JSON.parse(CATCH_DATA);
-        if (data !== null && data !== undefined && data.validDate === getToday()) {
-            Flv_hot(data.list);
-            layer.close(loadIndex);
-        } else {
-            GP_data("vod&ac=hot",{method:'GET'},function(list){
-                if (list.msg){
-                    window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ list, validDate: getToday(), }) ); Flv_hot(list); layer.close(loadIndex);
-                } else {
-                    layer.msg(list.data, {icon: 2});
-                }
-            });
-        }
+		CATCH("Flv_hot","vod&ac=hot");
     }
 }
 function Flv_hot(list) {
@@ -240,20 +206,19 @@ function Flv_hot(list) {
     }
 }
 function Flv_data(txt) {
-    const loadIndex = layer.load(0,{shade:false});
     GP_data("vod&wd="+txt,{method:'GET'},function(list){
         if (list.msg){
             const Flv = list.data;
             $("#Flv-data").text('');
             for (var i = 0; i < Flv.length; i++) {
-                const Flveo = Flv[i].episode;
-                const title = Flv[i].name.replace(/\d+[-,、.]/g, '');
-                if (Flveo != null){
-                    let txt = '';
-                    for (var k = 0; k < Flveo.length; k++) {
-                        txt  += '<a href="'+Flveo[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+Flveo[k].name+'</a>';
+                const vod = Flv[i].episode;
+                const txt = Flv[i].name.replace(/\d+[-,、.]/g, '');
+                if (vod != null){
+                    let html = '';
+                    for (var k = 0; k < vod.length; k++) {
+                        html  += '<a href="'+vod[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+vod[k].name+'</a>';
                     }
-                    $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+title+'-'+Flv[i].marks+'-'+Flv[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+Flv[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+txt+'</div></div></div>');
+                    $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].marks+'-'+Flv[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+Flv[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
                 }
             }
             $('#Flv-data').show();
@@ -262,7 +227,6 @@ function Flv_data(txt) {
         } else {
             layer.msg(list.data, {icon: 2});
         }
-        layer.close(loadIndex);
     });
 }
 function LOL(){
@@ -283,7 +247,6 @@ function LOL(){
     }
 }
 function LOL_data(num){
-    const loadIndex = layer.load(0,{shade:false});
     var page = isNaN(num) ? 0 : Number(num);
     GP_data("other&pg="+page,{method:'GET'},function(list){
         if (list.msg == false){
@@ -310,7 +273,6 @@ function LOL_data(num){
             var next = page+1;
             $("#LOL-loadMore").html('<div onclick="LOL_data('+next+')">加载更多...</div>');
         }
-        layer.close(loadIndex);
     });
 }
 function Pic(){
@@ -358,7 +320,6 @@ function handleFiles(e) {
         }else if(!t){  
             PopUpMsg(3,2);
         }else{
-            var loadIndex = layer.load(0,{shade:false});
             var formData = new FormData();
             formData.append("file", file);
             formData.append("type", t);
@@ -370,7 +331,6 @@ function handleFiles(e) {
                 } else {
                     layer.msg(list.data, {icon: 2});
                 }
-                layer.close(loadIndex);
             });
         }
     });
@@ -379,14 +339,13 @@ function picdata(){
     layer.prompt({title:false,closeBtn:0,formType:1},function (value,index) {
         $("#Pic-data").html('');
         pic_data(value);
+		layer.close(index);
     });
 }
 function pic_data(n,p){
-    layer.load(0,{shade:false});
     var page = isNaN(p) ? 1 : Number(p);
     $("#Pic-loadMore").html('');
     GP_data("upimg",{data:{land:n,p:page}},function(list){
-        layer.closeAll();
         if (list.msg == false){
             layer.msg(list.data, {icon: 2});
         } else {
@@ -403,12 +362,10 @@ function pic_data(n,p){
     });
 }
 function pic_del(i,n,id){
-    var loadIndex = layer.load(0,{shade:false}); GP_data("upimg",{data:{land:n,del:id}},function(list){ layer.close(loadIndex); $(i).remove(); layer.msg(list.data, {icon: 1}); });
+    GP_data("upimg",{data:{land:n,del:id}},function(list){ $(i).remove(); layer.msg(list.data, {icon: 1}); });
 }
 function check_ip(ip){
-    var loadIndex = layer.load(0,{shade:false});
     GP_data(ip,{method:'GET',tp:"getip"},function(list){
-        layer.close(loadIndex);
         if (isEmpty(list.data.city)){
             $("#ipres").html(PopUpMsg(8));
         } else {
@@ -425,15 +382,15 @@ function addlocal(type,value){
     localStorage.setItem(type,data);
 }
 function eject(u,t,i,a) { 
-    var loadIndex = layer.load(0, {shade:false});
+    var loadeject = layer.load(0, {shade:false});
     if (t == "pic"){
         if (i||a) { var x='<p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p>'; } else { var x=''; }
         getImageWidth(u,function(w,h){
             layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layerpic',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'});
-            layer.close(loadIndex);
+            layer.close(loadeject);
         });
     }else if(t == "video"){
-        layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-video',skin:'layervideo',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; <'+'/script>'});  $("#layui-video").css("overflow","hidden !important"); layer.close(loadIndex);
+        layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'layui-video',skin:'layervideo',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; <'+'/script>'});  $("#layui-video").css("overflow","hidden !important"); layer.close(loadeject);
     }
 }
 function getImageWidth(url,callback) {
@@ -493,6 +450,7 @@ function GP_data(txt,options,callback) {
     const dataType = options.dataType || 'json';
     const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://qifu-api.baidubce.com/ip/geo/v1/district?ip=",i6xcn:"https://i6x.18z.fun/i6x.php?type="};
     const url = ubank[tp] || ubank.i6xcn;
+	const loadGP = layer.load(0, {shade: false});
     $.ajax({
         url: url+txt,
         type: method,
@@ -504,9 +462,11 @@ function GP_data(txt,options,callback) {
         headers: headers,
         success: function(list) {
             callback(list);
+			layer.close(loadGP);
         },
         error: function() {
             callback({msg:false,data:PopUpMsg(0)});
+			layer.close(loadGP);
         }
     });
 }
@@ -515,8 +475,24 @@ function getToday() {
     let Y = date.getFullYear();
     let M = date.getMonth()+1;
     let D = date.getDate();
-    let H = date.getHours();
-    return `${Y}-${M}-${D}-${H}`;
+    return `${Y}-${M}-${D}`;
+}
+
+function CATCH(KEY,	URL) {
+    let CATCH_DATA = window.localStorage.getItem(KEY);
+    let data = JSON.parse(CATCH_DATA);
+    if (data !== null && data !== undefined && data.validDate === getToday()) {
+        if(typeof window[KEY] === 'function') { return window[KEY](data.list);  }
+    } else {
+        GP_data(URL,{method:'GET'},function(list){
+            if (list.msg){
+                window.localStorage.setItem(KEY, JSON.stringify({ list, validDate: getToday(), }) );
+                if(typeof window[KEY] === 'function') { return window[KEY](list);  }
+            } else {
+                layer.msg(list.data, {icon: 2});
+            }
+        });
+    }
 }
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
