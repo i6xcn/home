@@ -72,7 +72,7 @@
     </div>
 </div>
 <script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://www.sustech.edu.cn/public/layer/layer.js"></script>
+<script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/layer/3.5.1/layer.min.js"></script>
 <script type="text/javascript">
 $(function(){
     const handler = {"#v":Flv,"#s":LOL,"#m":Mid};
@@ -477,7 +477,6 @@ function getToday() {
     let D = date.getDate();
     return `${Y}-${M}-${D}`;
 }
-
 function CATCH(KEY,	URL) {
     let CATCH_DATA = window.localStorage.getItem(KEY);
     let data = JSON.parse(CATCH_DATA);
