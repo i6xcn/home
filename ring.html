@@ -362,14 +362,14 @@ function pic_data(n,p){
     });
 }
 function pic_del(i,n,id){
-    GP_data("upimg",{data:{land:n,del:id}},function(list){ $(i).remove(); layer.msg(list.data, {icon: 1}); });
+    GP_data("upimg",{data:{land:n,del:id}},function(list){ if (list.msg) { $(i).remove(); layer.msg(list.data, {icon: 1}); } else { layer.msg(list.data, {icon: 2});} });
 }
 function check_ip(ip){
     GP_data(ip,{method:'GET',tp:"getip"},function(list){
-        if (isEmpty(list.data.city)){
+        if (isEmpty(list.data.address)){
             $("#ipres").html(PopUpMsg(8));
         } else {
-            $("#ipres").html(list.data.prov+list.data.city+list.data.district+list.data.isp);
+            $("#ipres").html(list.data.address+list.data.isp);
         }
     });
 }
@@ -448,7 +448,7 @@ function GP_data(txt,options,callback) {
     const timeout = options.timeout || 5000;
     const tp = options.tp || '';
     const dataType = options.dataType || 'json';
-    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://qifu-api.baidubce.com/ip/geo/v1/district?ip=",i6xcn:"https://i6x.18z.fun/i6x.php?type="};
+    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"i6x.php?type="};
     const url = ubank[tp] || ubank.i6xcn;
 	const loadGP = layer.load(0, {shade: false});
     $.ajax({
