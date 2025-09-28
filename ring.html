@@ -87,7 +87,7 @@ function search_click(key){
     if(key=='#Mid-input'){
         Mid_data(txt);
     } else if (key=='#Flv-input'){
-        Flv_data(txt);
+        Flv_search(txt);
     }
 }
 function Mid(){
@@ -197,42 +197,47 @@ function Flv(){
 }
 function Flv_hot(list) {
     if (list.msg){
-        const data   = list.data;
+        const data  = list.data;
         const Total = data.length;
 		const number = Math.floor(Total / 4) * 4;
         for (var i = 0; i < number; i++) {
-            const img = data[i].img;
-            const remarks = data[i].remarks;
-            const title = data[i].title;
-            $("#Flv-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:39%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Flv_data(\''+title+'\')" style="width:100%;padding-bottom:139%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"><svg viewBox="0 0 36 36" class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle>  <path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+title+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+remarks+'</span></li>');
+            const img = data[i].cover;
+            const remarks = data[i].marks;
+            const title = data[i].name;
+            const episode = JSON.stringify(data[i]) .replace(/\\"/g, '"') .replace(/"/g, '&quot;');
+            $("#Flv-key").append('<li style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:39%;position:relative;border-radius:8px;"><a href="javascript:void(0);" onclick="Flv_data(\'['+episode+']\')" style="width:100%;padding-bottom:139%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"><svg viewBox="0 0 36 36" class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle>  <path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></a><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+title+'</span><span style="overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;">'+remarks+'</span></li>');
         }
     } else {
         layer.msg(list.data, {icon: 2});
     }
 }
-function Flv_data(txt) {
+function Flv_search(txt) {
     GP_data("vod&wd="+txt,{method:'GET'},function(list){
         if (list.msg){
-            const Flv = list.data;
-            $("#Flv-data").text('');
-            for (var i = 0; i < Flv.length; i++) {
-                const vod = Flv[i].episode;
-                const txt = Flv[i].name.replace(/\d+[-,、.]/g, '');
-                if (vod != null){
-                    let html = '';
-                    for (var k = 0; k < vod.length; k++) {
-                        html  += '<a href="'+vod[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+vod[k].name+'</a>';
-                    }
-                    $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].marks+'-'+Flv[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+Flv[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
-                }
-            }
-            $('#Flv-data').show();
-            $('#Flv-key').hide();
-            $('#Flv-input').val(txt);
+            const Flv = JSON.stringify(list.data);
+            Flv_data(Flv);
         } else {
             layer.msg(list.data, {icon: 2});
         }
     });
+}
+function Flv_data(js) {
+    $("#Flv-data").text('');
+    const Flv = JSON.parse(decodeURIComponent(js));
+    for (var i = 0; i < Flv.length; i++) {
+        const vod = Flv[i].episode;
+        const txt = Flv[i].name.replace(/\d+[-,、.]/g, '');
+        if (vod != null){
+            let html = '';
+            for (var k = 0; k < vod.length; k++) {
+                html  += '<a href="'+vod[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+vod[k].name+'</a>';
+            }
+            $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].marks+'-'+Flv[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+Flv[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
+        }
+    }
+    $('#Flv-data').show();
+    $('#Flv-key').hide();
+    $('#Flv-input').val();
 }
 function LOL(){
     $('#Mid-assort').hide();
