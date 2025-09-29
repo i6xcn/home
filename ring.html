@@ -196,6 +196,7 @@ function Flv(){
     }
 }
 function Flv_hot(list) {
+	$("#Flv-key").text('');
     if (list.msg){
         const data  = list.data;
         const Total = data.length;
@@ -214,8 +215,7 @@ function Flv_hot(list) {
 function Flv_search(txt) {
     GP_data("vod&wd="+txt,{method:'GET'},function(list){
         if (list.msg){
-            const Flv = JSON.stringify(list.data);
-            Flv_data(Flv);
+			Flv_hot(list);
         } else {
             layer.msg(list.data, {icon: 2});
         }
@@ -232,7 +232,7 @@ function Flv_data(js) {
             for (var k = 0; k < vod.length; k++) {
                 html  += '<a href="'+vod[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+vod[k].name+'</a>';
             }
-            $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].marks+'-'+Flv[i].type+'-<a href="javascript:void(0);" onclick="eject(\''+Flv[i].cover+'\',\'pic\')">封面</a></p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
+            $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].type+'</p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
         }
     }
     $('#Flv-data').show();
