@@ -225,6 +225,9 @@ function Flv_search(txt) {
 }
 function Flv_data(js) {
     $("#Flv-data").text('');
+    $('#Flv-data').show();
+    $('#Flv-key').hide();
+    $('#Flv-input').val();
     const Flv = JSON.parse(decodeURIComponent(js));
     for (var i = 0; i < Flv.length; i++) {
         const vod = Flv[i].episode;
@@ -237,9 +240,6 @@ function Flv_data(js) {
             $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].type+'</p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
         }
     }
-    $('#Flv-data').show();
-    $('#Flv-key').hide();
-    $('#Flv-input').val();
 }
 function LOL(){
     $('#Mid-assort').hide();
