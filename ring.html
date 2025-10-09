@@ -364,6 +364,7 @@ function pic_data(n,p){
     GP_data("upimg",{data:{land:n,p:page}},function(list){
         if (list.msg == false){
             layer.msg(list.data, {icon: 2});
+			$("#Pic-loadMore").html('');
         } else {
             var data = list.data; var num = data.length; var total= list.total; var img = '';
             for (var i = 0; i < num; i++) {
@@ -373,7 +374,7 @@ function pic_data(n,p){
                     $("#Pic-data").append('<li id="'+id+'" style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;"><span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;line-height:20px;cursor:pointer;z-index:99;" onclick="pic_del(\'#'+id+'\',\''+n+'\',\''+id+'\')">X</span><span style="background-image:url(\''+img+'\');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject(\''+img+'\',\'pic\',\''+ip+'\',\''+at+'\')"></span></li>');
                 }
             }
-            if (list.total > "20"){var next = page+1; $("#Pic-loadMore").html('<div onclick="pic_data(\''+n+'\',\''+next+'\')">加载更多...</div>');}
+            if (list.page > page){var next = page+1; $("#Pic-loadMore").html('<div onclick="pic_data(\''+n+'\',\''+next+'\')">加载更多...</div>');}
         }
     });
 }
