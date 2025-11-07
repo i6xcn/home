@@ -451,7 +451,7 @@ function GP_data(txt,options,callback) {
     const timeout = options.timeout || 0;
     const tp = options.tp || '';
     const dataType = options.dataType || 'json';
-    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"//i6x.18z.fun/i6x.php?type="};
+    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"//api.rmbk.cc/i6x.php?type="};
     const url = ubank[tp] || ubank.i6xcn;
 	const loadGP = layer.load(0, {shade: false});
     $.ajax({
