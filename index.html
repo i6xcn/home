@@ -127,7 +127,7 @@ $(function(){
                 layer.close(loadIndex);
                 Click = data.vlog.msg;
             } else {
-                $.ajax({url:'//api.rmbk.cc/i6x.php?type=vlog&p='+page,type:"GET",dataType:'json',timeout:5000,success: function(vlog) { window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ vlog, validDate: getToday(), }) ); renderList(vlog); layer.close(loadIndex); Click = vlog.msg; }, error: function(xhr, status, error) { layer.closeAll(); if (status === "timeout") { layer.msg("请求超时", {icon: 2}); } else { layer.msg(error, {icon: 2}); } } });
+				GP_data("vlog&p="+page,{method:'GET',tp:"getip"},function(vlog){window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ vlog, validDate: getToday(), }) ); renderList(vlog); layer.close(loadIndex); Click = vlog.msg; } );
             }
             setTimeout(function() {isClick = Click;}, 5000);
         }
@@ -166,8 +166,7 @@ function wedList(){
 		const kehuCount = kehu ? kehu.length : 0;
         if(riqiCount < 8) { layer.msg('请输入正确日期', {icon: 2}); return; }
         if(kehuCount < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
-        layer.load(0);
-        $.ajax({ url: '//api.rmbk.cc/i6x.php?type=wed',type: "POST", timeout:5000, data: 'time='+riqi+'&name='+kehu, success: function(res) { layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res.data.ps+'</div>',btn:0}); } }, error: function(xhr, status, error) { layer.closeAll(); if (status === "timeout") { layer.msg("请求超时", {icon: 2}); } else { layer.msg(error, {icon: 2}); } }	});
+		GP_data("wed",{data:{time:riqi,name:kehu}},function(res){ layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res.data.ps+'</div>',btn:0}); } });
     }});
 }
 function getToday() {
@@ -179,11 +178,7 @@ function getToday() {
     return `${Y}-${M}-${D}-${H}`;
 }
 function yuding(){
-    if (/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
-        location.replace("https://work.weixin.qq.com/kfid/kfca323d103550fb20d");
-    }else{
-        layer.open({type:2,title:false,scrollbar:false,area:['640px','300px'],closeBtn:1,shadeClose:false,content:["https://www.wjx.cn/vj/m2g49FN.aspx?width=&source=iframe&s=t",'no']});
-    }
+    layer.open({type:2,title:false,scrollbar:false,skin:'shadows',area:['100%','300px'],closeBtn:1,shadeClose:false,content:["https://www.wjx.cn/vj/m2g49FN.aspx?width=&source=iframe&s=t",'no']});
 }
 function player(url,type,img) { 
     var loadIndex = layer.load(0, {shade: false});
@@ -212,6 +207,31 @@ function copyContent(divElement) {
     document.execCommand('copy');
     document.body.removeChild(tempTextarea);
     layer.msg('复制成功', {icon: 1});
+}
+function GP_data(txt,options,callback) {
+    const method = options.method || 'POST';
+    const data = options.data || {};
+    const headers = options.headers || {};
+    const timeout = options.timeout || 0;
+    const dataType = options.dataType || 'json';
+    const APIurl = "https://api.rmbk.cc/i6x.php?type=";
+	const loadGP = layer.load(0, {shade: false});
+    $.ajax({
+        url: APIurl+txt,
+        type: method,
+        data: method === 'GET' ? null : data,
+        dataType: dataType,
+        timeout: timeout,
+        headers: headers,
+        success: function(list) {
+            callback(list);
+			layer.close(loadGP);
+        },
+        error: function() {
+            callback({msg:false,data:PopUpMsg(0)});
+			layer.close(loadGP);
+        }
+    });
 }
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
