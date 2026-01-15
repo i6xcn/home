@@ -130,8 +130,8 @@ function Mid_hot(list) {
     }
 }
 function Mid_data(txt) {
-    if (txt.startsWith('i6xkey')) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }
-    var tk = localStorage.getItem('tk');
+	const regex = /^[0-9a-f]{10}$/i;
+    if (regex.test(txt)) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }    var tk = localStorage.getItem('tk');
     if (tk === null) {
         layer.open({type:1,title:false,scrollbar:false,skin:'layerpic',content:'<img width="100%" src="https://yanxuan.nosdn.127.net/007430b0dee9763ee1d9b11650848f71.gif">',btn:0,end:function() { $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入秘钥'); }});
     } else {
