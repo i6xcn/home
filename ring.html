@@ -52,10 +52,10 @@
     <div id="Pic-assort" class="wrapper">
         <fieldset><legend>图床使用说明</legend><p>1、图片托管于各大官网，最大支持10MB；</p><p>2、禁止上传违规图片，造成后果自负；</p><p>3、<a href="https://s.qiniu.com/eEFNBz" target="_blank" style="color:red;">七牛云存储</a> <a href="https://mp34.lanzout.com/iP8pR230laif" target="_blank" style="color:#0c6ad4;">七牛图床源码下载</a><a href="javascript:void(0);" onclick="picdata()">；</a></p></fieldset>
         <div class="Pic-label">
-            <label data-hover="推荐使用"><input checked type="radio" name="type" value="wy">网易</label>
-            <label data-hover="推荐使用"><input type="radio" name="type" value="mt">美图</label>
-            <label data-hover="有水印"><input type="radio" name="type" value="bd">百度</label>
-            <label data-hover="腾讯云对象存储"><input type="radio" name="type" value="bk">备用</label>
+            <label data-hover="推荐使用"><input type="radio" name="type" value="sh">搜狐</label>
+            <label data-hover="推荐使用"><input checked type="radio" name="type" value="mt">美图</label>
+            <label data-hover="腾讯云存储"><input type="radio" name="type" value="tx">腾讯</label>
+            <label data-hover="备用接口"><input type="radio" name="type" value="qt">其他</label>
         </div>
         <div id="PicUpload">
             <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:#ff5983;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
@@ -131,7 +131,8 @@ function Mid_hot(list) {
 }
 function Mid_data(txt) {
 	const regex = /^[0-9a-f]{10}$/i;
-    if (regex.test(txt)) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }    var tk = localStorage.getItem('tk');
+    if (regex.test(txt)) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }
+    var tk = localStorage.getItem('tk');
     if (tk === null) {
         layer.open({type:1,title:false,scrollbar:false,skin:'layerpic',content:'<img width="100%" src="https://yanxuan.nosdn.127.net/007430b0dee9763ee1d9b11650848f71.gif">',btn:0,end:function() { $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入秘钥'); }});
     } else {
@@ -451,7 +452,7 @@ function GP_data(txt,options,callback) {
     const timeout = options.timeout || 0;
     const tp = options.tp || '';
     const dataType = options.dataType || 'json';
-    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"//api.rmbk.cc/i6x.php?type="};
+    const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"https://api.rmbk.cc/i6x.php?type="};
     const url = ubank[tp] || ubank.i6xcn;
 	const loadGP = layer.load(0, {shade: false});
     $.ajax({
