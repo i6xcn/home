@@ -178,18 +178,18 @@ function getToday() {
     let H = date.getHours();
     return `${Y}-${M}-${D}-${H}`;
 }
-
 function reserve(){
-    layer.open({type:1,title:'留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="name" placeholder="请输入客户姓名" class="laye-wrap"><input type="text" id="code" placeholder="请输入验证码" class="laye-wrap" style="display:unset;width:200px;"><img src="https://api.rmbk.cc/i6x.php?type=code"><input type="text" id="txt" placeholder="请输入留言内容" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
+    const num1 = Math.floor(Math.random() * 9) + 1;
+    const num2 = Math.floor(Math.random() * 9) + 1;
+    layer.open({type:1,title:'留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="name" placeholder="请输入您的姓名" class="laye-wrap"><input type="text" id="code" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = '+num1+' + '+num2+' <input type="text" id="txt" placeholder="请输入留言内容、联系方式" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
 		canExecute = false;
         const name = $('#name').val().trim();
         const code = $('#code').val().trim();
         const txt = $('#txt').val().trim();
 		const nameCount = name ? name.length : 0;
-		const codeCount = code ? code.length : 0;
-        if(nameCount < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
-        if(codeCount !== 8 ) { layer.msg('请输入验证码', {icon: 2}); return; }
-		GP_data("res",{data:{name:name,code:code,txt:txt}},function(res){
+        if (nameCount < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
+        if ( (num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
+		GP_data("res",{data:{name:name,txt:txt}},function(res){
             layer.closeAll();
             if (res.type == 1){
 				var reserve = res.data;
@@ -197,8 +197,10 @@ function reserve(){
                     var id = reserve[i].id;    var nn = reserve[i].name;    var tt = reserve[i].txt;    var ss = reserve[i].time;
                     $("#vlog").append('<div class="itemg" id="'+id+'"><div class="itemg_lf"><span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel(\'#'+id+'\',\''+name+'\',\''+id+'\')">X</span></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>'+nn+'</em></span></div><div class="app_sm_rg"><span>'+ss+'</span></div></div><div class="itemg_rg_sm"><p>'+tt+'</p></div></div></div>');
                 }
-            } else {
+            } else if (res.msg) {
                 layer.msg(res.data, {icon: 1}); 
+            } else {
+                layer.msg(res.data, {icon: 2}); 
             }
         });
     }});
