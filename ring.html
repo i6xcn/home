@@ -143,7 +143,7 @@ function Mid_data(txt) {
             $("#Mid-data").empty();
             for (let i = 0; i < number; i++) {
                 const d = json[i].id;
-                if (d != null && d.trim().length !== 0){
+                if (d){
                     const n = json[i].name;
                     const a = json[i].artists;
                     const k = json[i].Key;
