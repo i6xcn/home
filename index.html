@@ -42,7 +42,7 @@
     <div class="navbar">
         <ul>
             <li><a class="pyq">朋友圈</a></li>
-            <li><a href="javascript:void(0);" onclick="wedList()">客片查询</a></li>
+            <li><a href="javascript:void(0);" onclick="wedList()">客片查询‌</a></li>
         </ul>
     </div>
     <div class="itemg">
@@ -160,7 +160,7 @@ function renderList(List) {
     }
 }
 function wedList(){
-    layer.open({type:1,title:'客片查询',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><textarea placeholder="请输入拍摄日期，如20200501" id="riqi" class="laye-wrap"></textarea><input type="text" id="kehu" placeholder="请输入客户姓名" class="laye-wrap"></div>',btn:['查询','取消'],yes:() => {
+    layer.open({type:1,title:'🔍 客片查询',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><textarea placeholder="请输入拍摄日期，如20200501" id="riqi" class="laye-wrap"></textarea><input type="text" id="kehu" placeholder="请输入客户姓名" class="laye-wrap"></div>',btn:['查询','取消'],yes:() => {
         const kehu = $('#kehu').val().trim(); 
         const riqi = $('#riqi').val().trim(); 
 		const riqiCount = riqi ? riqi.length : 0;
@@ -181,13 +181,11 @@ function getToday() {
 function reserve(){
     const num1 = Math.floor(Math.random() * 9) + 1;
     const num2 = Math.floor(Math.random() * 9) + 1;
-    layer.open({type:1,title:'留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="name" placeholder="请输入您的姓名" class="laye-wrap"><input type="text" id="code" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = '+num1+' + '+num2+' <input type="text" id="txt" placeholder="请输入留言内容、联系方式" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
-		canExecute = false;
+    layer.open({type:1,title:'💬 欢迎留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="name" placeholder="请输入您的姓名" class="laye-wrap"><input type="text" id="code" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = '+num1+' + '+num2+' <input type="text" id="txt" placeholder="请输入预约内容、联系方式" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
         const name = $('#name').val().trim();
         const code = $('#code').val().trim();
         const txt = $('#txt').val().trim();
-		const nameCount = name ? name.length : 0;
-        if (nameCount < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
+        if(!name) { layer.msg('请输入客户姓名', {icon: 2}); return; }
         if ( (num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
 		GP_data("res",{data:{name:name,txt:txt}},function(res){
             layer.closeAll();
@@ -195,7 +193,7 @@ function reserve(){
 				var reserve = res.data;
 				for (var i = 0; i < reserve.length; i++) {
                     var id = reserve[i].id;    var nn = reserve[i].name;    var tt = reserve[i].txt;    var ss = reserve[i].time;
-                    $("#vlog").append('<div class="itemg" id="'+id+'"><div class="itemg_lf"><span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel(\'#'+id+'\',\''+name+'\',\''+id+'\')">X</span></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>'+nn+'</em></span></div><div class="app_sm_rg"><span>'+ss+'</span></div></div><div class="itemg_rg_sm"><p>'+tt+'</p></div></div></div>');
+                    $("#vlog").append('<div class="itemg" id="'+id+'"><div class="itemg_lf"><span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel(\'#'+id+'\',\''+name+'\',\''+id+'\')">❌</span></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>'+nn+'</em></span></div><div class="app_sm_rg"><span>'+ss+'</span></div></div><div class="itemg_rg_sm"><p>'+tt+'</p></div></div></div>');
                 }
             } else if (res.msg) {
                 layer.msg(res.data, {icon: 1}); 
