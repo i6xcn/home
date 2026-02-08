@@ -180,9 +180,10 @@ function reserve(){
         const name = $('#xm', layero).val().trim();
         const code = $('#pw', layero).val().trim();
         const txts = $('#tt', layero).val().trim();
+		const nameCount = name ? name.length : 0;
         const num1 = parseInt($('#num1Span', layero).text());
         const num2 = parseInt($('#num2Span', layero).text());
-        if (!name) { layer.msg('请输入客户姓名', {icon: 2});  return; }
+        if(nameCount < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
         if ((num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
         GP_data("res", {data: {name: name, txt: txts}}, function(res) {
             layer.closeAll();
@@ -201,6 +202,9 @@ function reserve(){
                 layer.msg(res.data, {icon: 2});
             }
         });
+        $('#xm', layero).val('');
+        $('#pw', layero).val('');
+        $('#tt', layero).val('');
     }});
 }
 function resdel(i,n,id){
