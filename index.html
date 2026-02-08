@@ -103,6 +103,11 @@
         <div class="childdiv"><a href="javascript:void(0);" onclick="reserve()"><img src="data:image/gif;base64,R0lGODlhCQAOAJECAP9MKf///wAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQJlgACACwAAAAACQAOAAACF5SPecDt/0KTs86AKdMacAiCBqMIQIkWACH5BAkUAAIALAAAAAAJAA4AAAIXhI+ZcdzfgnSGUmCV1kKYDnZASJbmCRYAIfkECRQAAgAsAAAAAAkADgAAAheUj3nA7f9Ck7POgCnTGnAIggajCECJFgAh+QQFFAACACwAAAAACQAOAAACF4SPmXHc34J0hlJgldZCmA52QEiW5gkWADs=" alt="">&nbsp;预约</a></div>
     </div>
 </div>
+<div id="reserveForm" style="padding:0 10px;display:none;">
+  <input type="text" id="xm" placeholder="请输入您的姓名" class="laye-wrap">
+  <input type="text" id="pw" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = <span id="num1Span"></span> + <span id="num2Span"></span>
+  <input type="text" id="tt" placeholder="请输入预约内容、联系方式" class="laye-wrap">
+</div>
 <script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/layer/3.5.1/layer.min.js"></script>
 <script type="text/javascript">
@@ -160,9 +165,9 @@ function renderList(List) {
     }
 }
 function wedList(){
-    layer.open({type:1,title:'🔍 客片查询',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><textarea placeholder="请输入拍摄日期，如20200501" id="riqi" class="laye-wrap"></textarea><input type="text" id="kehu" placeholder="请输入客户姓名" class="laye-wrap"></div>',btn:['查询','取消'],yes:() => {
-        const kehu = $('#kehu').val().trim(); 
-        const riqi = $('#riqi').val().trim(); 
+    layer.open({type:1,title:'🔍 客片查询',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><textarea placeholder="请输入拍摄日期，如20200501" id="riqi" class="laye-wrap"></textarea><input type="text" id="kehu" placeholder="请输入客户姓名" class="laye-wrap"></div>',btn:['查询','取消'],yes: function(index, wed) {
+        const kehu = $('#kehu', wed).val().trim(); 
+        const riqi = $('#riqi', wed).val().trim(); 
 		const riqiCount = riqi ? riqi.length : 0;
 		const kehuCount = kehu ? kehu.length : 0;
         if(riqiCount < 8) { layer.msg('请输入正确日期', {icon: 2}); return; }
@@ -170,23 +175,25 @@ function wedList(){
 		GP_data("wed",{data:{time:riqi,name:kehu}},function(res){ layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res.data.ps+'</div>',btn:0}); } });
     }});
 }
-
 function reserve(){
-    const num1 = Math.floor(Math.random() * 9) + 1;
-    const num2 = Math.floor(Math.random() * 9) + 1;
-    layer.open({type:1,title:'💬 欢迎留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="xm" placeholder="请输入您的姓名" class="laye-wrap"><input type="text" id="pw" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = '+num1+' + '+num2+' <input type="text" id="tt" placeholder="请输入预约内容、联系方式" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
-        const name = $('#xm').val().trim();
-        const code = $('#pw').val().trim();
-        const txts = $('#tt').val().trim();
-        if(!name) { layer.msg('请输入客户姓名', {icon: 2}); return; }
-        if ( (num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
-		GP_data("res",{data:{name:name,txt:txts}},function(res){
+    layer.open({type: 1,title: '💬 欢迎留言',scrollbar: false,shade: 0.8,closeBtn: 0,content: $('#reserveForm'),success: function(layero, index) { const num1 = Math.floor(Math.random() * 9) + 1; const num2 = Math.floor(Math.random() * 9) + 1; $('#num1Span').text(num1); $('#num2Span').text(num2); }, btn: ['提交', '取消'], yes: function(index, layero) {
+        const name = $('#xm', layero).val().trim();
+        const code = $('#pw', layero).val().trim();
+        const txts = $('#tt', layero).val().trim();
+        const num1 = parseInt($('#num1Span', layero).text());
+        const num2 = parseInt($('#num2Span', layero).text());
+        if (!name) { layer.msg('请输入客户姓名', {icon: 2});  return; }
+        if ((num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
+        GP_data("res", {data: {name: name, txt: txts}}, function(res) {
             layer.closeAll();
-            if (res.type == 1){
-				var reserve = res.data;
-				for (var i = 0; i < reserve.length; i++) {
-                    var id = reserve[i].id;    var nn = reserve[i].name;    var tt = reserve[i].txt;    var ss = reserve[i].time;
-                    $("#vlog").append('<div class="itemg" id="'+id+'"><div class="itemg_lf"><span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel(\'#'+id+'\',\''+name+'\',\''+id+'\')">❌</span></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>'+nn+'</em></span></div><div class="app_sm_rg"><span>'+ss+'</span></div></div><div class="itemg_rg_sm"><p>'+tt+'</p></div></div></div>');
+            if (res.type == 1) {
+                var reserve = res.data;
+                for (var i = 0; i < reserve.length; i++) {
+                    var id = reserve[i].id;
+                    var nn = reserve[i].name;
+                    var tt = reserve[i].txt;
+                    var ss = reserve[i].time;
+                    $("#vlog").append('<div class="itemg" id="' + id + '"><div class="itemg_lf"><span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel(\'#' + id + '\',\'' + name + '\',\'' + id + '\')">❌</span></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>' + nn + '</em></span></div><div class="app_sm_rg"><span>' + ss + '</span></div></div><div class="itemg_rg_sm"><p>' + tt + '</p></div></div></div>');
                 }
             } else if (res.msg) {
                 layer.msg(res.data, {icon: 1});
