@@ -132,8 +132,8 @@ $(function(){
             }
             setTimeout(function() {isClick = Click;}, 5000);
         }
-    });  
-});  
+    });
+});
 function renderList(List) {
     if (List.msg == false){
         layer.msg(List.data, {icon: 2});
@@ -170,24 +170,17 @@ function wedList(){
 		GP_data("wed",{data:{time:riqi,name:kehu}},function(res){ layer.closeAll(); if (res.msg == false){ layer.msg(res.data, {icon: 2}); } else { layer.open({type:1,title:false,scrollbar:false,skin:'shadows',shade:0.8,content:'<div style="padding:15px;font-size:small;background:#fff;" onclick="copyContent(this)"><p>'+res.data.txt+'</p><p><a href="'+res.data.url+'" target="_blank">'+res.data.url+'</a></p><p>'+res.data.key+'</p>'+res.data.ps+'</div>',btn:0}); } });
     }});
 }
-function getToday() {
-    let date = new Date();
-    let Y = date.getFullYear();
-    let M = date.getMonth()+1;
-    let D = date.getDate();
-    let H = date.getHours();
-    return `${Y}-${M}-${D}-${H}`;
-}
+
 function reserve(){
     const num1 = Math.floor(Math.random() * 9) + 1;
     const num2 = Math.floor(Math.random() * 9) + 1;
-    layer.open({type:1,title:'💬 欢迎留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="name" placeholder="请输入您的姓名" class="laye-wrap"><input type="text" id="code" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = '+num1+' + '+num2+' <input type="text" id="txt" placeholder="请输入预约内容、联系方式" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
-        const name = $('#name').val().trim();
-        const code = $('#code').val().trim();
-        const txt = $('#txt').val().trim();
+    layer.open({type:1,title:'💬 欢迎留言',scrollbar:false,shade:0.8,closeBtn:0,content:'<div style="padding:0 10px;"><input type="text" id="xm" placeholder="请输入您的姓名" class="laye-wrap"><input type="text" id="pw" placeholder="请输入右侧答案" class="laye-wrap" style="display:unset;width:200px;"> = '+num1+' + '+num2+' <input type="text" id="tt" placeholder="请输入预约内容、联系方式" class="laye-wrap"></div>',btn:['提交','取消'],yes:() => {
+        const name = $('#xm').val().trim();
+        const code = $('#pw').val().trim();
+        const txts = $('#tt').val().trim();
         if(!name) { layer.msg('请输入客户姓名', {icon: 2}); return; }
         if ( (num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
-		GP_data("res",{data:{name:name,txt:txt}},function(res){
+		GP_data("res",{data:{name:name,txt:txts}},function(res){
             layer.closeAll();
             if (res.type == 1){
 				var reserve = res.data;
@@ -196,9 +189,9 @@ function reserve(){
                     $("#vlog").append('<div class="itemg" id="'+id+'"><div class="itemg_lf"><span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel(\'#'+id+'\',\''+name+'\',\''+id+'\')">❌</span></div><div class="itemg_rg"><div class="itemg_rg_tp"><div class="app_sm_lf"><span><em>'+nn+'</em></span></div><div class="app_sm_rg"><span>'+ss+'</span></div></div><div class="itemg_rg_sm"><p>'+tt+'</p></div></div></div>');
                 }
             } else if (res.msg) {
-                layer.msg(res.data, {icon: 1}); 
+                layer.msg(res.data, {icon: 1});
             } else {
-                layer.msg(res.data, {icon: 2}); 
+                layer.msg(res.data, {icon: 2});
             }
         });
     }});
@@ -223,6 +216,14 @@ function scrollToTop() {
         window.requestAnimationFrame(scrollToTop);
         window.scrollTo(0, currentScroll - (currentScroll / 10));
     }
+}
+function getToday() {
+    let date = new Date();
+    let Y = date.getFullYear();
+    let M = date.getMonth()+1;
+    let D = date.getDate();
+    let H = date.getHours();
+    return `${Y}-${M}-${D}-${H}`;
 }
 function copyContent(divElement) {
     const tempTextarea = document.createElement('textarea');
