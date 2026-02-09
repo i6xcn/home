@@ -124,7 +124,7 @@ $(function(){
             isClick = false;
             var Click;
             ++page;
-            let loadIndex = layer.load(0, {shade: false});
+            let loadIndex = layer.load(0, {shade: false,time: 15000});
             let CATCH_DATA_KEY = 'DATA_'+page;
             let CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
             let data = JSON.parse(CATCH_DATA);
@@ -183,7 +183,7 @@ function reserve(){
 		const nameCount = name ? name.length : 0;
         const num1 = parseInt($('#num1Span', layero).text());
         const num2 = parseInt($('#num2Span', layero).text());
-        if(nameCount < 2) { layer.msg('请输入客户姓名', {icon: 2}); return; }
+        if(nameCount < 2) { layer.msg('请输入您的姓名', {icon: 2}); return; }
         if ((num1 + num2) != code) { layer.msg('请输入正确答案', {icon: 2}); return; }
         GP_data("res", {data: {name: name, txt: txts}}, function(res) {
             layer.closeAll();
@@ -211,14 +211,14 @@ function resdel(i,n,id){
     GP_data("res",{data:{land:n,del:id}},function(list){ if (list.msg) { $(i).remove(); layer.msg(list.data, {icon: 1}); } else { layer.msg(list.data, {icon: 2});} });
 }
 function player(url,type,img) { 
-    var loadIndex = layer.load(0, {shade: false});
+    var loadplay = layer.load(0, {shade: false,time: 15000});
     if (type == "pic"){
         var pic = new Image();
         pic.src = url;
-        pic.onload = function () { layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'shadows',shadeClose:true,content:'<img width="100%" src="'+url+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadIndex); }
-        pic.onerror = function() { layer.msg('图片加载失败', {icon: 2});layer.close(loadIndex);}
+        pic.onload = function () { layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'shadows',shadeClose:true,content:'<img width="100%" src="'+url+'" onclick="layer.closeAll()" href="javascript:;">'}); layer.close(loadplay); }
+        pic.onerror = function() { layer.msg('图片加载失败', {icon: 2});layer.close(loadplay);}
     }else if(type == "video"){
-        layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'shadows',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+img+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+url+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; video.addEventListener("touchstart", function() { layer.closeAll(); },false); video.addEventListener("WeixinJSBridgeReady", function() { video.play(); }, false);<'+'/script>'});layer.close(loadIndex); 
+        layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'shadows',shadeClose:true,content:'<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="'+img+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+url+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; video.addEventListener("touchstart", function() { layer.closeAll(); },false); video.addEventListener("WeixinJSBridgeReady", function() { video.play(); }, false);<'+'/script>'});layer.close(loadplay); 
     }
 }
 function scrollToTop() {
@@ -247,13 +247,9 @@ function copyContent(divElement) {
     layer.msg('复制成功', {icon: 1});
 }
 function GP_data(txt,options,callback) {
-    const method = options.method || 'POST';
-    const data = options.data || {};
-    const headers = options.headers || {};
-    const timeout = options.timeout || 0;
-    const dataType = options.dataType || 'json';
+	const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,tp = '',dataType = 'json'} = options || {};
     const APIurl = "https://api.rmbk.cc/i6x.php?type=";
-	const loadGP = layer.load(0, {shade: false});
+	if (window.layer && typeof layer.load === 'function') { setTimeout(() => { layer.load(0, {shade: false,time: 15000}); }, 0); }
     $.ajax({
         url: APIurl+txt,
         type: method,
@@ -263,11 +259,12 @@ function GP_data(txt,options,callback) {
         headers: headers,
         success: function(list) {
             callback(list);
-			layer.close(loadGP);
         },
         error: function() {
             callback({msg:false,data:'请求超时！'});
-			layer.close(loadGP);
+        },
+        complete: function () {
+            layer.closeAll()
         }
     });
 }
