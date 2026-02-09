@@ -130,8 +130,8 @@ function Mid_hot(list) {
     }
 }
 function Mid_data(txt) {
-	const regex = /^[0-9a-f]{10}$/i;
-    if (regex.test(txt)) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }
+	const regex = /^\d{6}$/;
+    if (regex.test(String(txt).trim())) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }
     var tk = localStorage.getItem('tk');
     if (tk === null) {
         const Kimg = localStorage.getItem('Kimg');
@@ -155,6 +155,7 @@ function Mid_data(txt) {
             $('#Mid-key').hide();
             $('#Mid-input').val(txt);
         } else {
+			if (list.key){window.localStorage.removeItem('tk'); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入秘钥');};
             layer.msg(list.data, {icon: 2});
 			$('#Mid-input').val('');
         }
@@ -440,16 +441,12 @@ function PopUpMsg(i,n) {
     layer.msg(Arr[i], {icon:n});
 }
 function GP_data(txt,options,callback) {
-    const method = options.method || 'POST';
-    const data = options.data || {};
-    const headers = options.headers || {};
-    const upfile = options.upfile || '';
-    const timeout = options.timeout || 0;
-    const tp = options.tp || '';
-    const dataType = options.dataType || 'json';
+    const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,tp = '',dataType = 'json'} = options || {};
     const ubank = {weibo:"https://widget.weibo.com/public/aj_relationship.php?fuid=",getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"https://api.rmbk.cc/i6x.php?type="};
     const url = ubank[tp] || ubank.i6xcn;
-	const loadGP = layer.load(0, {shade: false});
+	let loadGP = null;
+	if (window.layer && typeof layer.load === 'function') { setTimeout(() => { loadGP = layer.load(0, {shade: false,time: 15000}); }, 0); }
+    function closeLoading() { if (loadGP && window.layer && typeof layer.close === 'function') { layer.close(loadGP); loadGP = null; } }
     $.ajax({
         url: url+txt,
         type: method,
@@ -461,11 +458,12 @@ function GP_data(txt,options,callback) {
         headers: headers,
         success: function(list) {
             callback(list);
-			layer.close(loadGP);
         },
         error: function() {
             callback({msg:false,data:PopUpMsg(0)});
-			layer.close(loadGP);
+        },
+        complete: function () {
+            closeLoading();
         }
     });
 }
