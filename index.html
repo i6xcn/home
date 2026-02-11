@@ -249,7 +249,8 @@ function copyContent(divElement) {
 function GP_data(txt,options,callback) {
 	const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,tp = '',dataType = 'json'} = options || {};
     const APIurl = "https://api.rmbk.cc/i6x.php?type=";
-	if (window.layer && typeof layer.load === 'function') { setTimeout(() => { layer.load(0, {shade: false,time: 15000}); }, 0); }
+	let loadss = null;
+	if (window.layer && typeof layer.load === 'function') { setTimeout(() => { loadss =layer.load(0, {shade: false,time: 15000}); }, 0); }
     $.ajax({
         url: APIurl+txt,
         type: method,
@@ -264,7 +265,7 @@ function GP_data(txt,options,callback) {
             callback({msg:false,data:'请求超时！'});
         },
         complete: function () {
-            layer.closeAll()
+            layer.close(loadss);
         }
     });
 }
