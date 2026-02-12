@@ -277,9 +277,9 @@ function LOL_data(num){
                     var origin = cards[ii].img_url_big;
                     var video  = cards[ii].mp4_url;
                     if (video === '' || video.trim().length === 0){
-                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+origin+'\',\'pic\')"></li>';
+                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'height:0;padding-bottom:30%;" onclick="eject(\''+origin+'\',\'pic\')"></li>';
                     }else{
-                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+video+'\',\'video\',\''+imgurl+'\')"><svg viewBox="0 0 72 72" class="play-btn"><circle cx="36" cy="36" fill="#FFF" fill-opacity=".80" r="36"></circle><path d="M50.835 37.06L29.477 49.97a1.203 1.203 0 0 1-1.664-.43 1.25 1.25 0 0 1-.17-.631V23.091c0-.682.543-1.234 1.213-1.234.219 0 .433.06.62.173l21.359 12.91a1.245 1.245 0 0 1 0 2.12z" fill="#444" fill-rule="nonzero"></path></svg></li>';
+                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'height:0;padding-bottom:30%;" onclick="eject(\''+video+'\',\'video\',\''+imgurl+'\')"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>';
                     }
                 }
                 $("#LOL-data").append('<div class="itemg"><div class="itemg_lf"><img src="'+avatar+'"></div><div class="itemg_rg"><div class="itemg_rg_tp"><h4>'+user+'</h4></div><div class="itemg_rg_sm">'+title+'</div><div class="itemg_rg_main"><ul>'+outimg+'</ul></div></div></div>');
