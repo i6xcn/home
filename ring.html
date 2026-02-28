@@ -169,7 +169,7 @@ function Mid_url(id,tk) {
 	canExecute = false;
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
         if (list.msg){
-            layer.open({type:1,title:false,scrollbar:false,skin:'layerpic',content:'<div style="padding:20px;"><p>歌名：'+list.data.artist+' - '+list.data.name+'</p><p>封面：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.img+'\')">'+list.data.img+'</a></p><p>地址：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.url+'\')">'+list.data.url+'</a></p></div>',btn:0 });
+            layer.open({type:1,title:false,scrollbar:false,id:'shadows',content:'<div style="padding:20px;"><p>歌名：'+list.data.artist+' - '+list.data.name+'</p><p>封面：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.img+'\')">'+list.data.img+'</a></p><p>地址：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.url+'\')">'+list.data.url+'</a></p></div>',btn:0 });
         } else {
             layer.msg(list.data, {icon: 2});
         }
@@ -381,10 +381,12 @@ function pic_del(i,n,id){
 }
 function check_ip(ip){
     GP_data(ip,{method:'GET',tp:"getip"},function(list){
-        if (isEmpty(list.data.address)){
+		const { address, isp } = list.data;
+        if (isEmpty(address)){
             $("#ipres").html(PopUpMsg(8));
         } else {
-            $("#ipres").html(list.data.address+list.data.isp);
+			const output = address + (isp && isp !== "0" ? `${isp}` : "");
+            $("#ipres").html(output);
         }
     });
 }
