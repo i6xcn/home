@@ -380,13 +380,11 @@ function pic_del(i,n,id){
     GP_data("upimg",{data:{land:n,del:id}},function(list){ if (list.msg) { $(i).remove(); layer.msg(list.data, {icon: 1}); } else { layer.msg(list.data, {icon: 2});} });
 }
 function check_ip(ip){
-    GP_data(ip,{method:'GET',tp:"getip"},function(list){
-		const { address, isp } = list.data;
-        if (isEmpty(address)){
+    GP_data("ip&ip="+ip,{method:'GET'},function(list){
+        if (isEmpty(list.data.address)){
             $("#ipres").html(PopUpMsg(8));
         } else {
-			const output = address + (isp && isp !== "0" ? `${isp}` : "");
-            $("#ipres").html(output);
+            $("#ipres").html(list.data.address);
         }
     });
 }
@@ -444,9 +442,8 @@ function PopUpMsg(i,n) {
     layer.msg(Arr[i], {icon:n});
 }
 function GP_data(txt,options,callback) {
-    const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,tp = '',dataType = 'json'} = options || {};
-    const ubank = {getip:"https://v2.xxapi.cn/api/ip?ip=",i6xcn:"https://api.rmbk.cc/i6x.php?type="};
-    const url = ubank[tp] || ubank.i6xcn;
+    const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,dataType = 'json'} = options || {};
+    const url = "https://api.rmbk.cc/i6x.php?type=";
 	let loadGP = null;
 	if (window.layer && typeof layer.load === 'function') { setTimeout(() => { loadGP = layer.load(0, {shade: false,time: 15000}); }, 0); }
     function closeLoading() { if (loadGP && window.layer && typeof layer.close === 'function') { layer.close(loadGP); loadGP = null; } }
