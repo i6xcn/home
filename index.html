@@ -279,7 +279,7 @@ function copyContent(divElement) {
 }
 function GP_data(txt,options,callback) {
 	const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,tp = '',dataType = 'json'} = options || {};
-    const APIurl = "i6x.php?type=";
+    const APIurl = "https://api.rmbk.cc/i6x.php?type=";
 	let loadss = null;
 	if (window.layer && typeof layer.load === 'function') { setTimeout(() => { loadss =layer.load(0, {shade: false,time: 15000}); }, 0); }
     $.ajax({
