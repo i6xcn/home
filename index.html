@@ -257,23 +257,13 @@ function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
 }
 
 async function GP_data(txt, options = {}, callback) {
-    const {
-        method = 'POST',
-        data = {},
-        timeout = 30000
-    } = options;
-    const APIurl = "i6x.php?type=" + txt;
+    const {method = 'POST',data = {},timeout = 30000 } = options;
+    const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
     showLoad();
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
     try {
-        let fetchOpt = {
-            method,
-            signal: controller.signal,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            }
-        };
+        let fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
         if(method !== 'GET'){
             const params = new URLSearchParams();
             for(let k in data) params.append(k, data[k]);
@@ -460,9 +450,9 @@ function reserve() {
         <p class="prompt-title">💬 欢迎留言</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="res_xm" class="prompt-input" placeholder="请输入您的姓名">
-            <div style="display:flex;align-items:center;gap:8px;">
-                <input type="text" id="res_pw" class="prompt-input" style="flex:1;" placeholder="请输入右侧答案">
-                <span>${num1} + ${num2}</span>
+            <div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;width:100%;">
+                <input type="text" id="res_pw" class="prompt-input" style="flex:1;min-width:0;min-width:120px;box-sizing:border-box;" placeholder="请输入右侧答案">
+                <span style="white-space:nowrap;padding-left:6px;">${num1} + ${num2}</span>
             </div>
             <input type="text" id="res_tt" class="prompt-input" placeholder="请输入预约内容、联系方式">
         </div>
@@ -559,6 +549,7 @@ function player(url,type,img) {
         </video>`;
         openModal(html, true);
         closeLoad();
+        // 自动播放
         setTimeout(()=>{
             const video = document.getElementById('myVideo');
             if(video){
