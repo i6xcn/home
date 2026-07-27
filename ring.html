@@ -106,7 +106,7 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 .prompt-wrap { padding: 10px; }
 .prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
 .prompt-row-flex { display: flex; align-items: center; gap: 10px; }
-.prompt-input { flex: 1; box-sizing: border-box; padding: 9px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 15px; outline: none; }
+.prompt-input {width: 100%;box-sizing: border-box; padding: 9px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 15px; outline: none; }
 .prompt-input:focus { border-color: #ff5983; }
 .btn-cancel { background: #eeeeee; color: #333333; padding: 8px 18px;border-radius: 4px;}
 .btn-confirm { background: #ff5983; color: #ffffff; padding: 8px 18px;border-radius: 4px;}
@@ -275,34 +275,26 @@ function Mid_hot(list) {
 function Mid_so(txt){
     const tk = localStorage.getItem('tk');
     if (tk === null) {
-        const num1 = Math.floor(Math.random() * 9) + 1;
-        const num2 = Math.floor(Math.random() * 9) + 1;
-        const modalHtml = `<div class="prompt-wrap"><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"><div style="display:flex;align-items:center;"><input type="text" id="res_pw" class="prompt-input" style="flex:1;" placeholder="请输入右侧答案"><span style="padding: 0 15px;">${num1} + ${num2}</span></div></div><div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;"><a href="javascript:void(0);" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</a><button class="btn-cancel" onclick="closeModal()">取消</button><button class="btn-confirm" onclick="wedSubmitHandler()">确定</button></div></div>`;
+        const modalHtml = `<div class="prompt-wrap"><div style="display:flex;flex-direction:column;margin-bottom:10px;"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"></div><div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;"><a href="javascript:void(0);" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</a><button class="btn-confirm" onclick="wedSubmitHandler()">确定</button></div></div>`;
         window.wedSubmitHandler = function(){
-	    	const answer = document.getElementById('res_pw').value.trim();
+            if (!canExecute) { showToast("请勿频繁点击！"); return; }
+            canExecute = false;
             const rVal = document.getElementById('tk-input').value.trim();
-		    const rightAnswer = num1 + num2;
-            if(rVal.length < 6){
-                showToast('秘钥格式错误');
-                Mid_so(txt);
-		    	return;
-            }
-            if (Number(answer) !== rightAnswer) {
-                showToast('验证码答案错误');
+            if(isEmpty(rVal)){
+                showToast('请输入秘钥');
                 Mid_so(txt);
 		    	return;
             }
 		    Mid_data(txt,rVal);
 	    };
+			setTimeout(() => { canExecute = true; },3000);
 	    openModal(modalHtml);
-        setTimeout(()=>{
-            document.getElementById('tk-input').focus();
-        }, 60);
     } else {
 		Mid_data(txt,tk);
     }
 }
 function Mid_data(txt,key) {
+	closeModal();
         GP_data("music&wd="+encodeURIComponent(txt)+"&key="+key,{method:'GET'},function(list){
             if (list.msg){
                 const json = list.data;
@@ -336,11 +328,9 @@ function Mid_data(txt,key) {
                 $("#Mid-key").style.display = "none";
 				localStorage.setItem('tk', key);
 				$("#Mid-input").value = '';
-				closeModal();
             } else {
                 if (list.key){
                     localStorage.removeItem('tk');
-                    Mid_so(txt);
                 }
                 showToast(list.data);
                 $("#Mid-input").value = '';
@@ -705,7 +695,7 @@ function eject(u,t,i,a) {
         pic.src = u;
         pic.onload = function () {
             const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`;
-            openModal(html, false, true);
+            openModal(html, false);
         }
         pic.onerror = function() {
             showToast("加载失败！");
