@@ -203,6 +203,7 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
 const $ = (sel) => document.querySelector(sel);
 const $$ = (sel) => document.querySelectorAll(sel);
+let canExecute = true;
 // ===================== 页面切换入口 =====================
 window.onload = function(){
     const hash = location.hash.replace("#","");
@@ -819,38 +820,39 @@ function submitPrompt() {
     }
 }
 
-let canExecute = true;
-
-async function GP_data(txt,options,callback) {
-    const {method = 'POST',data = {},upfile = '',timeout = 30000} = options || {};
-    const url = "https://api.rmbk.cc/i6x.php?type=" + txt;
+async function GP_data(txt, options = {}, callback) {
+    const {method = 'POST',data = {},timeout = 45000 } = options;
+    const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
     showLoading();
-    let resJson = {msg:false,data:"请求超时！"};
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
     try {
-        const controller = new AbortController();
-        const timer = setTimeout(()=>controller.abort(), timeout);
-        let fetchOpt = {method, signal: controller.signal};
+        let fetchOpt = {
+            method,
+            signal: controller.signal,
+            mode: 'cors',
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+        };
         if(method !== 'GET'){
-            if(upfile === 'upfile'){
-                fetchOpt.body = data;
-            }else{
-                fetchOpt.headers = {'Content-Type':'application/x-www-form-urlencoded'};
-                const params = new URLSearchParams();
-                for(let k in data) params.append(k, data[k]);
-                fetchOpt.body = params.toString();
-            }
+            const params = new URLSearchParams();
+            for(let k in data) params.append(k, data[k]);
+            fetchOpt.body = params.toString();
         }
-        const resp = await fetch(url, fetchOpt);
-        clearTimeout(timer);
-        if(!resp.ok) throw new Error("http error");
-        resJson = await resp.json();
+        const res = await fetch(APIurl, fetchOpt);
+        const list = await res.json();
+        callback(list);
     } catch (err) {
-        resJson = {msg:false,data:"请求超时！"};
+        if(err.name === 'AbortError'){
+            callback({msg:false,data:'服务器连接超时！'});
+        }else{
+            callback({msg:false,data:'接口跨域被拦截！'});
+        }
     } finally {
+        clearTimeout(timer);
         hideLoading();
-        callback(resJson);
     }
 }
+
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
 </body>
