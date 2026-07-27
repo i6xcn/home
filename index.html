@@ -443,57 +443,53 @@ function wedList(){
 
 // ===================== 预约留言弹窗 =====================
 function reserve() {
-    const num1 = Math.floor(Math.random() * 9) + 1;
-    const num2 = Math.floor(Math.random() * 9) + 1;
     const modalHtml = `
     <div class="prompt-wrap">
         <p class="prompt-title">💬 欢迎留言</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="res_xm" class="prompt-input" placeholder="请输入您的姓名">
-            <div style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap;width:100%;">
-                <input type="text" id="res_pw" class="prompt-input" style="flex:1;min-width:0;min-width:120px;box-sizing:border-box;" placeholder="请输入右侧答案">
-                <span style="white-space:nowrap;padding-left:6px;">${num1} + ${num2}</span>
-            </div>
             <input type="text" id="res_tt" class="prompt-input" placeholder="请输入预约内容、联系方式">
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
             <button class="btn-cancel" onclick="closeModal()">取消</button>
-            <button class="btn-confirm" onclick="reserveSubmit()">确定</button>
+            <button id="submitBtn" class="btn-confirm" onclick="reserveSubmit()">确定</button>
         </div>
     </div>
     `;
+	window.isReserveSubmitting = false;
     window.reserveSubmit = function () {
-        const name = document.getElementById('res_xm').value.trim();
-        const answer = document.getElementById('res_pw').value.trim();
-        const content = document.getElementById('res_tt').value.trim();
-        const rightAnswer = num1 + num2;
-        if (name.length < 2) {
-            showToast('请填写您的姓名');
+        if (window.isReserveSubmitting) {
+            showToast("请勿重复提交，请等待请求完成");
             return;
         }
-        if (Number(answer) !== rightAnswer) {
-            showToast('验证码答案错误');
+        const name = document.getElementById('res_xm').value.trim();
+        const content = document.getElementById('res_tt').value.trim();
+        if (name.length < 2) {
+            showToast('请填写您的姓名');
             return;
         }
         if (content.length < 3) {
             showToast('请填写预约内容与联系方式');
             return;
         }
+        window.isReserveSubmitting = true;
+        submitBtn.disabled = true;
+        submitBtn.innerText = "提交中...";
         GP_data("res", {
-            data: {
-                name: name,
-                txt: content
-            }
+            data: {name: name,txt: content}
         }, function (res) {
-            closeModal();
-            if (res.type === 1) {
+            window.isReserveSubmitting = false;
+            submitBtn.disabled = false;
+            submitBtn.innerText = "确定";
+			closeModal();
+            if (res.type == 1) {
                 const reserveWrap = document.getElementById('vlog');
                 const list = res.data;
                 list.forEach(item => {
                     const itemHtml = `
                     <div class="itemg" id="${item.id}">
                         <div class="itemg_lf">
-                            <span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel('${item.id}','${item.name}',${item.id})">❌</span>
+                            <span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel('${item.id}','${name}',${item.id})">❌</span>
                         </div>
                         <div class="itemg_rg">
                             <div class="itemg_rg_tp">
