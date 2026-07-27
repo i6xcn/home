@@ -833,7 +833,7 @@ let canExecute = true;
 
 async function GP_data(txt,options,callback) {
     const {method = 'POST',data = {},upfile = '',timeout = 30000} = options || {};
-    const url = "i6x.php?type=" + txt;
+    const url = "https://api.rmbk.cc/i6x.php?type=" + txt;
     showLoading();
     let resJson = {msg:false,data:"请求超时！"};
     try {
