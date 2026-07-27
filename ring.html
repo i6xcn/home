@@ -12,9 +12,111 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <style type="text/css">
-*{margin:0;padding:0}body{color:#051b28;font-size:15px;background-color:#eee;}img{border:0;vertical-align:middle;}ul,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}a{text-decoration:none}.contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}.header{padding-top:60px;background:#ff5983;}.top{background:#fff;height:60px;overflow:hidden;}.logo{position: absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;border-radius:100%;margin: 0 auto;overflow:hidden;transform: translate(-50%,-50%);}.navbar{border-bottom:#EDEDED 1px solid;overflow:hidden;}.navbar li{float:left;width:25%;text-align:center}.navbar li a{display:block;padding:8px 0;font-size:17px;color:#858585}.navbar li a:hover{color:#ff5983;background:#eeeeee;}.xhx{color:#ff5983!important;border-bottom:#ff5983 2px solid;display:block}.itemg{overflow:hidden;border-bottom:#EDEDED 1px solid;padding:10px 0;}.itemg_lf{float:left;width:15%;}.itemg_rg{float:right;width:83%;margin-right:1.5%;}.itemg_lf img{display:block;height:70%;width:70%;margin:auto;border-radius:50%;}.itemg_rg_tp{color:#C8C8C8;overflow:hidden;}.itemg_rg_tp div{width:50%;float:left}.itemg_rg_tp h4{color:#0c6ad4;font-weight:700;}.itemg_rg_sm{color:#737373;margin-top: 5px;}.itemg_rg_main{overflow:hidden;}.play-btn{left:50%;top:50%;transform:translate(-50%,-50%);position:absolute;border:0;}.itemg_rg_main ul{display:flex;flex-wrap: wrap;}.bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;z-index:10000;}.childdiv{flex:1;text-align:center;}.bottom a{color:#fff;} .layui-background,#shadows{max-width:620px;min-width:300px;width:100%;background-color:transparent !important;box-shadow: 0 0 0 rgba(0,0,0,0) !important;}.layui-layer-content p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}.wrapper {margin:10px;display:none;}.wrapper .search{display: flex;align-items: center;justify-content:center;width:315px;height:50px;margin:15px auto;box-sizing: border-box;}.wrapper .search-input{flex: 1;box-sizing:border-box;padding:10px;height:100%;background-color:#f7f7f7;border-radius: 9px 0 0 9px;border: 1px solid #ff5983;display:block;overflow:hidden;}.input, .input-wrapper {outline:none;border:none;text-decoration:inherit;}.input-wrapper{display:flex;position:relative;width:100%;height:100%;-webkit-box-orient: vertical;-webkit-box-direction: normal;flex-direction: column;-webkit-box-pack: center;justify-content:center;}.input{background:none;font-size:16px;height:28px;line-height:28px;}.wrapper .search-btn{display:flex;align-items:center;justify-content:center;height:100%;width:75px;background-color:#ff5983;color:#fff;font-size:16px;font-weight: 700;border-radius: 0 9px 9px 0;cursor: pointer;}.wrapper .result-list{margin-top:10px;border-radius:10px;background-color:#eeeeee;color:#1e80ff;border: 1px dashed #ccc;}.wrapper .result-list-item{padding:10px;position:relative;}.wrapper .result-content {display:flex;}.wrapper .result-content-left {width: calc(70% - 5px);margin-right: 10px;}.wrapper .result-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:flex;align-items:center;}.wrapper .result-value a{color: #1e80ff;}.wrapper .result-logo{width:15px;height:15px;border-radius:100%;margin-right: 5px;display:block;background-position: 0% 0%;background-size:100% 100%;background-repeat:no-repeat;}.wrapper .result-list-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:right;}.wrapper .result-list-right{width:calc(30% - 5px);}.wrapper li{display:inline-block;width:23%;margin:10px 1%;position:relative;border-radius:8px;cursor:pointer;}.wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;} @media (max-width: 599px) { .wrapper li {width:31%;} }.Pic-label{text-align:center;line-height:30px;}#PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 0 auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}#PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}fieldset{padding:0 10px 10px;border:1px solid #ccc;}legend{text-align:center;padding:0 10px;}label{position:relative;cursor:pointer;}label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;} label:hover::after {display:block;}.loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
+/* 全局基础 */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{color:#051b28;font-size:15px;background-color:#eee;}
+img{border:0;vertical-align:middle;object-fit:cover;}
+ul,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}
+a{text-decoration:none}
+button{border:none;cursor:pointer;font-size:15px;white-space:nowrap;}
+input{outline:none;border:none;font-family:inherit;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* 页面容器 */
+.contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}
+.header{padding-top:60px;background:#ff5983;}
+.top{background:#fff;height:60px;overflow:hidden;}
+.logo{position:absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;border-radius:100%;margin:0 auto;overflow:hidden;transform:translate(-50%,-50%);}
+
+/* 导航栏 */
+.navbar{border-bottom:#EDEDED 1px solid;overflow:hidden;}
+.navbar li{float:left;width:25%;text-align:center}
+.navbar li a{display:block;padding:8px 0;font-size:17px;color:#858585}
+.navbar li a:hover{color:#ff5983;background:#eeeeee;}
+.navbar li a.xhx{color:#ff5983!important;border-bottom:#ff5983 2px solid;display:block}
+
+/* 内容卡片 itemg */
+.itemg { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
+.itemg_lf{float:left;}
+.itemg_lf img { width: 48px; height: 48px; border-radius: 50%; }
+.itemg_rg { flex: 1; }
+.itemg_rg_tp{color:#C8C8C8;overflow:hidden;}
+.itemg_rg_tp div{width:50%;float:left}
+.itemg_rg_tp h4 { margin: 0; font-size: 16px; color: #0066cc; }
+.itemg_rg_sm { font-size: 14px; color: #666; margin:10px; }
+.itemg_rg_main{overflow:hidden;}
+.itemg_rg_main ul{display:flex;flex-wrap: wrap;}
+
+/* 底部固定导航 */
+.bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;z-index:10000;}
+.bottom .childdiv{flex:1;text-align:center;}
+.bottom a{color:#fff;}
+
+/* 搜索容器 wrapper */
+.wrapper {margin:10px;display:none;}
+.wrapper .search{display: flex;align-items: center;justify-content:center;width:315px;height:50px;margin:15px auto;box-sizing: border-box;}
+.wrapper .search-input{flex: 1;box-sizing:border-box;padding:10px;height:100%;background-color:#f7f7f7;border-radius: 9px 0 0 9px;border: 1px solid #ff5983;display:block;overflow:hidden;}
+.input-wrapper{display:flex;position:relative;width:100%;height:100%;-webkit-box-orient: vertical;-webkit-box-direction: normal;flex-direction: column;-webkit-box-pack: center;justify-content:center;}
+.input{background:none;font-size:16px;height:28px;line-height:28px;width:100%;}
+.wrapper .search-btn{display:flex;align-items:center;justify-content:center;height:100%;width:75px;background-color:#ff5983;color:#fff;font-size:16px;font-weight: 700;border-radius: 0 9px 9px 0;cursor: pointer;}
+.wrapper .result-list{margin-top:10px;border-radius:10px;background-color:#eeeeee;color:#1e80ff;border: 1px dashed #ccc;}
+.wrapper .result-list-item{padding:10px;position:relative;}
+.wrapper .result-content {display:flex;}
+.wrapper .result-content-left {width: calc(70% - 5px);margin-right: 10px;}
+.wrapper .result-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:flex;align-items:center;}
+.wrapper .result-value a{color: #1e80ff;}
+.wrapper .result-logo{width:15px;height:15px;border-radius:100%;margin-right: 5px;display:block;background-position: 0% 0%;background-size:100% 100%;background-repeat:no-repeat;}
+.wrapper .result-list-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:right;}
+.wrapper .result-list-right{width:calc(30% - 5px);}
+.wrapper li{display:inline-block;width:23%;margin: 0 1% 10px 1%;position:relative;border-radius:8px;cursor:pointer;}
+.wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;}
+@media (max-width: 599px) { .wrapper li {width:31%;} }
+
+/* 图片上传区域 */
+.Pic-label{text-align:center;line-height:30px;}
+#PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 10px auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}
+
+/* 表单fieldset */
+fieldset{padding:0 10px 10px;margin: 10px 0;border:1px solid #ccc;}
+legend{text-align:center;padding:0 10px;}
+label{position:relative;cursor:pointer;padding:0 6px;}
+label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;}
+label:hover::after {display:block;}
+
+/* 加载更多 */
+.loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
+.load-more-btn { text-align: center; padding: 14px; color: #666; cursor: pointer; }
+
+/* 全局提示、加载 */
+#toast-box{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 16px;border-radius:4px;z-index:9999;display:none;white-space:nowrap;}
+#loading-box{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;display:none;align-items:center;justify-content:center;}
+.load-spin{width:30px;height:30px;border:3px solid #ff5983;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;}
+
+/* 弹窗核心 + 滚动锁定（合并重复规则） */
+body.modal-open { overflow: hidden !important; height: 100vh !important; }
+#modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
+#modal-box { width: calc(640px * 0.9); background: #ffffff; max-width: 90vw; max-height: 85vh; border-radius: 6px; box-sizing: border-box; overflow: hidden !important; display: flex; flex-direction: column; }
+#modal-box .modal-scroll-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
+#modal-box.video-modal { background: transparent !important; padding: 0 !important; overflow: hidden !important; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+#modal-box.video-modal video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
+#modal-box .modal-scroll-wrap p { width: 100% !important; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* 弹窗表单样式 */
+.prompt-wrap { padding: 10px; }
+.prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
+.prompt-row-flex { display: flex; align-items: center; gap: 10px; }
+.prompt-input { flex: 1; box-sizing: border-box; padding: 9px 12px; border: 1px solid #ddd; border-radius: 4px; font-size: 15px; outline: none; }
+.prompt-input:focus { border-color: #ff5983; }
+.btn-cancel { background: #eeeeee; color: #333333; padding: 8px 18px;border-radius: 4px;}
+.btn-confirm { background: #ff5983; color: #ffffff; padding: 8px 18px;border-radius: 4px;}
+
+/* 缩略图列表 */
+.video-thumbs { list-style: none; padding: 0; margin: 0; }
+.thumb-li { padding-bottom: 20%; height: 70px; flex-shrink: 0; background-position: center; background-size: cover; background-repeat: no-repeat; overflow: hidden; position:relative; }
+.thumb-li.single-card { width:65%; height: auto; padding-bottom: 35%; }
+.play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); pointer-events: none; width:38px;height:38px; }
 </style>
-<script language="javascript">if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");</script>
 </head>
 <body>
 <div class="contant">
@@ -31,26 +133,44 @@
             <li><a id="LOL" href="javascript:void(0);" onclick="LOL()">沙雕</a></li>
         </ul>
     </div>
-
     <div id="Mid-assort" class="wrapper">
-        <div class="search"><div class="search-input"><div class="input-wrapper"><input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="Mid-input" placeholder="请输入歌名"></div></div><div class="search-btn" href="javascript:void(0);" onclick="search_click('#Mid-input')">确 定</div></div>
+        <div class="search">
+            <div class="search-input">
+                <div class="input-wrapper">
+                    <input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="Mid-input" placeholder="请输入歌名">
+                </div>
+            </div>
+            <div class="search-btn" onclick="search_click('#Mid-input')">确 定</div>
+        </div>
         <div id="Mid-key"></div>
         <div id="Mid-data"></div>
     </div>
-
     <div id="Flv-assort" class="wrapper">
-        <div class="search"><div class="search-input"><div class="input-wrapper"><input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="Flv-input" placeholder="请输入短剧名"></div></div><div class="search-btn" href="javascript:void(0);" onclick="search_click('#Flv-input')">搜 剧</div></div>
+        <div class="search">
+            <div class="search-input">
+                <div class="input-wrapper">
+                    <input maxlength="140" enterkeyhint="search" autocomplete="off" type="search" class="input" id="Flv-input" placeholder="请输入短剧名">
+                </div>
+            </div>
+            <div class="search-btn" onclick="search_click('#Flv-input')">搜 剧</div>
+        </div>
         <div id="Flv-key"></div>
         <div id="Flv-data"></div>
     </div>
-
     <div id="LOL-assort" class="wrapper">
         <div id="LOL-data"></div>
         <div id="LOL-loadMore" class="loadMore"></div>
     </div>
-
     <div id="Pic-assort" class="wrapper">
-        <fieldset><legend>图床使用说明</legend><p>1、图片托管于各大官网，最大支持10MB；</p><p>2、禁止上传违规图片，造成后果自负；</p><p>3、<a href="https://s.qiniu.com/eEFNBz" target="_blank" style="color:red;">七牛云存储</a> <a href="https://mp34.lanzout.com/iP8pR230laif" target="_blank" style="color:#0c6ad4;">七牛图床源码下载</a><a href="javascript:void(0);" onclick="picdata()">；</a></p></fieldset>
+        <fieldset>
+            <legend>图床使用说明</legend>
+            <p>1、图片托管于各大官网，最大支持10MB；</p>
+            <p>2、禁止上传违规图片，造成后果自负；</p>
+            <p>3、<a href="https://s.qiniu.com/eEFNBz" target="_blank" style="color:red;">七牛云存储</a>
+            <a href="https://mp34.lanzout.com/iP8pR230laif" target="_blank" style="color:#0c6ad4;">七牛图床源码下载</a>
+            <a href="javascript:void(0);" onclick="picdata()">；</a>
+            </p>
+        </fieldset>
         <div class="Pic-label">
             <label data-hover="推荐使用"><input type="radio" name="type" value="sh">搜狐</label>
             <label data-hover="推荐使用"><input checked type="radio" name="type" value="mt">美图</label>
@@ -65,480 +185,680 @@
         <div id="Pic-data"></div>
         <div id="Pic-loadMore" class="loadMore"></div>
     </div>
-
     <div class="bottom">
         <div class="childdiv"><a href="./">主页</a></div>
         <div class="childdiv"><a href="javascript:scroll(0,0)"><b>圈子</b></a></div>
     </div>
 </div>
-<script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script type="text/javascript" src="https://s4.zstatic.net/ajax/libs/layer/3.5.1/layer.min.js"></script>
-<script type="text/javascript">
-$(function(){
-    const handler = {"#v":Flv,"#s":LOL,"#m":Mid};
-    window.onload = (handler[window.location.hash] || Pic)();
-});
-function search_click(key){
-    const txt = $(key).val();
-    if(txt.trim().length==0){
-        layer.tips(PopUpMsg(9),key,{tips:[3,'#ff5983']});
-		$(key).focus();
+
+<div id="modal-mask">
+    <div id="modal-box"></div>
+</div>
+<div id="toast-box"></div>
+<div id="loading-box">
+    <div class="load-spin"></div>
+</div>
+
+<script>
+if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => document.querySelectorAll(sel);
+// ===================== 页面切换入口 =====================
+window.onload = function(){
+    const hash = location.hash.replace("#","");
+    const handler = {"v":Flv,"s":LOL,"m":Mid};
+    (handler[hash] || Pic)();
+}
+function search_click(keySel){
+    const input = $(keySel);
+    const txt = input.value.trim();
+    if(txt.length === 0){
+        showToast("请输入关键词！");
+        input.focus();
         return false;
     }
-    if(key=='#Mid-input'){
-        Mid_data(txt);
-    } else if (key=='#Flv-input'){
+    if(keySel === '#Mid-input'){
+        Mid_so(txt);
+    } else if (keySel === '#Flv-input'){
         Flv_search(txt);
     }
 }
+
+// ===================== 音乐模块 Mid =====================
 function Mid(){
-    $('#LOL-assort').hide();
-    $('#LOL').removeClass('xhx');
-    $('#Flv').removeClass('xhx');
-    $('#Flv-assort').hide();
-    $('#Pic-assort').hide();
-    $('#Pic').removeClass('xhx');
-    $('#Mid-assort').show();
-    $('#Mid-key').show();
-    $('#Mid-data').hide();
-    $('#Mid').addClass('xhx');
-    $('#Mid-input').val('');
-    window.location.hash = "m";
+    $("#LOL-assort").style.display = "none";
+    $("#LOL").classList.remove("xhx");
+    $("#Flv").classList.remove("xhx");
+    $("#Flv-assort").style.display = "none";
+    $("#Pic-assort").style.display = "none";
+    $("#Pic").classList.remove("xhx");
+    $("#Mid-assort").style.display = "block";
+    $("#Mid-key").style.display = "block";
+    $("#Mid-data").style.display = "none";
+    $("#Mid").classList.add("xhx");
+    $("#Mid-input").value = "";
+    location.hash = "m";
     document.title = "搜音库-你想要的的歌曲库";
-    $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')");
-    const Midkey = $('#Mid-key').html();
-    if(Midkey.trim().length==0){
-		CATCH("Mid_hot","music&ac=hot");
+    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')";
+    const Midkey = $("#Mid-key").innerHTML.trim();
+    if(Midkey.length === 0){
+        CATCH("Mid_hot","music&ac=hot");
     }
 }
 function Mid_hot(list) {
     if (list.msg){
         const data  = list.data;
         const Total = data.length;
-        window.localStorage.setItem('Kimg', list.Kimg);
-        for (var i = 0; i < Total; i++) {
-            const img = data[i].img;
-            const author = data[i].author;
-            const s_name = data[i].name;
-            const s_id = data[i].id;
-            const s_Key = data[i].Key;
-            if (s_name != null && s_name.trim().length !== 0){
-                $("#Mid-key").append('<li><div onclick="Mid_url(\''+s_id+'\',\''+s_Key+'\')" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"></div><span>'+s_name+'</span><span>'+author+'</span></li>');
+		window.localStorage.setItem('Kimg', list.Kimg);
+        let html = "";
+        for (let i = 0; i < Total; i++) {
+            const item = data[i];
+            const img = item.img;
+            const author = item.author;
+            const s_name = item.name;
+            const s_id = item.id;
+            const s_Key = item.Key;
+            if (s_name && s_name.trim().length !== 0){
+                html += `<li>
+                    <div onclick="Mid_url('${s_id}','${s_Key}')" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${img});"></div>
+                    <span>${s_name}</span>
+                    <span>${author}</span>
+                </li>`;
             }
         }
+        $("#Mid-key").innerHTML = html;
     } else {
-        layer.msg(list.data, {icon: 2});
+        showToast(list.data);
     }
 }
-function Mid_data(txt) {
-	const regex = /^\d{6}$/;
-    if (regex.test(String(txt).trim())) { window.localStorage.setItem('tk', txt); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入歌名'); return;  }
-    var tk = localStorage.getItem('tk');
+
+function Mid_so(txt){
+    const tk = localStorage.getItem('tk');
     if (tk === null) {
-		eject(localStorage.getItem('Kimg'),'pic');
-        $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入秘钥'); 
+        const num1 = Math.floor(Math.random() * 9) + 1;
+        const num2 = Math.floor(Math.random() * 9) + 1;
+        const modalHtml = `<div class="prompt-wrap"><div style="display:flex;flex-direction:column;gap:10px;margin-bottom:10px;"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"><div style="display:flex;align-items:center;"><input type="text" id="res_pw" class="prompt-input" style="flex:1;" placeholder="请输入右侧答案"><span style="padding: 0 15px;">${num1} + ${num2}</span></div></div><div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;"><a href="javascript:void(0);" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</a><button class="btn-cancel" onclick="closeModal()">取消</button><button class="btn-confirm" onclick="wedSubmitHandler()">确定</button></div></div>`;
+        window.wedSubmitHandler = function(){
+	    	const answer = document.getElementById('res_pw').value.trim();
+            const rVal = document.getElementById('tk-input').value.trim();
+		    const rightAnswer = num1 + num2;
+            if(rVal.length < 6){
+                showToast('秘钥格式错误');
+                Mid_so(txt);
+		    	return;
+            }
+            if (Number(answer) !== rightAnswer) {
+                showToast('验证码答案错误');
+                Mid_so(txt);
+		    	return;
+            }
+		    Mid_data(txt,rVal);
+	    };
+	    openModal(modalHtml);
+        setTimeout(()=>{
+            document.getElementById('tk-input').focus();
+        }, 60);
     } else {
-        GP_data("music&wd="+txt+"&key="+tk,{method:'GET'},function(list){
-        if (list.msg){
-            const json = list.data; var number = json.length;
-            $("#Mid-data").empty();
-            for (let i = 0; i < number; i++) {
-                const d = json[i].id;
-                if (d){
+		Mid_data(txt,tk);
+    }
+}
+function Mid_data(txt,key) {
+        GP_data("music&wd="+encodeURIComponent(txt)+"&key="+key,{method:'GET'},function(list){
+            if (list.msg){
+                const json = list.data;
+                const number = json.length;
+                let html = "";
+                for (let i = 0; i < number; i++) {
+                    const d = json[i].id;
+                    if (!d) continue;
                     const n = json[i].name;
                     const a = json[i].artists;
                     const k = json[i].Key;
-					const s = json[i].duration;
-                    $("#Mid-data").append('<div class="result-list"><div class="result-list-item"><div class="result-content"><div class="result-content-left"><div class="result-value"><div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div><a href="javascript:void(0);" onclick="Mid_url(\''+d+'\',\''+k+'\')">'+a+' - '+n+'</a></div></div><div class="result-list-right"><div class="result-list-value">'+s+'</div></div></div></div></div></div>');
+                    const s = json[i].duration;
+                    html += `<div class="result-list">
+                        <div class="result-list-item">
+                            <div class="result-content">
+                                <div class="result-content-left">
+                                    <div class="result-value">
+                                        <div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div>
+                                        <a href="javascript:void(0);" onclick="Mid_url('${d}','${k}')">${a} - ${n}</a>
+                                    </div>
+                                </div>
+                                <div class="result-list-right">
+                                    <div class="result-list-value">${s}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
                 }
+                $("#Mid-data").innerHTML = html;
+                $("#Mid-data").style.display = "block";
+                $("#Mid-key").style.display = "none";
+				localStorage.setItem('tk', key);
+				$("#Mid-input").value = '';
+				closeModal();
+            } else {
+                if (list.key){
+                    localStorage.removeItem('tk');
+                    Mid_so(txt);
+                }
+                showToast(list.data);
+                $("#Mid-input").value = '';
             }
-            $('#Mid-data').show();
-            $('#Mid-key').hide();
-            $('#Mid-input').val(txt);
-        } else {
-			if (list.key){window.localStorage.removeItem('tk'); $('#Mid-input').val(''); $('#Mid-input').attr('placeholder', '请输入秘钥');};
-            layer.msg(list.data, {icon: 2});
-			$('#Mid-input').val('');
-        }
         });
-    }
 }
-let canExecute = true;
 function Mid_url(id,tk) {
-	if (!canExecute) { PopUpMsg(7,2);  return; }
-	canExecute = false;
+    if (!canExecute) { showToast("请勿频繁点击！"); return; }
+    canExecute = false;
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
         if (list.msg){
-            layer.open({type:1,title:false,scrollbar:false,id:'shadows',content:'<div style="padding:20px;"><p>歌名：'+list.data.artist+' - '+list.data.name+'</p><p>封面：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.img+'\')">'+list.data.img+'</a></p><p>地址：<a href="javascript:void(0);" onclick="copytxt(\''+list.data.url+'\')">'+list.data.url+'</a></p></div>',btn:0 });
+            const d = list.data;
+            const content = `<div style="padding:20px;">
+                <p>歌名：${d.artist} - ${d.name}</p>
+                <p>封面：<a href="javascript:void(0);" onclick="copytxt('${d.img}')">${d.img}</a></p>
+                <p>地址：<a href="javascript:void(0);" onclick="copytxt('${d.url}')">${d.url}</a></p>
+            </div>`;
+            openModal(content);
         } else {
-            layer.msg(list.data, {icon: 2});
+            showToast(list.data);
         }
     });
-	setTimeout(() => {
-        canExecute = true;
-    },3000);
+    setTimeout(() => { canExecute = true; },3000);
 }
+
+// ===================== 短剧模块 Flv =====================
 function Flv(){
-    $('#Mid').removeClass('xhx');
-    $('#Mid-assort').hide();
-    $('#LOL-assort').hide();
-    $('#LOL').removeClass('xhx');
-    $('#Pic').removeClass('xhx');
-    $('#Pic-assort').hide();
-    $('#Flv').addClass('xhx');
-    $('#Flv-assort').show();
-    $('#Flv-key').show();
-    $('#Flv-data').hide();
-    $('#Flv-input').val('');
-    window.location.hash = "v";
+    $("#Mid").classList.remove("xhx");
+    $("#Mid-assort").style.display = "none";
+    $("#LOL-assort").style.display = "none";
+    $("#LOL").classList.remove("xhx");
+    $("#Pic").classList.remove("xhx");
+    $("#Pic-assort").style.display = "none";
+    $("#Flv").classList.add("xhx");
+    $("#Flv-assort").style.display = "block";
+    $("#Flv-key").style.display = "block";
+    $("#Flv-data").style.display = "none";
+    $("#Flv-input").value = '';
+    location.hash = "v";
     document.title = "短剧池-全网短剧集聚地";
-    $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')");
-    const playkey = $('#Flv-key').html();
-    if(playkey.trim().length==0){
-		CATCH("Flv_hot","vod&ac=hot");
+    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')";
+    const playkey = $("#Flv-key").innerHTML.trim();
+    if(playkey.length === 0){
+        CATCH("Flv_hot","vod&ac=hot");
     }
 }
 function Flv_hot(list) {
-	$("#Flv-key").empty();
-	$('#Flv-key').show();
-	$('#Flv-data').hide();
+    $("#Flv-key").innerHTML = "";
+    $("#Flv-key").style.display = "block";
+    $("#Flv-data").style.display = "none";
     if (list.msg){
         const data  = list.data;
         const Total = data.length;
-        for (var i = 0; i < Total; i++) {
-            const img = data[i].cover;
-            const remarks = data[i].marks;
-            const title = data[i].name;
-            const episode = JSON.stringify(data[i]) .replace(/\\"/g, '"') .replace(/"/g, '&quot;');
-            $("#Flv-key").append('<li><div onclick="Flv_data(\'['+episode+']\')" style="width:100%;padding-bottom:139%;border-radius:8px;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url('+img+');"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></div><span>'+title+'</span><span>'+remarks+'</span></li>');
+        let html = "";
+        for (let i = 0; i < Total; i++) {
+            const item = data[i];
+            const img = item.cover;
+            const remarks = item.marks;
+            const title = item.name;
+            let rawJson = JSON.stringify(item);
+            rawJson = rawJson.replace(/"/g, "&quot;");
+            html += `<li>
+                <div class="flv-item-click" data-raw="${rawJson}" style="width:100%;padding-bottom:139%;border-radius:8px;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${img});">
+                    <svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg>
+                </div>
+                <span>${title}</span>
+                <span>${remarks}</span>
+            </li>`;
+        }
+        $("#Flv-key").innerHTML = html;
+        $("#Flv-key").onclick = function(e) {
+            const target = e.target.closest(".flv-item-click");
+            if (!target) return;
+            let jsonStr = target.dataset.raw;
+            jsonStr = jsonStr.replace(/&quot;/g, '"');
+            Flv_data(jsonStr);
         }
     } else {
-        layer.msg(list.data, {icon: 2});
+        showToast(list.data);
     }
 }
 function Flv_search(txt) {
-    GP_data("vod&wd="+txt,{method:'GET'},function(list){
+    GP_data("vod&wd="+encodeURIComponent(txt),{method:'GET'},function(list){
         if (list.msg){
-			Flv_hot(list);
+            Flv_hot(list);
         } else {
-            layer.msg(list.data, {icon: 2});
+            showToast(list.data);
         }
     });
 }
-function Flv_data(js) {
-    $("#Flv-data").empty();
-    $('#Flv-data').show();
-    $('#Flv-key').hide();
-    $('#Flv-input').val();
-    const Flv = JSON.parse(decodeURIComponent(js));
-    for (var i = 0; i < Flv.length; i++) {
-        const vod = Flv[i].episode;
-        const txt = Flv[i].name.replace(/\d+[-,、.]/g, '');
-        if (vod != null){
+function Flv_data(jsonStr) {
+    $("#Flv-data").innerHTML = "";
+    $("#Flv-data").style.display = "block";
+    $("#Flv-key").style.display = "none";
+    $("#Flv-input").value = "";
+    try {
+        const item = JSON.parse(jsonStr);
+        const list = [item];
+        let htmlAll = "";
+        for (let i = 0; i < list.length; i++) {
+            const vod = list[i].episode;
+            const txt = list[i].name.replace(/\d+[-,、.]/g, '');
+            if (!vod) continue;
             let html = '';
-            for (var k = 0; k < vod.length; k++) {
-                html  += '<a href="'+vod[k].url+'" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">'+vod[k].name+'</a>';
+            for (let k = 0; k < vod.length; k++) {
+                html += `<a href="${vod[k].url}" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">${vod[k].name}</a>`;
             }
-            $("#Flv-data").append('<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">'+txt+'-'+Flv[i].type+'</p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>'+html+'</div></div></div>');
+            htmlAll += `<div class="result-list">
+                <div class="result-list-item">
+                    <p style="color:#0c6ad4;font-weight:700;font-size:16px;">${txt}-${list[i].type}</p>
+                    <p>视频来自网络,别信视频广告,谨防上当受骗!</p>
+                    ${html}
+                </div>
+            </div>`;
         }
+        $("#Flv-data").innerHTML = htmlAll;
+    } catch (err) {
+        console.error("短剧解析错误：", err);
+        showToast("短剧数据解析失败");
     }
 }
+
+// ===================== 搞笑圈子 LOL =====================
 function LOL(){
-    $('#Mid-assort').hide();
-    $('#Mid').removeClass('xhx');
-    $('#Pic-assort').hide();
-    $('#Pic').removeClass('xhx');
-    $('#Flv-assort').hide();
-    $('#Flv').removeClass('xhx');
-    $('#LOL-assort').show();
-    $('#LOL').addClass('xhx');
-    window.location.hash = "s";
+    $("#Mid-assort").style.display = "none";
+    $("#Mid").classList.remove("xhx");
+    $("#Pic-assort").style.display = "none";
+    $("#Pic").classList.remove("xhx");
+    $("#Flv-assort").style.display = "none";
+    $("#Flv").classList.remove("xhx");
+    $("#LOL-assort").style.display = "block";
+    $("#LOL").classList.add("xhx");
+    location.hash = "s";
     document.title = "搞笑圈子-我的快乐源泉";
-    $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')");
-    const data = $('#LOL-data').html();
-    if(data.trim().length==0){
+    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')";
+    const data = $("#LOL-data").innerHTML.trim();
+    if(data.length === 0){
         LOL_data();
     }
 }
-function LOL_data(num){
-    var page = isNaN(num) ? 1 : Number(num);
-    GP_data("other&pg="+page,{method:'GET'},function(list){
-        if (list.msg == false){
-            layer.msg(list.data, {icon: 2});
-            $("#LOL-loadMore").html(list.data);
+// 全局加载锁，防止重复点击加载更多
+let isLoadingLOL = false;
+function LOL_data(num) {
+    if (isLoadingLOL) return;
+    const page = isNaN(num) ? 1 : Number(num);
+    isLoadingLOL = true;
+    GP_data("other&pg=" + page, { method: 'GET' }, function (list) {
+        isLoadingLOL = false;
+        const loadMoreBox = document.getElementById('LOL-loadMore');
+        const dataWrap = document.getElementById('LOL-data');
+        if (list.msg === false) {
+            showToast(list.data);
+            if (loadMoreBox) loadMoreBox.innerHTML = list.data;
         } else {
-            var LOLdata = list.data;
-            for (var i = 0; i < LOLdata.length; i++) {
-                var user   = LOLdata[i].user; var cards  = LOLdata[i].cards; var title  = LOLdata[i].title;
-                var avatar = LOLdata[i].avatar; var outimg = "";var css = "";
-                if (cards.length === 1){ var css = "width:65%;padding-bottom:40%;";}
-                for (var ii = 0; ii < cards.length; ii++) {
-                    var imgurl = cards[ii].img_url;
-                    var origin = cards[ii].img_url_big;
-                    var video  = cards[ii].mp4_url;
-                    if (video === '' || video.trim().length === 0){
-                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;padding-bottom:25%;'+css+'" onclick="eject(\''+origin+'\',\'pic\')"></li>';
-                    }else{
-                        var outimg = outimg+'<li style="background-image:url('+imgurl+');background-position:center;background-size:cover;'+css+'" onclick="eject(\''+video+'\',\'video\',\''+imgurl+'\')"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>';
+            const LOLdata = list.data;
+            let htmlWrap = "";
+            for (let i = 0; i < LOLdata.length; i++) {
+                const item = LOLdata[i];
+                const user = item.user;
+                const cards = item.cards;
+                const title = item.title;
+                const avatar = item.avatar;
+                let outimg = "";
+                const singleCss = cards.length === 1 ? 'single-card' : '';
+                for (let ii = 0; ii < cards.length; ii++) {
+                    const c = cards[ii];
+                    const imgurl = c.img_url;
+                    const origin = c.img_url_big;
+                    const video = c.mp4_url || '';
+                    const safeImg = imgurl.replace(/"/g, '&quot;');
+                    const safeOrigin = origin.replace(/"/g, '&quot;');
+                    const safeVideo = video.replace(/"/g, '&quot;');
+
+                    if (video.trim() === "") {
+                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeOrigin}','pic')"></li>`;
+                    } else {
+                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeVideo}','video','${safeImg}')">
+                            <svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg>
+                        </li>`;
                     }
                 }
-                $("#LOL-data").append('<div class="itemg"><div class="itemg_lf"><img src="'+avatar+'"></div><div class="itemg_rg"><div class="itemg_rg_tp"><h4>'+user+'</h4></div><div class="itemg_rg_sm">'+title+'</div><div class="itemg_rg_main"><ul>'+outimg+'</ul></div></div></div>');
+                htmlWrap += `<div class="itemg">
+                    <div class="itemg_lf"><img src="${avatar}" alt=""></div>
+                    <div class="itemg_rg">
+                        <div class="itemg_rg_tp"><h4>${user}</h4></div>
+                        <div class="itemg_rg_sm">${title}</div>
+                        <div class="itemg_rg_main">
+                            <ul class="video-thumbs">${outimg}</ul>
+                        </div>
+                    </div>
+                </div>`;
             }
-            var next = page+1;
-            $("#LOL-loadMore").html('<div onclick="LOL_data('+next+')">加载更多...</div>');
+            if (dataWrap) dataWrap.innerHTML += htmlWrap;
+            const nextPage = page + 1;
+            if (loadMoreBox) {
+                loadMoreBox.innerHTML = `<div class="load-more-btn" onclick="LOL_data(${nextPage})">加载更多...</div>`;
+            }
         }
     });
 }
+
+// ===================== 图床模块 Pic =====================
 function Pic(){
-    $('#Mid-assort').hide();
-    $('#Mid').removeClass('xhx');
-    $('#Flv-assort').hide();
-    $('#Flv').removeClass('xhx');
-    $('#LOL-assort').hide();
-    $('#LOL').removeClass('xhx');
-    $('#Pic').addClass('xhx');
-    $('#Pic-assort').show();
-    window.location.hash = "t";
+    $("#Mid-assort").style.display = "none";
+    $("#Mid").classList.remove("xhx");
+    $("#Flv-assort").style.display = "none";
+    $("#Flv").classList.remove("xhx");
+    $("#LOL-assort").style.display = "none";
+    $("#LOL").classList.remove("xhx");
+    $("#Pic").classList.add("xhx");
+    $("#Pic-assort").style.display = "block";
+    location.hash = "t";
     document.title = "图床-免费图片托管链接";
-    $("#logo").css("background-image", "url('https://img0.baidu.com/it/u=1895635493,1543052772&fm=253')");
-    if (localStorage.getItem("img")!=null){
-        var arrr = new String(localStorage.getItem("img")).split(","); var data = '';
-        for (i=0;i<arrr.length;i++ ){
-            data += '<li style="background-image:url('+arrr[i]+');background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt(\''+arrr[i]+'\')" title="点击复制图链"></li>';
+    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=1895635493,1543052772&fm=253')";
+    if (localStorage.getItem("img")){
+        const arrr = localStorage.getItem("img").split(",");
+        let data = '';
+        for (let i=0;i<arrr.length;i++ ){
+            const url = arrr[i];
+            data += `<li style="background-image:url(${url});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${url}')" title="点击复制图链"></li>`;
         }
-        $("#Pic-data").html(data);
-        $("#Pic-data").show();
+        $("#Pic-data").innerHTML = data;
+        $("#Pic-data").style.display = "block";
     }
-    const PicUpload = document.getElementById('PicUpload');
-    const fileInput = document.getElementById('fileInput');
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
-    ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
-    ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
+    const PicUpload = $("#PicUpload");
+    const fileInput = $("#fileInput");
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        PicUpload.addEventListener(eventName, preventDefaults, false);
+    });
+    ['dragenter', 'dragover'].forEach(eventName => {
+        PicUpload.addEventListener(eventName, highlight, false);
+    });
+    ['dragleave', 'drop'].forEach(eventName => {
+        PicUpload.addEventListener(eventName, unhighlight, false);
+    });
     PicUpload.addEventListener('drop', handleDrop, false);
-    PicUpload.addEventListener('click', function(e) { e.stopPropagation();fileInput.click(); });
-    fileInput.addEventListener('change', function(e) { handleFiles(e); this.value = ""; });
+    PicUpload.addEventListener('click', function(e) {
+        e.stopPropagation();
+        fileInput.click();
+    });
+    fileInput.addEventListener('change', function(e) {
+        handleFiles(e);
+        this.value = "";
+    });
 }
 function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-function highlight() { PicUpload.classList.add('highlight'); }
-function unhighlight() { PicUpload.classList.remove('highlight'); }
+function highlight() { $("#PicUpload").classList.add('highlight'); }
+function unhighlight() { $("#PicUpload").classList.remove('highlight'); }
 function handleDrop(e) { const files = e.dataTransfer.files; handleFiles({ target: { files } }); }
 function handleFiles(e) {
     const files = e.target.files;
     Array.from(files).forEach(file => {
-        const S = file.size; const M = 10;
-        const t= $('input:radio[name="type"]:checked').val();
+        const S = file.size;
+        const M = 10;
+        let t = "";
+        $$('input[name="type"]').forEach(radio=>{
+            if(radio.checked) t = radio.value;
+        });
         if(!file){
-            PopUpMsg(4,2);
-        }else if(parseInt(S) >= parseInt(M*1024*1024)){  
-            PopUpMsg(1,2);
-        }else if(!t){  
-            PopUpMsg(3,2);
+            showToast("加载失败！");
+        }else if(S >= M*1024*1024){
+            showToast("图片超过限制大小！");
+        }else if(!t){
+            showToast("请选择上传接口！");
         }else{
-            var formData = new FormData();
+            const formData = new FormData();
             formData.append("file", file);
             formData.append("type", t);
-            GP_data("upimg",{upfile:'upfile',data:formData,timeout:0},function(list){
+            GP_data("upimg",{upfile:'upfile',data:formData},function(list){
                 if (list.msg){
-                    PopUpMsg(6,1);
-                    $("#Pic-data").prepend('<li style="background-image:url('+list.data.img+');background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt(\''+list.data.img+'\')" title="点击复制图链"></li>');
-                    addlocal('img',list.data.img);
+                    showToast("上传成功，点击图片复制！");
+                    const img = list.data.img;
+                    $("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="background-image:url(${img});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${img}')" title="点击复制图链"></li>`);
+                    addlocal('img',img);
                 } else {
-                    layer.msg(list.data, {icon: 2});
+                    showToast(list.data);
                 }
             });
         }
     });
 }
 function picdata(){
-    layer.prompt({title:false,closeBtn:0,formType:1},function (value,index) {
-        $("#Pic-data").html('');
-        pic_data(value);
-		layer.close(index);
+    layerPrompt(function(val){
+		if(!isEmpty(val)){
+			$("#Pic-data").innerHTML = '';
+			pic_data(val);
+		}
     });
 }
 function pic_data(n,p){
-    var page = isNaN(p) ? 1 : Number(p);
-    $("#Pic-loadMore").html('');
+    const page = isNaN(p) ? 1 : Number(p);
+    $("#Pic-loadMore").innerHTML = '';
     GP_data("upimg",{data:{land:n,p:page}},function(list){
         if (list.msg == false){
-            layer.msg(list.data, {icon: 2});
-			$("#Pic-loadMore").html('');
+            showToast(list.data);
+            $("#Pic-loadMore").innerHTML = '';
         } else {
-            var data = list.data; var num = data.length; var total= list.total; var img = '';
-            for (var i = 0; i < num; i++) {
-                var img = data[i].img;
-                if (img != null || img.trim().length !== 0){
-                    var id = data[i].id; var at = data[i].time; var ip = data[i].ip;
-                    $("#Pic-data").append('<li id="'+id+'" style="display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;"><span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;line-height:20px;cursor:pointer;z-index:99;" onclick="pic_del(\'#'+id+'\',\''+n+'\',\''+id+'\')">X</span><span style="background-image:url(\''+img+'\');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject(\''+img+'\',\'pic\',\''+ip+'\',\''+at+'\')"></span></li>');
-                }
+            const data = list.data;
+            const total= list.total;
+            let imgHtml = '';
+            for (let i = 0; i < data.length; i++) {
+                const item = data[i];
+                const img = item.img;
+                if (!img || img.trim() === "") continue;
+                const id = item.id;
+                const at = item.time;
+                const ip = item.ip;
+                imgHtml += `<li id="${id}" style="height:0;padding-bottom:30%;">
+                    <span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;line-height:20px;cursor:pointer;z-index:99;" onclick="pic_del('#${id}','${n}','${id}')">X</span>
+                    <span style="background-image:url('${img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${img}','pic','${ip}','${at}')"></span>
+                </li>`;
             }
-            if (list.page > page){var next = page+1; $("#Pic-loadMore").html('<div onclick="pic_data(\''+n+'\',\''+next+'\')">加载更多...</div>');}
+            $("#Pic-data").innerHTML += imgHtml;
+            if (list.page > page){
+                const next = page+1;
+                $("#Pic-loadMore").innerHTML = `<div onclick="pic_data('${n}',${next})">加载更多...</div>`;
+            }
         }
     });
 }
-function pic_del(i,n,id){
-    GP_data("upimg",{data:{land:n,del:id}},function(list){ if (list.msg) { $(i).remove(); layer.msg(list.data, {icon: 1}); } else { layer.msg(list.data, {icon: 2});} });
+function pic_del(iSel, n, id) {
+    GP_data("upimg", {data: {land: n,del: id} }, function (list) {
+        if (list.msg === true || list.code === 200) {
+            const liItem = document.getElementById(id);
+            if (liItem) {
+                liItem.remove();
+            }
+        }
+        showToast(list.data || list.msg);
+    });
 }
 function check_ip(ip){
-    GP_data("ip&ip="+ip,{method:'GET'},function(list){
+    GP_data("ip&ip="+encodeURIComponent(ip),{method:'GET'},function(list){
+        const wrap = $("#ipres");
         if (isEmpty(list.data.address)){
-            $("#ipres").html(PopUpMsg(8));
+            wrap.innerText = "未查到地址信息！";
         } else {
-            $("#ipres").html(list.data.address);
+            wrap.innerText = list.data.address;
         }
     });
 }
 function addlocal(type,value){
-    if (localStorage.getItem(type)==null) {
-        var data = value;
-    } else {
-        var data = value + ',' + localStorage.getItem(type);
+    let old = localStorage.getItem(type);
+    if(old === null){
+        localStorage.setItem(type, value);
+    }else{
+        localStorage.setItem(type, value + ',' + old);
     }
-    localStorage.setItem(type,data);
 }
-function eject(u,t,i,a) { 
-    var loadeject = layer.load(0, {shade:false});
-    if (t == "pic"){
-        if (i||a) { var x='<p>图片链接：<a href="javascript:void(0);" onclick="copytxt(\''+u+'\')">'+u+'</a></p><p>上传时间：'+a+'</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip(\''+i+'\')">'+i+'</a></span></p>'; } else { var x=''; }
-        getImageWidth(u,function(w,h){
-            layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,id:'shadows',shadeClose:true,content:x+'<img width="100%" src="'+u+'" onclick="layer.closeAll()" href="javascript:;">'});
-            layer.close(loadeject);
-        });
-    }else if(t == "video"){
-        getVideoDimensions(u)
-            .then(({ width, height }) => {
-                layer.close(loadeject);
-				layer.open({type:1,title:false,scrollbar:false,shade:0.8,closeBtn:0,skin:'layui-background',area:[width,height],shadeClose:true,content:'<video id="myVideo" controls width="100%" height="99%" oncontextmenu="return false;" controlslist="nodownload" poster="'+i+'" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint"><source src="'+u+'" type="video/mp4"></video><script type="text/javascript">var video = document.getElementById("myVideo"); video.play(); video.addEventListener("ended", function() { video.play(); }, false); video.muted = false; video.addEventListener("touchstart", function() { layer.closeAll(); },false); video.addEventListener("WeixinJSBridgeReady", function() { video.play(); }, false);<'+'/script>'});
-            })
-            .catch(error => {
-                layer.close(loadeject);
-                PopUpMsg(3,2);
-            });
 
-		
-    }
-}
-function getImageWidth(url,callback) {
-    var img = new Image();
-    img.src = url;
-    if (img.complete) {
-        callback(img.width, img.height);
-    } else {
-        img.onload = function () {
-            callback(img.width, img.height);
-        };
-        img.onerror = function() {
-            PopUpMsg(2,2);
-        };
-    }
-}
-function getVideoDimensions(url) {
-    return new Promise((resolve, reject) => {
-        const tempVideo = document.createElement('video');
-        tempVideo.style.display = 'none';
-        document.body.appendChild(tempVideo);
-        const timeoutId = setTimeout(() => {
-            cleanupTempVideo(tempVideo);
-            PopUpMsg(3,2);
-        }, 15000);
-        tempVideo.src = url;
-        tempVideo.preload = 'metadata';
-        tempVideo.addEventListener('loadedmetadata', function() {
-            clearTimeout(timeoutId);
-            const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-            const screenHeight = window.innerHeight || document.documentElement.clientHeight;
-            const maxWidth = screenWidth * 0.9;
-            const maxHeight = screenHeight * 0.85;
-            let finalWidth = tempVideo.videoWidth;
-            let finalHeight = tempVideo.videoHeight;
-            if (finalWidth > maxWidth || finalHeight > maxHeight) {
-            const widthRatio = maxWidth / finalWidth;
-            const heightRatio = maxHeight / finalHeight;
-            const scaleRatio = Math.min(widthRatio, heightRatio);
-            finalWidth = Math.floor(finalWidth * scaleRatio);
-            finalHeight = Math.floor(finalHeight * scaleRatio);
+// ===================== 函数 =====================
+function eject(u,t,i,a) {
+    showLoading();
+    if (t == "pic"){
+        let x = '';
+        if(i||a) {
+            x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p>
+            <p>上传时间：${a}</p>
+            <p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`;
+        }
+        const pic = new Image();
+        pic.src = u;
+        pic.onload = function () {
+            const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`;
+            openModal(html, false, true);
+        }
+        pic.onerror = function() {
+            showToast("加载失败！");
+        }
+		hideLoading();
+    }else if(t == "video"){
+        const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint">
+            <source src="${u}" type="video/mp4">
+        </video>`;
+        openModal(html, true);
+        setTimeout(()=>{
+            const video = document.getElementById('myVideo');
+            if(video){
+                video.play();
+                video.addEventListener('ended',()=>video.play());
+                video.addEventListener('touchstart',closeModal);
             }
-            const width = finalWidth+'px';
-            const height = finalHeight+'px';
-            cleanupTempVideo(tempVideo);
-            resolve({ width, height });
-        });
-        tempVideo.addEventListener('error', function() {
-            clearTimeout(timeoutId);
-            cleanupTempVideo(tempVideo);
-            PopUpMsg(3,2);
-        });
-    });
-}
-function cleanupTempVideo(element) {
-    if (element && element.parentNode) {
-        element.parentNode.removeChild(element);
+        }, 100);
+		hideLoading();
     }
 }
+
 function copytxt(d) {
-    var input = document.createElement('input');
+    const input = document.createElement('input');
     input.setAttribute('readonly', 'readonly');
-    input.setAttribute('value', d);
+    input.value = d;
     document.body.appendChild(input);
     input.select();
     input.setSelectionRange(0, 9999);
     document.execCommand('Copy');
-    input.remove();
-    PopUpMsg(5,1);
+    document.body.removeChild(input);
+    showToast("复制成功！");
 }
 function isEmpty(value) {
     return value === null || value === undefined || value === "" || (typeof value === "string" && value.trim() === "");
 }
-function PopUpMsg(i,n) {
-    const Arr = ["请求超时！","图片超过限制大小！","加载失败！","请选择上传接口！","未选择任何文件！","复制成功！","上传成功，点击图片复制！","请勿频繁点击！","未查到地址信息！","请输入关键词！"];
-    if (isEmpty(n)) { return Arr[i]; }
-    layer.msg(Arr[i], {icon:n});
-}
-function GP_data(txt,options,callback) {
-    const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,dataType = 'json'} = options || {};
-    const url = "https://api.rmbk.cc/i6x.php?type=";
-	const GPload = layer.load(0, {shade: false});
-    $.ajax({
-        url: url+txt,
-        type: method,
-        data: method === 'GET' ? null : data,
-        dataType: dataType,
-        timeout: timeout,
-        contentType: upfile === 'upfile' ? false : undefined,
-        processData: upfile === 'upfile' ? false : undefined,
-        headers: headers,
-        success: function(list) {
-            callback(list);
-        },
-        error: function() {
-            callback({msg:false,data:PopUpMsg(0)});
-        },
-        complete: function () {
-            layer.close(GPload);
-        }
-    });
-}
 function getToday() {
-    let date = new Date();
-    let Y = date.getFullYear();
-    let M = date.getMonth()+1;
-    let D = date.getDate();
+    const date = new Date();
+    const Y = date.getFullYear();
+    const M = date.getMonth()+1;
+    const D = date.getDate();
     return `${Y}-${M}-${D}`;
 }
-function CATCH(KEY,	URL) {
-    let CATCH_DATA = window.localStorage.getItem(KEY);
-    let data = JSON.parse(CATCH_DATA);
-    if (data !== null && data !== undefined && data.validDate === getToday()) {
-        if(typeof window[KEY] === 'function') { return window[KEY](data.list);  }
+function CATCH(KEY, URL) {
+    let CATCH_DATA = localStorage.getItem(KEY);
+    let data = null;
+    try{ data = JSON.parse(CATCH_DATA); }catch(e){}
+    if (data !== null && data.validDate === getToday()) {
+        if(typeof window[KEY] === 'function') {
+            window[KEY](data.list);
+        }
     } else {
         GP_data(URL,{method:'GET'},function(list){
             if (list.msg){
-                window.localStorage.setItem(KEY, JSON.stringify({ list, validDate: getToday(), }) );
-                if(typeof window[KEY] === 'function') { return window[KEY](list);  }
+                localStorage.setItem(KEY, JSON.stringify({ list, validDate: getToday() }));
+                if(typeof window[KEY] === 'function') {
+                    window[KEY](list);
+                }
             } else {
-                layer.msg(list.data, {icon: 2});
+                showToast(list.data);
             }
         });
+    }
+}
+function showToast(text, delay = 1500) {
+    const toast = $("#toast-box");
+    toast.innerText = text;
+    toast.style.display = "block";
+    setTimeout(() => toast.style.display = "none", delay);
+}
+function showLoading() { $("#loading-box").style.display = "flex"; }
+function hideLoading() { $("#loading-box").style.display = "none"; }
+function openModal(html, isVideo = false) {
+    const mask = $("#modal-mask");
+    const box = $("#modal-box");
+    mask.style.display = "flex";
+    if (isVideo) {
+        box.innerHTML = html;
+        box.classList.add('video-modal');
+        box.onclick = function() {
+            closeModal();
+        }
+    } else {
+        box.innerHTML = `<div class="modal-scroll-wrap">${html}</div>`;
+        box.classList.remove('video-modal');
+        box.onclick = null;
+    }
+    document.body.classList.add("modal-open");
+    mask.onclick = (e) => {
+        if (e.target === mask) closeModal();
+    }
+}
+
+function closeModal() {
+    $("#modal-mask").style.display = "none";
+    $("#modal-box").innerHTML = "";
+    $("#modal-box").classList.remove('video-modal');
+    document.body.classList.remove("modal-open");
+}
+function layerPrompt(callback) {
+    const mask = $("#modal-mask");
+    const box = $("#modal-box");
+    box.innerHTML = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button><button type="button" class="btn-cancel" onclick="closeModal()">取消</button></div></div>`;
+    mask.style.display = "flex";
+    box.classList.remove('video-modal');
+    window.promptCallback = callback;
+    box.onclick = function (e) {
+        e.stopPropagation();
+    }
+    setTimeout(function(){
+        const inputEl = document.getElementById('prompt-input');
+        if(inputEl) inputEl.focus();
+    }, 50);
+}
+
+function submitPrompt() {
+    const val = $("#prompt-input").value.trim();
+    closeModal();
+    if (typeof window.promptCallback === 'function') {
+        window.promptCallback(val);
+    }
+}
+
+let canExecute = true;
+
+async function GP_data(txt,options,callback) {
+    const {method = 'POST',data = {},upfile = '',timeout = 30000} = options || {};
+    const url = "i6x.php?type=" + txt;
+    showLoading();
+    let resJson = {msg:false,data:"请求超时！"};
+    try {
+        const controller = new AbortController();
+        const timer = setTimeout(()=>controller.abort(), timeout);
+        let fetchOpt = {method, signal: controller.signal};
+        if(method !== 'GET'){
+            if(upfile === 'upfile'){
+                fetchOpt.body = data;
+            }else{
+                fetchOpt.headers = {'Content-Type':'application/x-www-form-urlencoded'};
+                const params = new URLSearchParams();
+                for(let k in data) params.append(k, data[k]);
+                fetchOpt.body = params.toString();
+            }
+        }
+        const resp = await fetch(url, fetchOpt);
+        clearTimeout(timer);
+        if(!resp.ok) throw new Error("http error");
+        resJson = await resp.json();
+    } catch (err) {
+        resJson = {msg:false,data:"请求超时！"};
+    } finally {
+        hideLoading();
+        callback(resJson);
     }
 }
 </script>
