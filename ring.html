@@ -21,20 +21,17 @@ a{text-decoration:none}
 button{border:none;cursor:pointer;font-size:15px;white-space:nowrap;}
 input{outline:none;border:none;font-family:inherit;}
 @keyframes spin{to{transform:rotate(360deg);}}
-
 /* 页面容器 */
 .contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}
 .header{padding-top:60px;background:#ff5983;}
 .top{background:#fff;height:60px;overflow:hidden;}
 .logo{position:absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;border-radius:100%;margin:0 auto;overflow:hidden;transform:translate(-50%,-50%);}
-
 /* 导航栏 */
 .navbar{border-bottom:#EDEDED 1px solid;overflow:hidden;}
 .navbar li{float:left;width:25%;text-align:center}
 .navbar li a{display:block;padding:8px 0;font-size:17px;color:#858585}
 .navbar li a:hover{color:#ff5983;background:#eeeeee;}
 .navbar li a.xhx{color:#ff5983!important;border-bottom:#ff5983 2px solid;display:block}
-
 /* 内容卡片 itemg */
 .itemg { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
 .itemg_lf{float:left;}
@@ -46,12 +43,10 @@ input{outline:none;border:none;font-family:inherit;}
 .itemg_rg_sm {color: #666; margin:10px; }
 .itemg_rg_main{overflow:hidden;}
 .itemg_rg_main ul{display:flex;flex-wrap: wrap;}
-
 /* 底部固定导航 */
 .bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;z-index:10000;}
 .bottom .childdiv{flex:1;text-align:center;}
 .bottom a{color:#fff;}
-
 /* 搜索容器 wrapper */
 .wrapper {margin:10px;display:none;}
 .wrapper .search{display: flex;align-items: center;justify-content:center;width:315px;height:50px;margin:15px auto;box-sizing: border-box;}
@@ -71,28 +66,23 @@ input{outline:none;border:none;font-family:inherit;}
 .wrapper li{display:inline-block;width:23%;margin: 0 1% 10px 1%;position:relative;border-radius:8px;cursor:pointer;}
 .wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;}
 @media (max-width: 599px) { .wrapper li {width:31%;} }
-
 /* 图片上传区域 */
 .Pic-label{text-align:center;line-height:30px;}
 #PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 10px auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}
 #PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}
-
 /* 表单fieldset */
 fieldset{padding:0 10px 10px;margin: 10px 0;border:1px solid #ccc;}
 legend{text-align:center;padding:0 10px;}
 label{position:relative;cursor:pointer;padding:0 6px;}
 label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;}
 label:hover::after {display:block;}
-
 /* 加载更多 */
 .loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
 .load-more-btn { text-align: center; padding: 14px; color: #666; cursor: pointer; }
-
 /* 全局提示、加载 */
 #toast-box{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 16px;border-radius:4px;z-index:9999;display:none;white-space:nowrap;}
 #loading-box{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;display:none;align-items:center;justify-content:center;}
 .load-spin{width:30px;height:30px;border:3px solid #ff5983;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;}
-
 /* 弹窗核心 + 滚动锁定（合并重复规则） */
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
@@ -101,7 +91,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-box.video-modal { background: transparent !important; padding: 0 !important; overflow: hidden !important; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 #modal-box.video-modal video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
 #modal-box .modal-scroll-wrap p { width: 100% !important; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-
 /* 弹窗表单样式 */
 .prompt-wrap { padding: 10px; }
 .prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
@@ -110,7 +99,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 .prompt-input:focus { border-color: #ff5983; }
 .btn-cancel { background: #eeeeee; color: #333333; padding: 8px 18px;border-radius: 4px;}
 .btn-confirm { background: #ff5983; color: #ffffff; padding: 8px 18px;border-radius: 4px;}
-
 /* 缩略图列表 */
 .video-thumbs { list-style: none; padding: 0; margin: 0; }
 .thumb-li { padding-bottom: 20%; height: 70px; flex-shrink: 0; background-position: center; background-size: cover; background-repeat: no-repeat; overflow: hidden; position:relative; }
@@ -190,7 +178,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         <div class="childdiv"><a href="javascript:scroll(0,0)"><b>圈子</b></a></div>
     </div>
 </div>
-
 <div id="modal-mask">
     <div id="modal-box"></div>
 </div>
@@ -198,12 +185,9 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 <div id="loading-box">
     <div class="load-spin"></div>
 </div>
-
 <script>
 if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
-let canExecute = true;
+
 // ===================== 页面切换入口 =====================
 window.onload = function(){
     const hash = location.hash.replace("#","");
@@ -211,7 +195,7 @@ window.onload = function(){
     (handler[hash] || Pic)();
 }
 function search_click(keySel){
-    const input = $(keySel);
+    const input = document.querySelector(keySel);
     const txt = input.value.trim();
     if(txt.length === 0){
         showToast("请输入关键词！");
@@ -224,24 +208,24 @@ function search_click(keySel){
         Flv_search(txt);
     }
 }
-
 // ===================== 音乐模块 Mid =====================
+let canExecute = true;
 function Mid(){
-    $("#LOL-assort").style.display = "none";
-    $("#LOL").classList.remove("xhx");
-    $("#Flv").classList.remove("xhx");
-    $("#Flv-assort").style.display = "none";
-    $("#Pic-assort").style.display = "none";
-    $("#Pic").classList.remove("xhx");
-    $("#Mid-assort").style.display = "block";
-    $("#Mid-key").style.display = "block";
-    $("#Mid-data").style.display = "none";
-    $("#Mid").classList.add("xhx");
-    $("#Mid-input").value = "";
+    document.querySelector("#LOL-assort").style.display = "none";
+    document.querySelector("#LOL").classList.remove("xhx");
+    document.querySelector("#Flv").classList.remove("xhx");
+    document.querySelector("#Flv-assort").style.display = "none";
+    document.querySelector("#Pic-assort").style.display = "none";
+    document.querySelector("#Pic").classList.remove("xhx");
+    document.querySelector("#Mid-assort").style.display = "block";
+    document.querySelector("#Mid-key").style.display = "block";
+    document.querySelector("#Mid-data").style.display = "none";
+    document.querySelector("#Mid").classList.add("xhx");
+    document.querySelector("#Mid-input").value = "";
     location.hash = "m";
     document.title = "搜音库-你想要的的歌曲库";
-    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')";
-    const Midkey = $("#Mid-key").innerHTML.trim();
+    document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')";
+    const Midkey = document.querySelector("#Mid-key").innerHTML.trim();
     if(Midkey.length === 0){
         CATCH("Mid_hot","music&ac=hot");
     }
@@ -267,24 +251,23 @@ function Mid_hot(list) {
                 </li>`;
             }
         }
-        $("#Mid-key").innerHTML = html;
+        document.querySelector("#Mid-key").innerHTML = html;
     } else {
         showToast(list.data);
     }
 }
-
 function Mid_so(txt){
     const tk = localStorage.getItem('tk');
     if (tk === null) {
         const modalHtml = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"><button type="button" class="btn-confirm" onclick="wedSubmitHandler()">确定</button><button type="button" class="btn-cancel" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</button></div></div>`;
         window.wedSubmitHandler = function(){
-            const rVal = document.getElementById('tk-input').value.trim();
+            const rVal = document.querySelector("#tk-input").value.trim();
             if(isEmpty(rVal)){ closeModal(); return; }
 		    Mid_data(txt,rVal);
 	    };
 	    openModal(modalHtml);
 	    setTimeout(function(){
-		    const inputEl = document.getElementById('tk-input');
+		    const inputEl = document.querySelector("#tk-input");
 		    if(inputEl) inputEl.focus();
 	    }, 50);
     } else {
@@ -321,20 +304,21 @@ function Mid_data(txt,key) {
                         </div>
                     </div>`;
                 }
-                $("#Mid-data").innerHTML = html;
-                $("#Mid-data").style.display = "block";
-                $("#Mid-key").style.display = "none";
+                document.querySelector("#Mid-data").innerHTML = html;
+                document.querySelector("#Mid-data").style.display = "block";
+                document.querySelector("#Mid-key").style.display = "none";
 				localStorage.setItem('tk', key);
-				$("#Mid-input").value = '';
+				document.querySelector("#Mid-input").value = '';
             } else {
                 if (list.key){
                     localStorage.removeItem('tk');
                 }
                 showToast(list.data);
-                $("#Mid-input").value = '';
+                document.querySelector("#Mid-input").value = '';
             }
         });
 }
+
 function Mid_url(id,tk) {
     if (!canExecute) { showToast("请稍后..."); return; }
     canExecute = false;
@@ -342,43 +326,42 @@ function Mid_url(id,tk) {
         if (list.msg){
             const d = list.data;
             const content = `<div style="padding:20px;">
-                <p>歌名：${d.artist} - ${d.name}</p>
-                <p>封面：<a href="javascript:void(0);" onclick="copytxt('${d.img}')">${d.img}</a></p>
-                <p>地址：<a href="javascript:void(0);" onclick="copytxt('${d.url}')">${d.url}</a></p>
+                <p>歌曲名称：${d.artist} - ${d.name}</p>
+                <p>封面图片：<a href="javascript:void(0);" onclick="copytxt('${d.img}')">点击复制</a></p>
+                <p>下载地址：<a href="javascript:void(0);" onclick="copytxt('${d.url}')">点击复制</a></p>
             </div>`;
             openModal(content);
         } else {
             showToast(list.data);
         }
     });
-    setTimeout(() => { canExecute = true; },3000);
+    setTimeout(() => { canExecute = true; },4000);
 }
-
 // ===================== 短剧模块 Flv =====================
 function Flv(){
-    $("#Mid").classList.remove("xhx");
-    $("#Mid-assort").style.display = "none";
-    $("#LOL-assort").style.display = "none";
-    $("#LOL").classList.remove("xhx");
-    $("#Pic").classList.remove("xhx");
-    $("#Pic-assort").style.display = "none";
-    $("#Flv").classList.add("xhx");
-    $("#Flv-assort").style.display = "block";
-    $("#Flv-key").style.display = "block";
-    $("#Flv-data").style.display = "none";
-    $("#Flv-input").value = '';
+    document.querySelector("#Mid").classList.remove("xhx");
+    document.querySelector("#Mid-assort").style.display = "none";
+    document.querySelector("#LOL-assort").style.display = "none";
+    document.querySelector("#LOL").classList.remove("xhx");
+    document.querySelector("#Pic").classList.remove("xhx");
+    document.querySelector("#Pic-assort").style.display = "none";
+    document.querySelector("#Flv").classList.add("xhx");
+    document.querySelector("#Flv-assort").style.display = "block";
+    document.querySelector("#Flv-key").style.display = "block";
+    document.querySelector("#Flv-data").style.display = "none";
+    document.querySelector("#Flv-input").value = '';
     location.hash = "v";
     document.title = "短剧池-全网短剧集聚地";
-    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')";
-    const playkey = $("#Flv-key").innerHTML.trim();
+    document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')";
+    const playkey = document.querySelector("#Flv-key").innerHTML.trim();
     if(playkey.length === 0){
         CATCH("Flv_hot","vod&ac=hot");
     }
 }
 function Flv_hot(list) {
-    $("#Flv-key").innerHTML = "";
-    $("#Flv-key").style.display = "block";
-    $("#Flv-data").style.display = "none";
+    document.querySelector("#Flv-key").innerHTML = "";
+    document.querySelector("#Flv-key").style.display = "block";
+    document.querySelector("#Flv-data").style.display = "none";
     if (list.msg){
         const data  = list.data;
         const Total = data.length;
@@ -398,8 +381,8 @@ function Flv_hot(list) {
                 <span>${remarks}</span>
             </li>`;
         }
-        $("#Flv-key").innerHTML = html;
-        $("#Flv-key").onclick = function(e) {
+        document.querySelector("#Flv-key").innerHTML = html;
+        document.querySelector("#Flv-key").onclick = function(e) {
             const target = e.target.closest(".flv-item-click");
             if (!target) return;
             let jsonStr = target.dataset.raw;
@@ -420,10 +403,10 @@ function Flv_search(txt) {
     });
 }
 function Flv_data(jsonStr) {
-    $("#Flv-data").innerHTML = "";
-    $("#Flv-data").style.display = "block";
-    $("#Flv-key").style.display = "none";
-    $("#Flv-input").value = "";
+    document.querySelector("#Flv-data").innerHTML = "";
+    document.querySelector("#Flv-data").style.display = "block";
+    document.querySelector("#Flv-key").style.display = "none";
+    document.querySelector("#Flv-input").value = "";
     try {
         const item = JSON.parse(jsonStr);
         const list = [item];
@@ -444,27 +427,26 @@ function Flv_data(jsonStr) {
                 </div>
             </div>`;
         }
-        $("#Flv-data").innerHTML = htmlAll;
+        document.querySelector("#Flv-data").innerHTML = htmlAll;
     } catch (err) {
         console.error("短剧解析错误：", err);
         showToast("短剧数据解析失败");
     }
 }
-
 // ===================== 搞笑圈子 LOL =====================
 function LOL(){
-    $("#Mid-assort").style.display = "none";
-    $("#Mid").classList.remove("xhx");
-    $("#Pic-assort").style.display = "none";
-    $("#Pic").classList.remove("xhx");
-    $("#Flv-assort").style.display = "none";
-    $("#Flv").classList.remove("xhx");
-    $("#LOL-assort").style.display = "block";
-    $("#LOL").classList.add("xhx");
+    document.querySelector("#Mid-assort").style.display = "none";
+    document.querySelector("#Mid").classList.remove("xhx");
+    document.querySelector("#Pic-assort").style.display = "none";
+    document.querySelector("#Pic").classList.remove("xhx");
+    document.querySelector("#Flv-assort").style.display = "none";
+    document.querySelector("#Flv").classList.remove("xhx");
+    document.querySelector("#LOL-assort").style.display = "block";
+    document.querySelector("#LOL").classList.add("xhx");
     location.hash = "s";
     document.title = "搞笑圈子-我的快乐源泉";
-    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')";
-    const data = $("#LOL-data").innerHTML.trim();
+    document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')";
+    const data = document.querySelector("#LOL-data").innerHTML.trim();
     if(data.length === 0){
         LOL_data();
     }
@@ -477,8 +459,8 @@ function LOL_data(num) {
     isLoadingLOL = true;
     GP_data("other&pg=" + page, { method: 'GET' }, function (list) {
         isLoadingLOL = false;
-        const loadMoreBox = document.getElementById('LOL-loadMore');
-        const dataWrap = document.getElementById('LOL-data');
+        const loadMoreBox = document.querySelector("#LOL-loadMore");
+        const dataWrap = document.querySelector("#LOL-data");
         if (list.msg === false) {
             showToast(list.data);
             if (loadMoreBox) loadMoreBox.innerHTML = list.data;
@@ -501,7 +483,6 @@ function LOL_data(num) {
                     const safeImg = imgurl.replace(/"/g, '&quot;');
                     const safeOrigin = origin.replace(/"/g, '&quot;');
                     const safeVideo = video.replace(/"/g, '&quot;');
-
                     if (video.trim() === "") {
                         outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeOrigin}','pic')"></li>`;
                     } else {
@@ -529,20 +510,19 @@ function LOL_data(num) {
         }
     });
 }
-
 // ===================== 图床模块 Pic =====================
 function Pic(){
-    $("#Mid-assort").style.display = "none";
-    $("#Mid").classList.remove("xhx");
-    $("#Flv-assort").style.display = "none";
-    $("#Flv").classList.remove("xhx");
-    $("#LOL-assort").style.display = "none";
-    $("#LOL").classList.remove("xhx");
-    $("#Pic").classList.add("xhx");
-    $("#Pic-assort").style.display = "block";
+    document.querySelector("#Mid-assort").style.display = "none";
+    document.querySelector("#Mid").classList.remove("xhx");
+    document.querySelector("#Flv-assort").style.display = "none";
+    document.querySelector("#Flv").classList.remove("xhx");
+    document.querySelector("#LOL-assort").style.display = "none";
+    document.querySelector("#LOL").classList.remove("xhx");
+    document.querySelector("#Pic").classList.add("xhx");
+    document.querySelector("#Pic-assort").style.display = "block";
     location.hash = "t";
     document.title = "图床-免费图片托管链接";
-    $("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=1895635493,1543052772&fm=253')";
+    document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=1895635493,1543052772&fm=253')";
     if (localStorage.getItem("img")){
         const arrr = localStorage.getItem("img").split(",");
         let data = '';
@@ -550,11 +530,11 @@ function Pic(){
             const url = arrr[i];
             data += `<li style="background-image:url(${url});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${url}')" title="点击复制图链"></li>`;
         }
-        $("#Pic-data").innerHTML = data;
-        $("#Pic-data").style.display = "block";
+        document.querySelector("#Pic-data").innerHTML = data;
+        document.querySelector("#Pic-data").style.display = "block";
     }
-    const PicUpload = document.getElementById('PicUpload');
-    const fileInput = document.getElementById('fileInput');
+    const PicUpload = document.querySelector("#PicUpload");
+    const fileInput = document.querySelector("#fileInput");
     // 阻止默认拖拽行为
     function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
     // 拖拽高亮
@@ -593,7 +573,7 @@ function Pic(){
                 if (list.msg) {
                     showToast("上传成功，点击图片复制！");
                     const imgUrl = list.data.img;
-                    document.getElementById('Pic-data').insertAdjacentHTML( 'afterbegin', `<li style="background-image:url(${imgUrl});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></li>` );
+                    document.querySelector("#Pic-data").insertAdjacentHTML( 'afterbegin', `<li style="background-image:url(${imgUrl});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></li>` );
                     addlocal('img', imgUrl);
                 } else {
                     showToast(list.data);
@@ -602,22 +582,21 @@ function Pic(){
         });
     }
 }
-
 function picdata(){
     layerPrompt(function(val){
 		if(!isEmpty(val)){
-			$("#Pic-data").innerHTML = '';
+			document.querySelector("#Pic-data").innerHTML = '';
 			pic_data(val);
 		}
     });
 }
 function pic_data(n,p){
     const page = isNaN(p) ? 1 : Number(p);
-    $("#Pic-loadMore").innerHTML = '';
+    document.querySelector("#Pic-loadMore").innerHTML = '';
     GP_data("upimg",{data:{land:n,p:page}},function(list){
         if (list.msg == false){
             showToast(list.data);
-            $("#Pic-loadMore").innerHTML = '';
+            document.querySelector("#Pic-loadMore").innerHTML = '';
         } else {
             const data = list.data;
             const total= list.total;
@@ -634,10 +613,10 @@ function pic_data(n,p){
                     <span style="background-image:url('${img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${img}','pic','${ip}','${at}')"></span>
                 </li>`;
             }
-            $("#Pic-data").innerHTML += imgHtml;
+            document.querySelector("#Pic-data").innerHTML += imgHtml;
             if (list.page > page){
                 const next = page+1;
-                $("#Pic-loadMore").innerHTML = `<div onclick="pic_data('${n}',${next})">加载更多...</div>`;
+                document.querySelector("#Pic-loadMore").innerHTML = `<div onclick="pic_data('${n}',${next})">加载更多...</div>`;
             }
         }
     });
@@ -653,15 +632,27 @@ function pic_del(iSel, n, id) {
         showToast(list.data || list.msg);
     });
 }
-function check_ip(ip){
-    GP_data("ip&ip="+encodeURIComponent(ip),{method:'GET'},function(list){
-        const wrap = $("#ipres");
-        if (isEmpty(list.data.address)){
-            wrap.innerText = "未查到地址信息！";
-        } else {
-            wrap.innerText = list.data.address;
-        }
-    });
+function layerPrompt(callback) {
+    const mask = document.querySelector("#modal-mask");
+    const box = document.querySelector("#modal-box");
+    box.innerHTML = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button></div></div>`;
+    mask.style.display = "flex";
+    box.classList.remove('video-modal');
+    window.promptCallback = callback;
+    box.onclick = function (e) {
+        e.stopPropagation();
+    }
+    setTimeout(function(){
+        const inputEl = document.getElementById('prompt-input');
+        if(inputEl) inputEl.focus();
+    }, 50);
+}
+function submitPrompt() {
+    const val = document.querySelector("#prompt-input").value.trim();
+    closeModal();
+    if (typeof window.promptCallback === 'function') {
+        window.promptCallback(val);
+    }
 }
 function addlocal(type,value){
     let old = localStorage.getItem(type);
@@ -671,7 +662,6 @@ function addlocal(type,value){
         localStorage.setItem(type, value + ',' + old);
     }
 }
-
 // ===================== 函数 =====================
 function eject(u,t,i,a) {
     showLoading();
@@ -708,7 +698,6 @@ function eject(u,t,i,a) {
 		hideLoading();
     }
 }
-
 function copytxt(d) {
     const input = document.createElement('input');
     input.setAttribute('readonly', 'readonly');
@@ -752,16 +741,16 @@ function CATCH(KEY, URL) {
     }
 }
 function showToast(text, delay = 1500) {
-    const toast = $("#toast-box");
+    const toast = document.querySelector("#toast-box");
     toast.innerText = text;
     toast.style.display = "block";
     setTimeout(() => toast.style.display = "none", delay);
 }
-function showLoading() { $("#loading-box").style.display = "flex"; }
-function hideLoading() { $("#loading-box").style.display = "none"; }
+function showLoading() { document.querySelector("#loading-box").style.display = "flex"; }
+function hideLoading() { document.querySelector("#loading-box").style.display = "none"; }
 function openModal(html, isVideo = false) {
-    const mask = $("#modal-mask");
-    const box = $("#modal-box");
+    const mask = document.querySelector("#modal-mask");
+    const box = document.querySelector("#modal-box");
     mask.style.display = "flex";
     if (isVideo) {
         box.innerHTML = html;
@@ -779,38 +768,22 @@ function openModal(html, isVideo = false) {
         if (e.target === mask) closeModal();
     }
 }
-
 function closeModal() {
-    $("#modal-mask").style.display = "none";
-    $("#modal-box").innerHTML = "";
-    $("#modal-box").classList.remove('video-modal');
+    document.querySelector("#modal-mask").style.display = "none";
+    document.querySelector("#modal-box").innerHTML = "";
+    document.querySelector("#modal-box").classList.remove('video-modal');
     document.body.classList.remove("modal-open");
 }
-function layerPrompt(callback) {
-    const mask = $("#modal-mask");
-    const box = $("#modal-box");
-    box.innerHTML = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button></div></div>`;
-    mask.style.display = "flex";
-    box.classList.remove('video-modal');
-    window.promptCallback = callback;
-    box.onclick = function (e) {
-        e.stopPropagation();
-    }
-    setTimeout(function(){
-        const inputEl = document.getElementById('prompt-input');
-        if(inputEl) inputEl.focus();
-    }, 50);
+function check_ip(ip){
+    GP_data("ip&ip="+encodeURIComponent(ip),{method:'GET'},function(list){
+        const wrap = document.querySelector("#ipres");
+        if (isEmpty(list.data.address)){
+            wrap.innerText = "未查到地址信息！";
+        } else {
+            wrap.innerText = list.data.address;
+        }
+    });
 }
-
-function submitPrompt() {
-    const val = $("#prompt-input").value.trim();
-    closeModal();
-    if (typeof window.promptCallback === 'function') {
-        window.promptCallback(val);
-    }
-}
-
-
 async function GP_data(txt, options, callback) {
     const opts = options || {};
     const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,dataType = 'json'} = opts;
@@ -853,13 +826,10 @@ async function GP_data(txt, options, callback) {
         let errMsg;
         if (err.name === 'AbortError') {
             errMsg = '请求超时';
-        } else if (err.message.includes('CORS') || err.message.includes('Access to fetch')) {
-            errMsg = '跨域拦截';
         } else {
             errMsg = err.message;
         }
         callback({ msg: false, data: errMsg });
-
     } finally {
         clearTimeout(timerId);
         hideLoading();
