@@ -815,7 +815,7 @@ async function GP_data(txt, options, callback) {
     const opts = options || {};
     const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,dataType = 'json'} = opts;
     const baseUrl = "https://api.rmbk.cc/i6x.php?type=";
-    const APIurl = baseUrl + encodeURIComponent(txt);
+    const APIurl = baseUrl + txt;
     showLoading();
     const controller = new AbortController();
     const timerId = setTimeout(() => controller.abort(), timeout);
