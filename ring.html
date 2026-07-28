@@ -553,63 +553,56 @@ function Pic(){
         $("#Pic-data").innerHTML = data;
         $("#Pic-data").style.display = "block";
     }
-    const PicUpload = $("#PicUpload");
-    const fileInput = $("#fileInput");
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        PicUpload.addEventListener(eventName, preventDefaults, false);
-    });
-    ['dragenter', 'dragover'].forEach(eventName => {
-        PicUpload.addEventListener(eventName, highlight, false);
-    });
-    ['dragleave', 'drop'].forEach(eventName => {
-        PicUpload.addEventListener(eventName, unhighlight, false);
-    });
+    const PicUpload = document.getElementById('PicUpload');
+    const fileInput = document.getElementById('fileInput');
+    // 阻止默认拖拽行为
+    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+    // 拖拽高亮
+    function highlight() { PicUpload.classList.add('highlight'); }
+    // 取消高亮
+    function unhighlight() { PicUpload.classList.remove('highlight'); }
+    // 批量绑定拖拽事件
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
+    ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
+    ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
+    // 拖拽放下处理
+    function handleDrop(e) { const files = e.dataTransfer.files; handleFiles({ target: { files } }); }
+    // 点击唤起文件选择
+    PicUpload.addEventListener('click', function (e) { e.stopPropagation(); fileInput.click(); });
+    // 文件框选中
+    fileInput.addEventListener('change', function (e) { handleFiles(e); this.value = ""; });
+    // 绑定drop
     PicUpload.addEventListener('drop', handleDrop, false);
-    PicUpload.addEventListener('click', function(e) {
-        e.stopPropagation();
-        fileInput.click();
-    });
-    fileInput.addEventListener('change', function(e) {
-        handleFiles(e);
-        this.value = "";
-    });
-}
-function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-function highlight() { $("#PicUpload").classList.add('highlight'); }
-function unhighlight() { $("#PicUpload").classList.remove('highlight'); }
-function handleDrop(e) { const files = e.dataTransfer.files; handleFiles({ target: { files } }); }
-function handleFiles(e) {
-    const files = e.target.files;
-    Array.from(files).forEach(file => {
-        const S = file.size;
-        const M = 10;
-        let t = "";
-        $$('input[name="type"]').forEach(radio=>{
-            if(radio.checked) t = radio.value;
-        });
-        if(!file){
-            showToast("加载失败！");
-        }else if(S >= M*1024*1024){
-            showToast("图片超过限制大小！");
-        }else if(!t){
-            showToast("请选择上传接口！");
-        }else{
+    // 处理文件核心逻辑
+    function handleFiles(e) {
+        const files = e.target.files;
+        const maxSize = 10 * 1024 * 1024;
+        Array.from(files).forEach(file => {
+            // 获取选中上传类型
+            let uploadType = "";
+            document.querySelectorAll('input[name="type"]').forEach(radio => {
+               if (radio.checked) uploadType = radio.value;
+            });
+            if (!file) return showToast("加载失败！");
+            if (file.size >= maxSize) return showToast("图片超过限制大小！");
+            if (!uploadType) return showToast("请选择上传接口！");
             const formData = new FormData();
             formData.append("file", file);
-            formData.append("type", t);
-            GP_data("upimg",{upfile:'upfile',data:formData},function(list){
-                if (list.msg){
+            formData.append("type", uploadType);
+            GP_data("upimg", { upfile: 'upfile', data: formData }, function (list) {
+                if (list.msg) {
                     showToast("上传成功，点击图片复制！");
-                    const img = list.data.img;
-                    $("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="background-image:url(${img});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${img}')" title="点击复制图链"></li>`);
-                    addlocal('img',img);
+                    const imgUrl = list.data.img;
+                    document.getElementById('Pic-data').insertAdjacentHTML( 'afterbegin', `<li style="background-image:url(${imgUrl});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></li>` );
+                    addlocal('img', imgUrl);
                 } else {
                     showToast(list.data);
                 }
             });
-        }
-    });
+        });
+    }
 }
+
 function picdata(){
     layerPrompt(function(val){
 		if(!isEmpty(val)){
@@ -817,35 +810,58 @@ function submitPrompt() {
     }
 }
 
-async function GP_data(txt, options = {}, callback) {
-    const {method = 'POST',data = {},timeout = 45000 } = options;
-    const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
+
+async function GP_data(txt, options, callback) {
+    const opts = options || {};
+    const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,dataType = 'json'} = opts;
+    const baseUrl = "https://api.rmbk.cc/i6x.php?type=";
+    const APIurl = baseUrl + encodeURIComponent(txt);
     showLoading();
     const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeout);
+    const timerId = setTimeout(() => controller.abort(), timeout);
     try {
-        let fetchOpt = {
-            method,
-            signal: controller.signal,
-            mode: 'cors',
-            headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        };
-        if(method !== 'GET'){
-            const params = new URLSearchParams();
-            for(let k in data) params.append(k, data[k]);
-            fetchOpt.body = params.toString();
+        const fetchConfig = {method: method.toUpperCase(),signal: controller.signal,headers: { ...headers } };
+        // GET 请求不带 body
+        if (fetchConfig.method !== 'GET') {
+            // 文件上传：FormData
+            if (upfile === 'upfile') {
+                fetchConfig.body = data;
+            } else {
+                const params = new URLSearchParams();
+                for (let key in data) {
+                    params.append(key, data[key]);
+                }
+                fetchConfig.body = params.toString();
+                fetchConfig.headers['Content-Type'] = 'application/x-www-form-urlencoded';
+            }
         }
-        const res = await fetch(APIurl, fetchOpt);
-        const list = await res.json();
-        callback(list);
+        const res = await fetch(APIurl, fetchConfig);
+        if (!res.ok) {
+            throw new Error(`HTTP Error: ${res.status}`);
+        }
+        // 根据dataType解析返回
+        let result;
+        if (dataType === 'json') {
+            result = await res.json();
+        } else if (dataType === 'text') {
+            result = await res.text();
+        } else {
+            result = await res.blob();
+        }
+        callback(result);
     } catch (err) {
-        if(err.name === 'AbortError'){
-            callback({msg:false,data:'服务器连接超时！'});
-        }else{
-            callback({msg:false,data:'接口跨域被拦截！'});
+        let errMsg;
+        if (err.name === 'AbortError') {
+            errMsg = '请求超时';
+        } else if (err.message.includes('CORS') || err.message.includes('Access to fetch')) {
+            errMsg = '跨域拦截';
+        } else {
+            errMsg = err.message;
         }
+        callback({ msg: false, data: errMsg });
+
     } finally {
-        clearTimeout(timer);
+        clearTimeout(timerId);
         hideLoading();
     }
 }
