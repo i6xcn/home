@@ -256,30 +256,6 @@ function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
     }
 }
 
-async function GP_data(txt, options = {}, callback) {
-    const {method = 'POST',data = {},timeout = 30000 } = options;
-    const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
-    showLoad();
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeout);
-    try {
-        let fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
-        if(method !== 'GET'){
-            const params = new URLSearchParams();
-            for(let k in data) params.append(k, data[k]);
-            fetchOpt.body = params.toString();
-        }
-        const res = await fetch(APIurl, fetchOpt);
-        const list = await res.json();
-        callback(list);
-    } catch (err) {
-        callback({msg:false,data:'请求超时！'});
-    } finally {
-        clearTimeout(timer);
-        closeLoad();
-    }
-}
-
 // 获取今日日期
 function getToday() {
     let date = new Date();
@@ -406,7 +382,7 @@ function wedList(){
     <div class="prompt-wrap">
         <p class="prompt-title">🔍 客片查询</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
-            <input type="text" id="temp_riqi" class="prompt-input" placeholder="请输入拍摄日期，如20190501">
+            <input type="text" id="temp_riqi" class="prompt-input" placeholder="请输入拍摄日期，如20090101">
             <input type="text" id="temp_kehu" class="prompt-input" placeholder="请输入客户姓名">
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
@@ -420,14 +396,16 @@ function wedList(){
         const kVal = document.getElementById('temp_kehu').value.trim();
         if(rVal.length < 8){
             showToast('日期格式错误');
+			document.getElementById('temp_riqi').focus();
             return;
         }
         if(kVal.length < 2){
             showToast('请填写姓名');
+			document.getElementById('temp_kehu').focus();
             return;
         }
+		closeModal();
         GP_data("wed",{data:{time:rVal,name:kVal}},res=>{
-            closeModal();
             if(!res.msg){
                 showToast(res.data);
             }else{
@@ -436,9 +414,6 @@ function wedList(){
         })
     };
 	openModal(modalHtml, false, false, true);
-    setTimeout(()=>{
-        document.getElementById('temp_riqi').focus();
-    }, 60);
 }
 
 // ===================== 预约留言弹窗 =====================
@@ -448,7 +423,7 @@ function reserve() {
         <p class="prompt-title">💬 欢迎留言</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="res_xm" class="prompt-input" placeholder="请输入您的姓名">
-            <input type="text" id="res_tt" class="prompt-input" placeholder="请输入预约内容、联系方式">
+            <input type="text" id="res_tt" class="prompt-input" placeholder="请输入预约内容 及 联系方式">
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
             <button class="btn-cancel" onclick="closeModal()">取消</button>
@@ -456,32 +431,21 @@ function reserve() {
         </div>
     </div>
     `;
-	window.isReserveSubmitting = false;
     window.reserveSubmit = function () {
-        if (window.isReserveSubmitting) {
-            showToast("请勿重复提交，请等待请求完成");
-            return;
-        }
         const name = document.getElementById('res_xm').value.trim();
         const content = document.getElementById('res_tt').value.trim();
         if (name.length < 2) {
             showToast('请填写您的姓名');
+			document.getElementById('res_xm').focus();
             return;
         }
         if (content.length < 3) {
             showToast('请填写预约内容与联系方式');
+			document.getElementById('res_tt').focus();
             return;
         }
-        window.isReserveSubmitting = true;
-        submitBtn.disabled = true;
-        submitBtn.innerText = "提交中...";
-        GP_data("res", {
-            data: {name: name,txt: content}
-        }, function (res) {
-            window.isReserveSubmitting = false;
-            submitBtn.disabled = false;
-            submitBtn.innerText = "确定";
-			closeModal();
+		closeModal();
+        GP_data("res", { data: {name: name,txt: content} }, function (res) {
             if (res.type == 1) {
                 const reserveWrap = document.getElementById('vlog');
                 const list = res.data;
@@ -507,12 +471,8 @@ function reserve() {
         });
     };
     openModal(modalHtml, false, false, true);
-    setTimeout(() => {
-        document.getElementById('res_xm').focus();
-    }, 60);
 }
 function resdel(iSel,n,id){
-    if (!confirm('确定删除这条留言？删除无法恢复')) return;
     GP_data("res",{data:{land:n,del:id}},function(list){
         if (list.msg) {
             const delLi = document.getElementById(id);
@@ -554,6 +514,29 @@ function player(url,type,img) {
                 video.addEventListener('touchstart',closeModal);
             }
         }, 100);
+    }
+}
+async function GP_data(txt, options = {}, callback) {
+    const {method = 'POST',data = {},timeout = 30000 } = options;
+    const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
+    showLoad();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
+    try {
+        let fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
+        if(method !== 'GET'){
+            const params = new URLSearchParams();
+            for(let k in data) params.append(k, data[k]);
+            fetchOpt.body = params.toString();
+        }
+        const res = await fetch(APIurl, fetchOpt);
+        const list = await res.json();
+        callback(list);
+    } catch (err) {
+        callback({msg:false,data:'请求超时！'});
+    } finally {
+        clearTimeout(timer);
+        closeLoad();
     }
 }
 </script>
