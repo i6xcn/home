@@ -43,7 +43,7 @@ input{outline:none;border:none;font-family:inherit;}
 .itemg_rg_tp{color:#C8C8C8;overflow:hidden;}
 .itemg_rg_tp div{width:50%;float:left}
 .itemg_rg_tp h4 { margin: 0; font-size: 16px; color: #0066cc; }
-.itemg_rg_sm { font-size: 14px; color: #666; margin:10px; }
+.itemg_rg_sm {color: #666; margin:10px; }
 .itemg_rg_main{overflow:hidden;}
 .itemg_rg_main ul{display:flex;flex-wrap: wrap;}
 
@@ -69,7 +69,7 @@ input{outline:none;border:none;font-family:inherit;}
 .wrapper .result-list-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:right;}
 .wrapper .result-list-right{width:calc(30% - 5px);}
 .wrapper li{display:inline-block;width:23%;margin: 0 1% 10px 1%;position:relative;border-radius:8px;cursor:pointer;}
-.wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;line-height:15px;padding-top: 5px;font-size:.875rem;}
+.wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;}
 @media (max-width: 599px) { .wrapper li {width:31%;} }
 
 /* 图片上传区域 */
@@ -276,20 +276,17 @@ function Mid_hot(list) {
 function Mid_so(txt){
     const tk = localStorage.getItem('tk');
     if (tk === null) {
-        const modalHtml = `<div class="prompt-wrap"><div style="display:flex;flex-direction:column;margin-bottom:10px;"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"></div><div style="display:flex;gap:8px;justify-content:flex-end;align-items:center;"><a href="javascript:void(0);" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</a><button class="btn-confirm" onclick="wedSubmitHandler()">确定</button></div></div>`;
+        const modalHtml = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"><button type="button" class="btn-confirm" onclick="wedSubmitHandler()">确定</button><button type="button" class="btn-cancel" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</button></div></div>`;
         window.wedSubmitHandler = function(){
-            if (!canExecute) { showToast("请勿频繁点击！"); return; }
-            canExecute = false;
             const rVal = document.getElementById('tk-input').value.trim();
-            if(isEmpty(rVal)){
-                showToast('请输入秘钥');
-                Mid_so(txt);
-		    	return;
-            }
+            if(isEmpty(rVal)){ closeModal(); return; }
 		    Mid_data(txt,rVal);
 	    };
-			setTimeout(() => { canExecute = true; },3000);
 	    openModal(modalHtml);
+	    setTimeout(function(){
+		    const inputEl = document.getElementById('tk-input');
+		    if(inputEl) inputEl.focus();
+	    }, 50);
     } else {
 		Mid_data(txt,tk);
     }
@@ -339,7 +336,7 @@ function Mid_data(txt,key) {
         });
 }
 function Mid_url(id,tk) {
-    if (!canExecute) { showToast("请勿频繁点击！"); return; }
+    if (!canExecute) { showToast("请稍后..."); return; }
     canExecute = false;
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
         if (list.msg){
@@ -640,7 +637,7 @@ function pic_data(n,p){
                 const at = item.time;
                 const ip = item.ip;
                 imgHtml += `<li id="${id}" style="height:0;padding-bottom:30%;">
-                    <span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;line-height:20px;cursor:pointer;z-index:99;" onclick="pic_del('#${id}','${n}','${id}')">X</span>
+                    <span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;cursor:pointer;z-index:99;" onclick="pic_del('#${id}','${n}','${id}')">X</span>
                     <span style="background-image:url('${img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${img}','pic','${ip}','${at}')"></span>
                 </li>`;
             }
@@ -799,7 +796,7 @@ function closeModal() {
 function layerPrompt(callback) {
     const mask = $("#modal-mask");
     const box = $("#modal-box");
-    box.innerHTML = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button><button type="button" class="btn-cancel" onclick="closeModal()">取消</button></div></div>`;
+    box.innerHTML = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button></div></div>`;
     mask.style.display = "flex";
     box.classList.remove('video-modal');
     window.promptCallback = callback;
@@ -852,7 +849,6 @@ async function GP_data(txt, options = {}, callback) {
         hideLoading();
     }
 }
-
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
 </body>
