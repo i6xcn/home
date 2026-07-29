@@ -57,12 +57,12 @@ input{outline:none;border:none;font-family:inherit;}
 .wrapper .result-list{margin-top:10px;border-radius:10px;background-color:#eeeeee;color:#1e80ff;border: 1px dashed #ccc;}
 .wrapper .result-list-item{padding:10px;position:relative;}
 .wrapper .result-content {display:flex;}
-.wrapper .result-content-left {width: calc(70% - 5px);margin-right: 10px;}
-.wrapper .result-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:flex;align-items:center;}
+.wrapper .result-content-left {width: calc(100% - 50px);display:flex;gap: 5px;align-items: center;}
+.wrapper .result-value{width:100%;}
 .wrapper .result-value a{color: #1e80ff;}
-.wrapper .result-logo{width:15px;height:15px;border-radius:100%;margin-right: 5px;display:block;background-position: 0% 0%;background-size:100% 100%;background-repeat:no-repeat;}
-.wrapper .result-list-value{width:100%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;text-align:right;}
-.wrapper .result-list-right{width:calc(30% - 5px);}
+.wrapper .result-logo{width:16px;height:15px;border-radius:100%;margin-right: 5px;display:block;background-position: 0% 0%;background-size:100% 100%;background-repeat:no-repeat;}
+.wrapper .result-list-value{width:100%;text-align:right;}
+.wrapper .result-list-right{width:50px;display:flex;align-items:center;}
 .wrapper li{display:inline-block;width:23%;margin: 0 1% 10px 1%;position:relative;border-radius:8px;cursor:pointer;}
 .wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;}
 @media (max-width: 599px) { .wrapper li {width:31%;} }
@@ -90,7 +90,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-box .modal-scroll-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
 #modal-box.video-modal { background: transparent !important; padding: 0 !important; overflow: hidden !important; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 #modal-box.video-modal video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
-#modal-box .modal-scroll-wrap p { width: 100% !important; box-sizing: border-box; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* 弹窗表单样式 */
 .prompt-wrap { padding: 10px; }
 .prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
@@ -292,10 +291,8 @@ function Mid_data(txt,key) {
                         <div class="result-list-item">
                             <div class="result-content">
                                 <div class="result-content-left">
-                                    <div class="result-value">
-                                        <div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div>
-                                        <a href="javascript:void(0);" onclick="Mid_url('${d}','${k}')">${a} - ${n}</a>
-                                    </div>
+                                    <div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div>
+                                    <div class="result-value"><a href="javascript:void(0);" onclick="Mid_url('${d}','${k}')">${a} - ${n}</a></div>
                                 </div>
                                 <div class="result-list-right">
                                     <div class="result-list-value">${s}</div>
@@ -325,11 +322,21 @@ function Mid_url(id,tk) {
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
         if (list.msg){
             const d = list.data;
-            const content = `<div style="padding:20px;">
-                <p>歌曲名称：${d.artist} - ${d.name}</p>
-                <p>封面图片：<a href="javascript:void(0);" onclick="copytxt('${d.img}')">点击复制</a></p>
-                <p>下载地址：<a href="javascript:void(0);" onclick="copytxt('${d.url}')">点击复制</a></p>
-            </div>`;
+            const content = `
+            <div style="display:flex;gap:14px;align-items: center;padding:10px;">
+                <div style="width:90px;height:90px;border-radius:8px;overflow:hidden;flex-shrink:0;">
+                    <img src="${d.img}" style="width:100%;height:100%;object-fit:cover;">
+                </div>
+                <div style="flex:1;">
+                    <h4>${d.artist} - ${d.name}</h4>
+                    <div style="padding:8px 10px;display:flex;justify-content:space-between;align-items:center;">
+                        <audio style="height:30px;" controls preload="auto" controlsList="nodownload" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></audio>
+                        <button onclick="copytxt('${d.url}')" style="background:#ff5983;color:#fff;border-radius:4px;padding:3px 10px;height:30px;">复制下载链接</button>
+                    </div>
+                </div>
+            </div>
+            <p style="text-align:center;color:#bbb;font-size:12px;">本站仅供测试</p>
+            `;
             openModal(content);
         } else {
             showToast(list.data);
@@ -794,9 +801,7 @@ async function GP_data(txt, options, callback) {
     const timerId = setTimeout(() => controller.abort(), timeout);
     try {
         const fetchConfig = {method: method.toUpperCase(),signal: controller.signal,headers: { ...headers } };
-        // GET 请求不带 body
         if (fetchConfig.method !== 'GET') {
-            // 文件上传：FormData
             if (upfile === 'upfile') {
                 fetchConfig.body = data;
             } else {
@@ -812,7 +817,6 @@ async function GP_data(txt, options, callback) {
         if (!res.ok) {
             throw new Error(`HTTP Error: ${res.status}`);
         }
-        // 根据dataType解析返回
         let result;
         if (dataType === 'json') {
             result = await res.json();
