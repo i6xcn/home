@@ -409,7 +409,7 @@ function wedList(){
             if(!res.msg){
                 showToast(res.data);
             }else{
-                openModal(`<div onclick="copyContent(this)" style="padding:15px;">${res.data}</div>`);
+                openModal(`<div onclick="copyContent(this)"><p>${res.data.txt}</p><p style="word-break: break-all;">${res.data.url}</p><p>${res.data.key}</p><p>${res.data.marks}</p></div>`);
             }
         })
     };
