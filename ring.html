@@ -40,7 +40,7 @@ input{outline:none;border:none;font-family:inherit;}
 .itemg_rg_tp{color:#C8C8C8;overflow:hidden;}
 .itemg_rg_tp div{width:50%;float:left}
 .itemg_rg_tp h4 { margin: 0; font-size: 16px; color: #0066cc; }
-.itemg_rg_sm {color: #666; margin:10px; }
+.itemg_rg_sm {color: #666; margin:10px 0; }
 .itemg_rg_main{overflow:hidden;}
 .itemg_rg_main ul{display:flex;flex-wrap: wrap;}
 /* 底部固定导航 */
@@ -83,7 +83,7 @@ label:hover::after {display:block;}
 #toast-box{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 16px;border-radius:4px;z-index:9999;display:none;white-space:nowrap;}
 #loading-box{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;display:none;align-items:center;justify-content:center;}
 .load-spin{width:30px;height:30px;border:3px solid #ff5983;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;}
-/* 弹窗核心 + 滚动锁定（合并重复规则） */
+/* 弹窗核心 + 滚动锁定*/
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
 #modal-box { width: calc(640px * 0.9); background: #ffffff; max-width: 90vw; max-height: 85vh; border-radius: 6px; box-sizing: border-box; overflow: hidden !important; display: flex; flex-direction: column; }
@@ -332,7 +332,7 @@ function Mid_url(id,tk) {
                     <h4>${d.artist} - ${d.name}</h4>
                     <div style="padding-top:10px;display:flex;align-items:center;">
                         <audio style="height:30px;width:100%;" controls preload="auto" controlsList="nodownload" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></audio>
-                        <button onclick="copytxt('${d.url}')" style="background:#ff5983;color:#fff;border-radius:4px;padding:3px 10px;height:30px;">复制下载链接</button>
+                        <button onclick="copytxt('${d.url}')" style="background:#ff5983;color:#fff;border-radius:4px;padding:3px 10px;height:30px;">下载链接</button>
                     </div>
                 </div>
             </div>
@@ -542,30 +542,20 @@ function Pic(){
     }
     const PicUpload = document.querySelector("#PicUpload");
     const fileInput = document.querySelector("#fileInput");
-    // 阻止默认拖拽行为
     function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-    // 拖拽高亮
     function highlight() { PicUpload.classList.add('highlight'); }
-    // 取消高亮
     function unhighlight() { PicUpload.classList.remove('highlight'); }
-    // 批量绑定拖拽事件
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
     ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
     ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
-    // 拖拽放下处理
     function handleDrop(e) { const files = e.dataTransfer.files; handleFiles({ target: { files } }); }
-    // 点击唤起文件选择
     PicUpload.addEventListener('click', function (e) { e.stopPropagation(); fileInput.click(); });
-    // 文件框选中
     fileInput.addEventListener('change', function (e) { handleFiles(e); this.value = ""; });
-    // 绑定drop
     PicUpload.addEventListener('drop', handleDrop, false);
-    // 处理文件核心逻辑
     function handleFiles(e) {
         const files = e.target.files;
         const maxSize = 10 * 1024 * 1024;
         Array.from(files).forEach(file => {
-            // 获取选中上传类型
             let uploadType = "";
             document.querySelectorAll('input[name="type"]').forEach(radio => {
                if (radio.checked) uploadType = radio.value;
@@ -600,6 +590,7 @@ function picdata(){
 function pic_data(n,p){
     const page = isNaN(p) ? 1 : Number(p);
     document.querySelector("#Pic-loadMore").innerHTML = '';
+	Picn = n;
     GP_data("upimg",{data:{land:n,p:page}},function(list){
         if (list.msg == false){
             showToast(list.data);
@@ -608,6 +599,14 @@ function pic_data(n,p){
             const data = list.data;
             const total= list.total;
             let imgHtml = '';
+            if(page === 1){
+                imgHtml += `
+                <div style="margin:10px 0;display:flex;gap:10px;align-items:center;">
+                    <button id="checkAllPic" style="padding:5px 12px;background:#eee;border-radius:4px;">全选/取消全选</button>
+                    <button id="batchDelPic" style="padding:5px 12px;background:#ff5983;color:#fff;border-radius:4px;">批量删除选中</button>
+                </div>
+                `;
+            }
             for (let i = 0; i < data.length; i++) {
                 const item = data[i];
                 const img = item.img;
@@ -615,10 +614,12 @@ function pic_data(n,p){
                 const id = item.id;
                 const at = item.time;
                 const ip = item.ip;
-                imgHtml += `<li id="${id}" style="height:0;padding-bottom:30%;">
-                    <span style="position:absolute;width:20px;height:20px;background-color:red;color:white;text-align:center;cursor:pointer;z-index:99;" onclick="pic_del('#${id}','${n}','${id}')">X</span>
-                    <span style="background-image:url('${img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${img}','pic','${ip}','${at}')"></span>
-                </li>`;
+                let checkHtml = "";
+				const idStr = String(id ?? "");
+                if (idStr.trim() !== "") {
+                    checkHtml = `<input type="checkbox" class="pic-check" data-imgid="${id}" style="position:absolute;top:4px;left:4px;z-index:100;width:16px;height:16px;cursor:pointer;">`;
+                }
+                imgHtml += `<li id="${id}" style="height:0;padding-bottom:30%;position:relative;">${checkHtml}<span style="background-image:url('${img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${img}','pic','${ip}','${at}')"></span></li>`;
             }
             document.querySelector("#Pic-data").innerHTML += imgHtml;
             if (list.page > page){
@@ -628,17 +629,55 @@ function pic_data(n,p){
         }
     });
 }
-function pic_del(iSel, n, id) {
-    GP_data("upimg", {data: {land: n,del: id} }, function (list) {
-        if (list.msg === true || list.code === 200) {
-            const liItem = document.getElementById(id);
-            if (liItem) {
-                liItem.remove();
-            }
+document.addEventListener('click', function(e){
+    if(e.target.id === 'checkAllPic'){
+        const checks = document.querySelectorAll('.pic-check');
+        let allChecked = Array.from(checks).every(cb => cb.checked);
+        checks.forEach(cb => cb.checked = !allChecked);
+    }
+    if(e.target.id === 'batchDelPic'){
+        batchDeletePicOnce();
+    }
+});
+function batchDeletePicOnce(){
+    if(typeof window._batchDelCount === 'undefined'){
+        window._batchDelCount = 0;
+    }
+    const checkedBoxs = document.querySelectorAll('.pic-check:checked');
+    if(checkedBoxs.length === 0){
+        showToast("请先勾选要删除的图片！");
+        return;
+    }
+    const count = checkedBoxs.length;
+    if(!confirm(`确定一次性删除选中 ${count} 张图片？删除不可恢复！`)) return;
+    const delIdList = Array.from(checkedBoxs).map(cb => cb.dataset.imgid);
+    const delIdsStr = delIdList.join(',');
+	const landVal = Picn;
+    GP_data("upimg", {
+        data: {
+            land: landVal,
+            del: delIdsStr
         }
-        showToast(list.data || list.msg);
+    }, function (list) {
+        if (list.msg === true) {
+            window._batchDelCount += count;
+			if (Math.max(window._batchDelCount, count) >= 60) {
+                document.querySelector("#Pic-data").innerHTML = "";
+                pic_data(landVal, 1);
+                window._batchDelCount = 0;
+            } else {
+                checkedBoxs.forEach(cb => {
+                    const imgLi = document.getElementById(cb.dataset.imgid);
+                    if(imgLi) imgLi.remove();
+                });
+            }
+            showToast(`成功删除 ${count} 张图片`);
+        } else {
+            showToast(list.data || "批量删除失败");
+        }
     });
 }
+
 function layerPrompt(callback) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
