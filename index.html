@@ -14,7 +14,7 @@
 <meta name="keywords" content="便捷摄影工作室,爱影像,红白事录像,婚礼策划,音响功放,舞台歌舞,婚礼布置,花车装扮,爱录像,i6x,铜川录像,耀县录像,婚庆录像,结婚录像,专题片,宣传片,个人MV,配音,歌舞演绎" />
 <style type="text/css">
 /* ===================== 【全局基础重置】 ===================== */
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color: transparent;}
 body{min-width:320px;font-size:15px;color:#051b28;background-color:#eee;}
 img{border:0;vertical-align:middle;}
 ul,ol,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}
@@ -54,7 +54,7 @@ a{color:#000;text-decoration:none}
 .itemg_rg_main li{list-style:none;width:31%;position:relative;height:0;padding-bottom:20%;cursor:pointer;transition: all 0.6s;}
 .itemg_rg_main li:hover {border-radius:15px;}
 .itemg_rg_main li:not(:nth-child(3n)){margin-right: 2%;margin-bottom:2%}
-
+.itemg_rg_main li,.navbar a,.prompt-btn-box button,[onclick] {cursor: pointer;touch-action: manipulation;}
 .app_sm_rg span{text-align:right;display:block;color:#08c137;}
 /* ===================== 【底部固定导航栏】 ===================== */
 .bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;}
@@ -212,80 +212,7 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 </div>
 
 <script type="text/javascript">
-// ===================== 全局工具函数 =====================
-// Toast轻提示
-function showToast(msg, delay = 1500) {
-    const toast = document.getElementById('toastBox');
-    toast.innerText = msg;
-    toast.style.display = 'block';
-    setTimeout(() => toast.style.display = 'none', delay);
-}
-// 显示加载
-function showLoad() { document.getElementById('loadBox').style.display = 'block';}
-// 关闭加载
-function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
-// 关闭全局弹窗
-function closeModal() {
-    const mask = document.getElementById('modalMask');
-    const box = document.getElementById('modalBox');
-    mask.style.display = 'none';
-    box.innerHTML = '';
-    box.className = 'modal-box';
-	document.body.classList.remove("modal-open");
-}
-// 打开弹窗，自定义内容、标题、按钮
-function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
-    const mask = document.getElementById('modalMask');
-    const box = document.getElementById('modalBox');
-    box.innerHTML = html;
-    box.className = 'modal-box';
-    if(isVideo) box.classList.add('video-modal');
-    if(isPic) box.classList.add('pic-modal');
-    if(isFormModal) box.classList.add('form-modal');
-    mask.style.display = 'flex';
-	document.body.classList.add("modal-open");
-    mask.onclick = function(e){
-        if(e.target !== mask) return;
-        if(box.classList.contains('form-modal')){
-            return;
-        }
-        closeModal();
-    }
-    box.onclick = function(e){
-        e.stopPropagation();
-    }
-}
-
-// 获取今日日期
-function getToday() {
-    let date = new Date();
-    let Y = date.getFullYear();
-    let M = date.getMonth()+1;
-    let D = date.getDate();
-    let H = date.getHours();
-    return `${Y}-${M}-${D}-${H}`;
-}
-// 回到顶部
-function scrollToTop() {
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop > 0) {
-        window.requestAnimationFrame(scrollToTop);
-        window.scrollTo(0, scrollTop - scrollTop / 10);
-    }
-}
-// 复制文本
-function copyContent(divElement) {
-    const tempTextarea = document.createElement('textarea');
-    tempTextarea.value = divElement.innerText;
-    tempTextarea.style.position = 'fixed';
-    document.body.appendChild(tempTextarea);
-    tempTextarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempTextarea);
-    showToast('复制成功');
-}
-
-// ===================== 轮播图 =====================
+/*===================== 轮播图 =====================*/
 window.onload = function(){
     const images = document.getElementById("slideshow").getElementsByTagName("img");
     let pos = 0;
@@ -297,15 +224,25 @@ window.onload = function(){
     },1500);
 };
 
-// ===================== 滚动加载vlog =====================
+/*================== 滚动加载vlog ==================*/
 let page = 0;
 let isClick = true;
 window.addEventListener('scroll', function () {
-    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    const totalHeight = parseFloat(clientHeight) + parseFloat(scrollTop);
-    if ((scrollHeight - totalHeight < 100) && isClick) {
+    const scrollTop = Math.max(
+        document.documentElement.scrollTop,
+        document.body.scrollTop,
+        window.pageYOffset
+    );
+    const scrollHeight = Math.max(
+        document.documentElement.scrollHeight,
+        document.body.scrollHeight
+    );
+    const clientHeight = Math.max(
+        document.documentElement.clientHeight,
+        window.innerHeight
+    );
+    const totalHeight = clientHeight + scrollTop;
+    if ((scrollHeight - totalHeight < 150) && isClick) {
         isClick = false;
         ++page;
         const CATCH_DATA_KEY = 'DATA_' + page;
@@ -328,8 +265,13 @@ window.addEventListener('scroll', function () {
         }
     }
 });
+window.addEventListener('touchend', function(){
+    setTimeout(() => {
+        window.dispatchEvent(new Event('scroll'));
+    }, 300);
+}, { passive: true });
 
-// 渲染动态列表
+/* 渲染动态列表 */
 function renderList(List) {
     if (List.msg == false){
         showToast(List.data);
@@ -375,8 +317,7 @@ function renderList(List) {
         }
     }
 }
-
-// ===================== 客片查询弹窗 =====================
+/* 客片查询弹窗 */
 function wedList(){
     const modalHtml = `
     <div class="prompt-wrap">
@@ -415,8 +356,7 @@ function wedList(){
     };
 	openModal(modalHtml, false, false, true);
 }
-
-// ===================== 预约留言弹窗 =====================
+/* 预约留言弹窗 */
 function reserve() {
     const modalHtml = `
     <div class="prompt-wrap">
@@ -483,8 +423,7 @@ function resdel(iSel,n,id){
         }
     });
 }
-
-// ===================== 图片/视频预览 =====================
+/* 图片/视频预览 */
 function player(url,type,img) {
     showLoad();
     if (type == "pic"){
@@ -516,6 +455,7 @@ function player(url,type,img) {
         }, 100);
     }
 }
+/* 网络请求 */
 async function GP_data(txt, options = {}, callback) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
     const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
@@ -538,6 +478,76 @@ async function GP_data(txt, options = {}, callback) {
         clearTimeout(timer);
         closeLoad();
     }
+}
+/* Toast轻提示 */
+function showToast(msg, delay = 1500) {
+    const toast = document.getElementById('toastBox');
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', delay);
+}
+/* 显示加载 */
+function showLoad() { document.getElementById('loadBox').style.display = 'block';}
+/* 关闭加载 */
+function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
+/* 关闭全局弹窗 */
+function closeModal() {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    mask.style.display = 'none';
+    box.innerHTML = '';
+    box.className = 'modal-box';
+	document.body.classList.remove("modal-open");
+}
+/* 打开弹窗 */
+function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    box.innerHTML = html;
+    box.className = 'modal-box';
+    if(isVideo) box.classList.add('video-modal');
+    if(isPic) box.classList.add('pic-modal');
+    if(isFormModal) box.classList.add('form-modal');
+    mask.style.display = 'flex';
+	document.body.classList.add("modal-open");
+    mask.onclick = function(e){
+        if(e.target !== mask) return;
+        if(box.classList.contains('form-modal')){
+            return;
+        }
+        closeModal();
+    }
+    box.onclick = function(e){
+        e.stopPropagation();
+    }
+}
+/* 获取今日日期 */
+function getToday() {
+    let date = new Date();
+    let Y = date.getFullYear();
+    let M = date.getMonth()+1;
+    let D = date.getDate();
+    let H = date.getHours();
+    return `${Y}-${M}-${D}-${H}`;
+}
+/* 回到顶部 */
+function scrollToTop() {
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop > 0) {
+        window.requestAnimationFrame(scrollToTop);
+        window.scrollTo(0, scrollTop - scrollTop / 10);
+    }
+}
+/* 复制文本 */
+function copyContent(divElement) {
+    const tempTextarea = document.createElement('textarea');
+    tempTextarea.value = divElement.innerText;
+    tempTextarea.style.position = 'fixed';
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextarea);
+    showToast('复制成功');
 }
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
