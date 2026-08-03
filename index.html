@@ -13,14 +13,12 @@
 <meta name="description" content="感谢您对 爱影像 i6x.cn的关注，AI影像婚礼策划，婚礼主持，摄像摄影，婚礼车队，花艺设计，新娘化妆，场地搭建布置，音响灯光设备等！" />
 <meta name="keywords" content="便捷摄影工作室,爱影像,红白事录像,婚礼策划,音响功放,舞台歌舞,婚礼布置,花车装扮,爱录像,i6x,铜川录像,耀县录像,婚庆录像,结婚录像,专题片,宣传片,个人MV,配音,歌舞演绎" />
 <style type="text/css">
-/* ===================== 【全局基础重置】 ===================== */
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color: transparent;}
+*{margin:0;padding:0;box-sizing:border-box;}
 body{min-width:320px;font-size:15px;color:#051b28;background-color:#eee;}
 img{border:0;vertical-align:middle;}
 ul,ol,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}
 em{font-style:normal}
 a{color:#000;text-decoration:none}
-/* ===================== 【顶部头部区域】 ===================== */
 .header{padding-top:60px;overflow:hidden;background:#ff5983;}
 .top{background:#fff;overflow:hidden;}
 .logo{position:absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;background-image:url('//bd-tbfile.izuiyou.com/img/webp/id/2416581862/sz/src');border-radius:100%;transform:translate(-50%,-50%);}
@@ -30,16 +28,13 @@ a{color:#000;text-decoration:none}
 .title_ess{padding:10px;color:#a2a2a2;text-align:center;}
 .title_ess em{color:#F40E79}
 .contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}
-/* ===================== 【顶部导航栏】 ===================== */
 .navbar{border-bottom:#ff5983 2px solid;overflow:hidden}
 .navbar li{float:left;width:50%;text-align:center}
 .navbar li a{display:block;padding:8px 0;color:#858585}
 .navbar li a:hover{color:#FFFFFF;background:#ff5983;}
-/* ===================== 【首页轮播图】 ===================== */
 #slideshow{overflow:hidden;position:relative;width:100%;height:0;padding-bottom:40%;display:block;}
 #slideshow>img:not(:first-child){display:none;}
 #slideshow img{width:100%;height:100%;position:absolute;object-fit:cover;background-repeat: no-repeat;}
-/* ===================== 【动态内容卡片 itemg 模块】 ===================== */
 .itemg{overflow:hidden;border-bottom:#EDEDED 1px solid;padding:10px 0;}
 .itemg_lf{float:left;width:15%;text-align:center;}
 .itemg_rg{float:right;width:83%;margin-right:1.5%;}
@@ -54,14 +49,10 @@ a{color:#000;text-decoration:none}
 .itemg_rg_main li{list-style:none;width:31%;position:relative;height:0;padding-bottom:20%;cursor:pointer;transition: all 0.6s;}
 .itemg_rg_main li:hover {border-radius:15px;}
 .itemg_rg_main li:not(:nth-child(3n)){margin-right: 2%;margin-bottom:2%}
-.itemg_rg_main li,.navbar a,.prompt-btn-box button,[onclick] {cursor: pointer;touch-action: manipulation;}
 .app_sm_rg span{text-align:right;display:block;color:#08c137;}
-/* ===================== 【底部固定导航栏】 ===================== */
 .bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;}
 .bottom .childdiv{flex:1;text-align:center;}.bottom a{color:#fff;}
-/* ===================== 【回到顶部按钮】 ===================== */
 #othe{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#ff5983}
-/* ===================== 【全局弹窗组件】 ===================== */
 .modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
 .modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;padding:20px;overflow:hidden;display:flex;flex-direction:column;}
 .modal-box.form-modal{}
@@ -77,9 +68,7 @@ a{color:#000;text-decoration:none}
 .btn-confirm{background:#ff5983;color:#fff;}
 .prompt-title{font-size:16px;margin:0 0 12px 0;color:#333;}
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
-/* ===================== 【轻提示Toast】 ===================== */
 .toast-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0.75);color:#fff;padding:10px 20px;border-radius:6px;z-index:10000;display:none;}
-/* ===================== 【全局加载动画】 ===================== */
 .load-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10001;display:none;}
 .load-spin{width:36px;height:36px;border:4px solid #eee;border-top:4px solid #ff5983;border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -210,9 +199,79 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 <div class="load-box" id="loadBox">
     <div class="load-spin"></div>
 </div>
-
 <script type="text/javascript">
-/*===================== 轮播图 =====================*/
+// Toast轻提示
+function showToast(msg, delay = 1500) {
+    const toast = document.getElementById('toastBox');
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', delay);
+}
+// 显示加载
+function showLoad() { document.getElementById('loadBox').style.display = 'block';}
+// 关闭加载
+function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
+// 关闭全局弹窗
+function closeModal() {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    mask.style.display = 'none';
+    box.innerHTML = '';
+    box.className = 'modal-box';
+	document.body.classList.remove("modal-open");
+}
+// 打开弹窗，自定义内容、标题、按钮
+function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    box.innerHTML = html;
+    box.className = 'modal-box';
+    if(isVideo) box.classList.add('video-modal');
+    if(isPic) box.classList.add('pic-modal');
+    if(isFormModal) box.classList.add('form-modal');
+    mask.style.display = 'flex';
+	document.body.classList.add("modal-open");
+    mask.onclick = function(e){
+        if(e.target !== mask) return;
+        if(box.classList.contains('form-modal')){
+            return;
+        }
+        closeModal();
+    }
+    box.onclick = function(e){
+        e.stopPropagation();
+    }
+}
+// 获取今日日期
+function getToday() {
+    let date = new Date();
+    let Y = date.getFullYear();
+    let M = date.getMonth()+1;
+    let D = date.getDate();
+    let H = date.getHours();
+    return `${Y}-${M}-${D}-${H}`;
+}
+// 回到顶部
+function scrollToTop() {
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop > 0) {
+        window.requestAnimationFrame(scrollToTop);
+        window.scrollTo(0, scrollTop - scrollTop / 10);
+    }
+}
+// 复制文本
+function copyContent(divElement) {
+    const tempTextarea = document.createElement('textarea');
+    tempTextarea.value = divElement.innerText;
+    tempTextarea.style.position = 'fixed';
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextarea);
+    showToast('复制成功');
+}
+
+// ===================== 轮播图 =====================
 window.onload = function(){
     const images = document.getElementById("slideshow").getElementsByTagName("img");
     let pos = 0;
@@ -224,25 +283,15 @@ window.onload = function(){
     },1500);
 };
 
-/*================== 滚动加载vlog ==================*/
+// ===================== 滚动加载vlog =====================
 let page = 0;
 let isClick = true;
 window.addEventListener('scroll', function () {
-    const scrollTop = Math.max(
-        document.documentElement.scrollTop,
-        document.body.scrollTop,
-        window.pageYOffset
-    );
-    const scrollHeight = Math.max(
-        document.documentElement.scrollHeight,
-        document.body.scrollHeight
-    );
-    const clientHeight = Math.max(
-        document.documentElement.clientHeight,
-        window.innerHeight
-    );
-    const totalHeight = clientHeight + scrollTop;
-    if ((scrollHeight - totalHeight < 150) && isClick) {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    const totalHeight = parseFloat(clientHeight) + parseFloat(scrollTop);
+    if ((scrollHeight - totalHeight < 100) && isClick) {
         isClick = false;
         ++page;
         const CATCH_DATA_KEY = 'DATA_' + page;
@@ -265,13 +314,8 @@ window.addEventListener('scroll', function () {
         }
     }
 });
-window.addEventListener('touchend', function(){
-    setTimeout(() => {
-        window.dispatchEvent(new Event('scroll'));
-    }, 300);
-}, { passive: true });
 
-/* 渲染动态列表 */
+// 渲染动态列表
 function renderList(List) {
     if (List.msg == false){
         showToast(List.data);
@@ -317,7 +361,8 @@ function renderList(List) {
         }
     }
 }
-/* 客片查询弹窗 */
+
+// ===================== 客片查询弹窗 =====================
 function wedList(){
     const modalHtml = `
     <div class="prompt-wrap">
@@ -356,7 +401,8 @@ function wedList(){
     };
 	openModal(modalHtml, false, false, true);
 }
-/* 预约留言弹窗 */
+
+// ===================== 预约留言弹窗 =====================
 function reserve() {
     const modalHtml = `
     <div class="prompt-wrap">
@@ -423,7 +469,8 @@ function resdel(iSel,n,id){
         }
     });
 }
-/* 图片/视频预览 */
+
+// ===================== 图片/视频预览 =====================
 function player(url,type,img) {
     showLoad();
     if (type == "pic"){
@@ -444,7 +491,6 @@ function player(url,type,img) {
         </video>`;
         openModal(html, true);
         closeLoad();
-        // 自动播放
         setTimeout(()=>{
             const video = document.getElementById('myVideo');
             if(video){
@@ -455,7 +501,6 @@ function player(url,type,img) {
         }, 100);
     }
 }
-/* 网络请求 */
 async function GP_data(txt, options = {}, callback) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
     const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
@@ -478,76 +523,6 @@ async function GP_data(txt, options = {}, callback) {
         clearTimeout(timer);
         closeLoad();
     }
-}
-/* Toast轻提示 */
-function showToast(msg, delay = 1500) {
-    const toast = document.getElementById('toastBox');
-    toast.innerText = msg;
-    toast.style.display = 'block';
-    setTimeout(() => toast.style.display = 'none', delay);
-}
-/* 显示加载 */
-function showLoad() { document.getElementById('loadBox').style.display = 'block';}
-/* 关闭加载 */
-function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
-/* 关闭全局弹窗 */
-function closeModal() {
-    const mask = document.getElementById('modalMask');
-    const box = document.getElementById('modalBox');
-    mask.style.display = 'none';
-    box.innerHTML = '';
-    box.className = 'modal-box';
-	document.body.classList.remove("modal-open");
-}
-/* 打开弹窗 */
-function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
-    const mask = document.getElementById('modalMask');
-    const box = document.getElementById('modalBox');
-    box.innerHTML = html;
-    box.className = 'modal-box';
-    if(isVideo) box.classList.add('video-modal');
-    if(isPic) box.classList.add('pic-modal');
-    if(isFormModal) box.classList.add('form-modal');
-    mask.style.display = 'flex';
-	document.body.classList.add("modal-open");
-    mask.onclick = function(e){
-        if(e.target !== mask) return;
-        if(box.classList.contains('form-modal')){
-            return;
-        }
-        closeModal();
-    }
-    box.onclick = function(e){
-        e.stopPropagation();
-    }
-}
-/* 获取今日日期 */
-function getToday() {
-    let date = new Date();
-    let Y = date.getFullYear();
-    let M = date.getMonth()+1;
-    let D = date.getDate();
-    let H = date.getHours();
-    return `${Y}-${M}-${D}-${H}`;
-}
-/* 回到顶部 */
-function scrollToTop() {
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop > 0) {
-        window.requestAnimationFrame(scrollToTop);
-        window.scrollTo(0, scrollTop - scrollTop / 10);
-    }
-}
-/* 复制文本 */
-function copyContent(divElement) {
-    const tempTextarea = document.createElement('textarea');
-    tempTextarea.value = divElement.innerText;
-    tempTextarea.style.position = 'fixed';
-    document.body.appendChild(tempTextarea);
-    tempTextarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempTextarea);
-    showToast('复制成功');
 }
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
