@@ -167,7 +167,7 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         </div>
         <div id="PicUpload">
             <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="3 6 12 12"><path d="M11.61 8.57c.15.01.28.1.34.23l3 6.01c.07.13.06.29-.02.42-.08.13-.22.21-.37.21H3.43c-.16 0-.3-.08-.38-.22-.07-.14-.07-.3.01-.43l2.14-3.33c.07-.12.2-.19.33-.2.14-.01.27.06.36.16l1.8 2.16 3.53-4.71c.09-.12.23-.19.38-.18zM6.86 6c.71 0 1.29.58 1.29 1.29 0 .71-.58 1.29-1.29 1.29-.71 0-1.29-.58-1.29-1.29 0-.71.58-1.29 1.29-1.29z" fill="#ff5983" fill-rule="nonzero"></path></svg>
-            <p>选择或拖拽图片到此处，支持多图上传</p>
+            <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
             <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
         </div>
         <div id="Pic-data"></div>
@@ -541,6 +541,8 @@ function Pic(){
     }
     const PicUpload = document.querySelector("#PicUpload");
     const fileInput = document.querySelector("#fileInput");
+    const uploadTip = document.querySelector("#uploadTip");
+    const originTipText = "选择或拖拽图片到此处，支持多图上传";
     function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
     function highlight() { PicUpload.classList.add('highlight'); }
     function unhighlight() { PicUpload.classList.remove('highlight'); }
@@ -552,30 +554,37 @@ function Pic(){
     fileInput.addEventListener('change', function (e) { handleFiles(e); this.value = ""; });
     PicUpload.addEventListener('drop', handleDrop, false);
     function handleFiles(e) {
-        const files = e.target.files;
-        const maxSize = 10 * 1024 * 1024;
-        Array.from(files).forEach(file => {
-            let uploadType = "";
-            document.querySelectorAll('input[name="type"]').forEach(radio => {
-               if (radio.checked) uploadType = radio.value;
-            });
-            if (!file) return showToast("加载失败！");
-            if (file.size >= maxSize) return showToast("图片超过限制大小！");
-            if (!uploadType) return showToast("请选择上传接口！");
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("type", uploadType);
-            GP_data("upimg", { upfile: 'upfile', data: formData }, function (list) {
-                if (list.msg) {
-                    showToast("上传成功，点击图片复制！");
-                    const imgUrl = list.data.img;
-                    document.querySelector("#Pic-data").insertAdjacentHTML( 'afterbegin', `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${imgUrl}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></span></li>` );
-                    addlocal('img', imgUrl);
-                } else {
-                    showToast(list.data);
-                }
-            });
+        const files = Array.from(e.target.files);
+        let uploadType = "";
+        document.querySelectorAll('input[name="type"]').forEach(radio => {
+           if (radio.checked) uploadType = radio.value;
         });
+        if (files.length === 0) return showToast("未选择文件！");
+        if (!uploadType) return showToast("请选择上传接口！");
+        async function uploadQueue(fileList) {
+            uploadTip.textContent = "正在上传中，请耐心等待...";
+            for (const file of fileList) {
+                await new Promise(resolve => {
+                    const formData = new FormData();
+                    formData.append("file", file);
+                    formData.append("type", uploadType);
+                    GP_data("upimg", { upfile: 'upfile', data: formData }, function (list) {
+                        if (list.msg) {
+                            showToast("上传成功，点击图片复制！");
+                            const imgUrl = list.data.img;
+                            document.querySelector("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${imgUrl}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></span></li>`);
+                            addlocal('img', imgUrl);
+                        } else {
+                            showToast(`${file.name}：${list.data}`);
+							console.error(`${file.name}：${list.data}`);
+                        }
+                        resolve();
+                    });
+                })
+            }
+            uploadTip.textContent = originTipText;
+        }
+        uploadQueue(files);
     }
 }
 function picdata(){
@@ -831,30 +840,29 @@ function check_ip(ip){
 }
 async function GP_data(txt, options, callback) {
     const opts = options || {};
-    const {method = 'POST',data = {},headers = {},upfile = '',timeout = 30000,dataType = 'json'} = opts;
+    const {method = 'POST' , data = {} , headers = {} , upfile = '' , dataType = 'json' } = opts;
     const baseUrl = "https://api.rmbk.cc/i6x.php?type=";
-    const APIurl = baseUrl + txt;
+    const apiUrl = baseUrl + txt;
     showLoading();
+	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
-    const timerId = setTimeout(() => controller.abort(), timeout);
+    const timer = setTimeout(() => controller.abort(), finalTimeout);
     try {
-        const fetchConfig = {method: method.toUpperCase(),signal: controller.signal,headers: { ...headers } };
+        const fetchConfig = { method: method.toUpperCase() , signal: controller.signal , headers: { ...headers } };
         if (fetchConfig.method !== 'GET') {
             if (upfile === 'upfile') {
                 fetchConfig.body = data;
             } else {
                 const params = new URLSearchParams();
-                for (let key in data) {
+                for (const key in data) {
                     params.append(key, data[key]);
                 }
                 fetchConfig.body = params.toString();
                 fetchConfig.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
         }
-        const res = await fetch(APIurl, fetchConfig);
-        if (!res.ok) {
-            throw new Error(`HTTP Error: ${res.status}`);
-        }
+        const res = await fetch(apiUrl, fetchConfig);
+        if (!res.ok) throw new Error('http error');
         let result;
         if (dataType === 'json') {
             result = await res.json();
@@ -864,16 +872,12 @@ async function GP_data(txt, options, callback) {
             result = await res.blob();
         }
         callback(result);
+
     } catch (err) {
-        let errMsg;
-        if (err.name === 'AbortError') {
-            errMsg = '请求超时';
-        } else {
-            errMsg = err.message;
-        }
-        callback({ msg: false, data: errMsg });
+		console.log(err);
+		callback({ msg: false, data: err });
     } finally {
-        clearTimeout(timerId);
+        clearTimeout(timer);
         hideLoading();
     }
 }
