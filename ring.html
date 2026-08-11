@@ -534,7 +534,7 @@ function Pic(){
         let data = '';
         for (let i=0;i<arrr.length;i++ ){
             const url = arrr[i];
-            data += `<li style="background-image:url(${url});background-position:center;background-size:cover;display:inline-block;width:23%;margin:10px 1%;height:0;padding-bottom:30%;position:relative;cursor:pointer;" onclick="copytxt('${url}')" title="点击复制图链"></li>`;
+            data += `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${url}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${url}')" title="点击复制图链"></span></li>`;
         }
         document.querySelector("#Pic-data").innerHTML = data;
         document.querySelector("#Pic-data").style.display = "block";
@@ -588,12 +588,18 @@ function Pic(){
     }
 }
 function picdata(){
-    layerPrompt(function(val){
-		if(!isEmpty(val)){
-			document.querySelector("#Pic-data").innerHTML = '';
-			pic_data(val);
-		}
-    });
+	const modalHtml = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button></div></div>`;
+	window.submitPrompt = function(){
+		const val = document.querySelector("#prompt-input").value.trim();
+		if(isEmpty(val)){ closeModal(); return; }
+		closeModal();
+		pic_data(val);
+	};
+	openModal(modalHtml);
+	setTimeout(function(){
+		const inputEl = document.querySelector("#prompt-input");
+		if(inputEl) inputEl.focus();
+	}, 50);
 }
 function pic_data(n,p){
     const page = isNaN(p) ? 1 : Number(p);
@@ -610,8 +616,8 @@ function pic_data(n,p){
             if(page === 1){
                 imgHtml += `
                 <div style="margin:10px 0;display:flex;gap:10px;align-items:center;">
-                    <button id="checkAllPic" style="padding:5px 12px;background:#eee;border-radius:4px;">全选/取消全选</button>
-                    <button id="batchDelPic" style="padding:5px 12px;background:#ff5983;color:#fff;border-radius:4px;">批量删除选中</button>
+                    <button id="checkAllPic" style="padding:5px 12px;background:#eee;border-radius:4px;">全选/取消</button>
+                    <button id="batchDelPic" style="padding:5px 12px;background:#ff5983;color:#fff;border-radius:4px;">批量删除</button>
                 </div>
                 `;
             }
@@ -662,10 +668,7 @@ function batchDeletePicOnce(){
     const delIdsStr = delIdList.join(',');
 	const landVal = Picn;
     GP_data("upimg", {
-        data: {
-            land: landVal,
-            del: delIdsStr
-        }
+        data: {land: landVal,del: delIdsStr }
     }, function (list) {
         if (list.msg === true) {
             window._batchDelCount += count;
@@ -686,28 +689,6 @@ function batchDeletePicOnce(){
     });
 }
 
-function layerPrompt(callback) {
-    const mask = document.querySelector("#modal-mask");
-    const box = document.querySelector("#modal-box");
-    box.innerHTML = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button></div></div>`;
-    mask.style.display = "flex";
-    box.classList.remove('video-modal');
-    window.promptCallback = callback;
-    box.onclick = function (e) {
-        e.stopPropagation();
-    }
-    setTimeout(function(){
-        const inputEl = document.getElementById('prompt-input');
-        if(inputEl) inputEl.focus();
-    }, 50);
-}
-function submitPrompt() {
-    const val = document.querySelector("#prompt-input").value.trim();
-    closeModal();
-    if (typeof window.promptCallback === 'function') {
-        window.promptCallback(val);
-    }
-}
 function addlocal(type,value){
     let old = localStorage.getItem(type);
     if(old === null){
@@ -839,11 +820,11 @@ function check_ip(ip){
     });
 }
 async function GP_data(txt, options, callback) {
+	showLoading();
     const opts = options || {};
     const {method = 'POST' , data = {} , headers = {} , upfile = '' , dataType = 'json' } = opts;
     const baseUrl = "https://api.rmbk.cc/i6x.php?type=";
     const apiUrl = baseUrl + txt;
-    showLoading();
 	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), finalTimeout);
@@ -872,14 +853,13 @@ async function GP_data(txt, options, callback) {
             result = await res.blob();
         }
         callback(result);
-
     } catch (err) {
 		console.log(err);
 		callback({ msg: false, data: err });
     } finally {
         clearTimeout(timer);
-        hideLoading();
     }
+	hideLoading();
 }
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
