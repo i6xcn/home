@@ -365,7 +365,7 @@ async function publishArticle(){
         for(const file of localImageFiles){
             await new Promise(resolve=>{
                 const fd=new FormData();
-                fd.append("file",file);fd.append("type",uploadType);
+                fd.append("file",file);fd.append("type",uploadType);fd.append("add","");
                 const xhr=new XMLHttpRequest();
                 xhr.open("POST",Api+"i6x.php?type=upimg");
                 xhr.upload.onprogress=ev=>{
