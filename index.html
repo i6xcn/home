@@ -55,11 +55,8 @@ a{color:#000;text-decoration:none}
 #othe{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#ff5983}
 .modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
 .modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;padding:20px;overflow:hidden;display:flex;flex-direction:column;}
-.modal-box.form-modal{}
-.modal-box.video-modal{background:transparent !important;padding:0 !important;}
 .modal-box.pic-modal{background:transparent;padding:0;}
 .modal-box.pic-modal img{width:100%;height:auto;}
-.prompt-row-flex{display:flex;align-items:center;gap:10px;}
 .prompt-input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;}
 .prompt-input:focus{border-color:#ff5983;}
 .prompt-btn-box{display:flex;gap:8px;}
@@ -89,12 +86,12 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             </div>
         </div>
         <div id="slideshow">
-            <img src="//bd-tbfile.izuiyou.com/img/frame/id/2452029199/sz/540">
-            <img src="//bd-tbfile.izuiyou.com/img/frame/id/2450007688/sz/540">
-            <img src="//bd-tbfile.izuiyou.com/img/frame/id/2452029202/sz/540">
-            <img src="//bd-tbfile.izuiyou.com/img/frame/id/2416976953/sz/540">
-            <img src="//bd-tbfile.izuiyou.com/img/frame/id/2286331391/sz/540">
-            <img src="//bd-tbfile.izuiyou.com/img/frame/id/2285840527/sz/540">
+            <img src="https://bd-tbfile.izuiyou.com/img/frame/id/2452029199/sz/540">
+            <img src="https://bd-tbfile.izuiyou.com/img/frame/id/2450007688/sz/540">
+            <img src="https://bd-tbfile.izuiyou.com/img/frame/id/2452029202/sz/540">
+            <img src="https://bd-tbfile.izuiyou.com/img/frame/id/2416976953/sz/540">
+            <img src="https://bd-tbfile.izuiyou.com/img/frame/id/2286331391/sz/540">
+            <img src="https://bd-tbfile.izuiyou.com/img/frame/id/2285840527/sz/540">
         </div>
     </div>
     <div class="navbar">
@@ -109,21 +106,15 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         </div>
         <div class="itemg_rg">
             <div class="itemg_rg_tp">
-                <div class="app_sm_lf">
-                    <span><em>爱·影像 i6x.cn</em></span>
-                </div>
-                <div class="app_sm_rg">
-                    <span>预约中</span>
-                </div>
+                <div class="app_sm_lf"><span><em>爱·影像 i6x.cn</em></span></div>
+                <div class="app_sm_rg"><span>预约中</span></div>
             </div>
-            <div class="itemg_rg_sm">
-                <p>摄像、跟拍、主持、化妆、设备，档期所剩不多，欢迎预定！</p>
-            </div>
+            <div class="itemg_rg_sm"><p>摄像、跟拍、主持、化妆、设备，档期所剩不多，欢迎预定！</p></div>
             <div class="itemg_rg_main">
                 <ul>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn','pic')"></li>
-                    <li style="background-image:url(//bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/360);background-position:center;background-size:cover;" onclick="player('//bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/540','pic')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4','pic')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn')"></li>
+                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/540')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4')"></li>
                 </ul>
             </div>
         </div>
@@ -134,24 +125,18 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         </div>
         <div class="itemg_rg">
             <div class="itemg_rg_tp">
-                <div class="app_sm_lf">
-                    <span><em>爱·影像 i6x.cn</em></span>
-                </div>
-                <div class="app_sm_rg">
-                    <span>置顶</span>
-                </div>
+                <div class="app_sm_lf"><span><em>爱·影像 i6x.cn</em></span></div>
+                <div class="app_sm_rg"><span>置顶</span></div>
             </div>
-            <div class="itemg_rg_sm">
-                <p>海报、照片墙、幕布设计制作！</p>
-            </div>
+            <div class="itemg_rg_sm"><p>海报、照片墙、幕布设计制作！</p></div>
             <div class="itemg_rg_main">
                 <ul>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN','pic')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO','pic')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc','pic')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1','pic')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq','pic')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr);background-position:center;background-size:cover;" onclick="player('https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr','pic')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq')"></li>
+                    <li style="background-image:url(https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr')"></li>
                 </ul>
             </div>
         </div>
@@ -162,21 +147,15 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         </div>
         <div class="itemg_rg">
             <div class="itemg_rg_tp">
-                <div class="app_sm_lf">
-                    <span><em>爱·影像 i6x.cn</em></span>
-                </div>
-                <div class="app_sm_rg">
-                    <span>置顶</span>
-                </div>
+                <div class="app_sm_lf"><span><em>爱·影像 i6x.cn</em></span></div>
+                <div class="app_sm_rg"><a href="db.html"><span>置顶</span></a></div>
             </div>
-            <div class="itemg_rg_sm">
-                <p>红富士苹果，8月-11月新鲜当季，现摘现发，其余时间果库冷藏，详情请咨询客服!</p>
-            </div>
+            <div class="itemg_rg_sm"><p>红富士苹果，8月-11月新鲜当季，现摘现发，其余时间果库冷藏，详情请咨询客服!</p></div>
             <div class="itemg_rg_main">
                 <ul>
-                    <li style="background-image:url(//bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/360);background-position:center;background-size:cover;" onclick="player('//bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/540','pic')"></li>
-                    <li style="background-image:url(//bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/360);background-position:center;background-size:cover;" onclick="player('//bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/540','pic')"></li>
-                    <li style="background-image:url(//bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/360);background-position:center;background-size:cover;" onclick="player('//bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/540','pic')"></li>
+                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/540')"></li>
+                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/540')"></li>
+                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/540')"></li>
                 </ul>
             </div>
         </div>
@@ -188,90 +167,14 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         <div class="childdiv"><a href="ring.html">圈子</a></div>
     </div>
 </div>
-
-<!-- 全局弹窗容器 -->
 <div class="modal-mask" id="modalMask">
     <div class="modal-box" id="modalBox"></div>
 </div>
-<!-- Toast提示 -->
 <div class="toast-box" id="toastBox"></div>
-<!-- Loading加载 -->
 <div class="load-box" id="loadBox">
     <div class="load-spin"></div>
 </div>
 <script type="text/javascript">
-// Toast轻提示
-function showToast(msg, delay = 1500) {
-    const toast = document.getElementById('toastBox');
-    toast.innerText = msg;
-    toast.style.display = 'block';
-    setTimeout(() => toast.style.display = 'none', delay);
-}
-// 显示加载
-function showLoad() { document.getElementById('loadBox').style.display = 'block';}
-// 关闭加载
-function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
-// 关闭全局弹窗
-function closeModal() {
-    const mask = document.getElementById('modalMask');
-    const box = document.getElementById('modalBox');
-    mask.style.display = 'none';
-    box.innerHTML = '';
-    box.className = 'modal-box';
-	document.body.classList.remove("modal-open");
-}
-// 打开弹窗，自定义内容、标题、按钮
-function openModal(html, isVideo = false, isPic = false, isFormModal = false) {
-    const mask = document.getElementById('modalMask');
-    const box = document.getElementById('modalBox');
-    box.innerHTML = html;
-    box.className = 'modal-box';
-    if(isVideo) box.classList.add('video-modal');
-    if(isPic) box.classList.add('pic-modal');
-    if(isFormModal) box.classList.add('form-modal');
-    mask.style.display = 'flex';
-	document.body.classList.add("modal-open");
-    mask.onclick = function(e){
-        if(e.target !== mask) return;
-        if(box.classList.contains('form-modal')){
-            return;
-        }
-        closeModal();
-    }
-    box.onclick = function(e){
-        e.stopPropagation();
-    }
-}
-// 获取今日日期
-function getToday() {
-    let date = new Date();
-    let Y = date.getFullYear();
-    let M = date.getMonth()+1;
-    let D = date.getDate();
-    let H = date.getHours();
-    return `${Y}-${M}-${D}-${H}`;
-}
-// 回到顶部
-function scrollToTop() {
-    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-    if (scrollTop > 0) {
-        window.requestAnimationFrame(scrollToTop);
-        window.scrollTo(0, scrollTop - scrollTop / 10);
-    }
-}
-// 复制文本
-function copyContent(divElement) {
-    const tempTextarea = document.createElement('textarea');
-    tempTextarea.value = divElement.innerText;
-    tempTextarea.style.position = 'fixed';
-    document.body.appendChild(tempTextarea);
-    tempTextarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempTextarea);
-    showToast('复制成功');
-}
-
-// ===================== 轮播图 =====================
 window.onload = function(){
     const images = document.getElementById("slideshow").getElementsByTagName("img");
     let pos = 0;
@@ -283,7 +186,6 @@ window.onload = function(){
     },1500);
 };
 
-// ===================== 滚动加载vlog =====================
 let page = 0;
 let isClick = true;
 window.addEventListener('scroll', function () {
@@ -294,12 +196,10 @@ window.addEventListener('scroll', function () {
     if ((scrollHeight - totalHeight < 100) && isClick) {
         isClick = false;
         ++page;
-        const CATCH_DATA_KEY = 'DATA_' + page;
+        const CATCH_DATA_KEY = 'vlog_' + page;
         const CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
         let data = null;
-        try{
-            data = JSON.parse(CATCH_DATA);
-        }catch(e){}
+        try{ data = JSON.parse(CATCH_DATA); }catch(e){}
         if (data && data.validDate === getToday()) {
             renderList(data.vlog);
             const Click = data.vlog.msg;
@@ -315,7 +215,6 @@ window.addEventListener('scroll', function () {
     }
 });
 
-// 渲染动态列表
 function renderList(List) {
     if (List.msg == false){
         showToast(List.data);
@@ -324,27 +223,16 @@ function renderList(List) {
         const vlog = List.data;
         const vlogWrap = document.getElementById('vlog');
         for (let i = 0; i < vlog.length; i++) {
-            const cards = vlog[i].cards;
-            const title = vlog[i].title;
+            const item = vlog[i];
+            const title = item.txt;
+            const imgArr = item.img.split(',').filter(s=>s.trim()!=='');
             let outimg = "";
             let css = "";
-            if (cards.length === 1){
-                css = "width:65%;padding-bottom:35%;";
-            }
-            for (let ii = 0; ii < cards.length; ii++) {
-                const imgurl = cards[ii].img_url;
-                const origin = cards[ii].img_url_big;
-                const video  = cards[ii].mp4_url || '';
+            if (imgArr.length === 1) css = "width:65%;padding-bottom:35%;";
+            for (let ii = 0; ii < imgArr.length; ii++) {
+                const imgurl = imgArr[ii].trim();
                 const safeImg = imgurl.replace(/"/g,'&quot;');
-                const safeOrigin = origin.replace(/"/g,'&quot;');
-                const safeVideo = video.replace(/"/g,'&quot;');
-                if (video.trim() === ""){
-                    outimg += `<li style="background-image:url(${safeImg});background-position:center;background-size:cover;${css}" onclick="player('${safeOrigin}','pic')"></li>`;
-                }else{
-                    outimg += `<li style="background-image:url(${safeImg});background-position:center;background-size:cover;${css}" onclick="player('${safeVideo}','video','${safeImg}')">
-                        <svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg>
-                    </li>`;
-                }
+                outimg += `<li style="background-image:url(${safeImg});background-position:center;background-size:cover;${css}" onclick="eject('${safeImg}')"></li>`;
             }
             const itemHtml = `<div class="itemg">
                 <div class="itemg_lf"><img src="https://qnm.hunliji.com/FmXDfI8uZWhVnt9Bpc6ueJLXVHw4"></div>
@@ -361,146 +249,250 @@ function renderList(List) {
         }
     }
 }
+// 验证码
+function drawVerifyCode(type) {
+    const canvasId = `${type}_code_canvas`;
+    const canvas = document.getElementById(canvasId);
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const a = Math.floor(Math.random() * 90) + 10;
+    const b = Math.floor(Math.random() * 90) + 10;
+    const answer = a + b;
+    window._verify = window._verify || {};
+    window._verify[type] = answer;
+    ctx.fillStyle = '#f7f7f7';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    const text = `${a} + ${b} = ?`;
+    ctx.font = '15px Arial';
+    ctx.fillStyle = '#222';
+    ctx.textAlign = 'center';
+    ctx.fillText(text, canvas.width / 2, 25);
+}
 
-// ===================== 客片查询弹窗 =====================
-function wedList(){
+// ========== 客片查询 ==========
+function wedList() {
     const modalHtml = `
-    <div class="prompt-wrap">
         <p class="prompt-title">🔍 客片查询</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="temp_riqi" class="prompt-input" placeholder="请输入拍摄日期，如20090101">
             <input type="text" id="temp_kehu" class="prompt-input" placeholder="请输入客户姓名">
+            <div style="display:flex;gap:10px;align-items:center;">
+                <input type="text" id="wed_code_input" class="prompt-input" placeholder="请输入算式结果">
+                <canvas id="wed_code_canvas" width="100" height="36" style="border:1px solid #ddd;border-radius:4px;cursor:pointer;"></canvas>
+            </div>
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
             <button class="btn-cancel" onclick="closeModal()">取消</button>
-            <button class="btn-confirm" onclick="wedSubmitHandler()">确定</button>
+            <button id="wed_submit_btn" class="btn-confirm" onclick="wedSubmitHandler()">确定</button>
         </div>
-    </div>
     `;
-    window.wedSubmitHandler = function(){
+    window.wedSubmitHandler = function () {
+        const btn = document.getElementById('wed_submit_btn');
+        if (btn.disabled) return;
+
         const rVal = document.getElementById('temp_riqi').value.trim();
         const kVal = document.getElementById('temp_kehu').value.trim();
-        if(rVal.length < 8){
+        const userCode = document.getElementById('wed_code_input').value.trim();
+        const rightAnswer = (window._verify || {}).wed;
+
+        //日期校验
+        if (!/^\d{8}$/.test(rVal)) {
             showToast('日期格式错误');
-			document.getElementById('temp_riqi').focus();
+            document.getElementById("temp_riqi").value = "";
+            document.getElementById('temp_riqi').focus();
             return;
         }
-        if(kVal.length < 2){
-            showToast('请填写姓名');
-			document.getElementById('temp_kehu').focus();
+        const y = Number(rVal.slice(0, 4));
+        const m = Number(rVal.slice(4, 6));
+        const d = Number(rVal.slice(6, 8));
+        const dateObj = new Date(y, m - 1, d);
+        if (dateObj.getFullYear() !== y || dateObj.getMonth() !== m - 1 || dateObj.getDate() !== d) {
+            showToast('不是有效的日期，请重新输入');
+            document.getElementById('temp_riqi').focus();
             return;
         }
-		closeModal();
-        GP_data("wed",{data:{time:rVal,name:kVal}},res=>{
-            if(!res.msg){
-                showToast(res.data);
-            }else{
+        if (kVal.length < 3) {
+            showToast('请输入客户姓名');
+            document.getElementById('temp_kehu').focus();
+            return;
+        }
+        if (userCode === '') {
+            showToast('请输入算式结果');
+            document.getElementById('wed_code_input').focus();
+            return;
+        }
+        if (Number(userCode) !== rightAnswer) {
+            showToast('这都能算错？再来一次！');
+            document.getElementById('wed_code_input').value = '';
+            drawVerifyCode('wed');
+            document.getElementById('wed_code_input').focus();
+            return;
+        }
+
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        closeModal();
+        GP_data("wed", { data: { time: rVal, name: kVal } }, res => {
+            delete window._verify.wed;
+            if (res.msg) {
                 openModal(`<div onclick="copyContent(this)"><p>${res.data.txt}</p><p style="word-break: break-all;">${res.data.url}</p><p>${res.data.key}</p><p>${res.data.marks}</p></div>`);
+            } else {
+                showToast(res.data);
             }
         })
     };
-	openModal(modalHtml, false, false, true);
+
+    openModal(modalHtml, false, true);
+    setTimeout(() => {
+        drawVerifyCode('wed');
+        const canvas = document.getElementById('wed_code_canvas');
+        canvas.onclick = () => drawVerifyCode('wed');
+    }, 0);
 }
 
-// ===================== 预约留言弹窗 =====================
+// ========== 预约留言 ==========
 function reserve() {
     const modalHtml = `
-    <div class="prompt-wrap">
         <p class="prompt-title">💬 欢迎留言</p>
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="res_xm" class="prompt-input" placeholder="请输入您的姓名">
             <input type="text" id="res_tt" class="prompt-input" placeholder="请输入预约内容 及 联系方式">
+            <div style="display:flex;gap:10px;align-items:center;">
+                <input type="text" id="res_code_input" class="prompt-input" placeholder="请输入算式结果">
+                <canvas id="res_code_canvas" width="100" height="36" style="border:1px solid #ddd;border-radius:4px;cursor:pointer;"></canvas>
+            </div>
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
             <button class="btn-cancel" onclick="closeModal()">取消</button>
-            <button id="submitBtn" class="btn-confirm" onclick="reserveSubmit()">确定</button>
+            <button id="res_submit_btn" class="btn-confirm" onclick="reserveSubmit()">确定</button>
         </div>
-    </div>
     `;
     window.reserveSubmit = function () {
+        const btn = document.getElementById('res_submit_btn');
+        if (btn.disabled) return;
+
         const name = document.getElementById('res_xm').value.trim();
         const content = document.getElementById('res_tt').value.trim();
-        if (name.length < 2) {
-            showToast('请填写您的姓名');
-			document.getElementById('res_xm').focus();
+        const userCode = document.getElementById('res_code_input').value.trim();
+        const rightAnswer = (window._verify || {}).res;
+
+        const chineseReg = /^[\u4e00-\u9fa5]{2,}$/;
+        if (!chineseReg.test(name)) {
+            showToast('请填写至少2个汉字的真实姓名');
+            document.getElementById('res_xm').focus();
             return;
         }
-        if (content.length < 3) {
+        if (content.length < 11) {
             showToast('请填写预约内容与联系方式');
-			document.getElementById('res_tt').focus();
+            document.getElementById('res_tt').focus();
             return;
         }
-		closeModal();
-        GP_data("res", { data: {name: name,txt: content} }, function (res) {
-            if (res.type == 1) {
-                const reserveWrap = document.getElementById('vlog');
-                const list = res.data;
-                list.forEach(item => {
-                    const itemHtml = `
-                    <div class="itemg" id="${item.id}">
-                        <div class="itemg_lf">
-                            <span style="color:red;line-height:50px;cursor:pointer;" onclick="resdel('${item.id}','${name}',${item.id})">❌</span>
-                        </div>
-                        <div class="itemg_rg">
-                            <div class="itemg_rg_tp">
-                                <div class="app_sm_lf"><span><em>${item.name}</em></span></div>
-                                <div class="app_sm_rg"><span>${item.time}</span></div>
-                            </div>
-                            <div class="itemg_rg_sm"><p>${item.txt}</p></div>
-                        </div>
-                    </div>`;
-                    reserveWrap.innerHTML += itemHtml;
-                });
-            } else {
-                showToast(res.data);
-            }
+        if (userCode === '') {
+            showToast('请输入算式结果');
+            document.getElementById('res_code_input').focus();
+            return;
+        }
+        if (Number(userCode) !== rightAnswer) {
+            showToast('这都能算错？再来一次！');
+            document.getElementById('res_code_input').value = '';
+            drawVerifyCode('res');
+            document.getElementById('res_code_input').focus();
+            return;
+        }
+
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+        closeModal();
+        GP_data("res", { data: { name: name, txt: content } }, function (res) {
+            showToast(res.data);
+            delete window._verify.res;
         });
     };
-    openModal(modalHtml, false, false, true);
-}
-function resdel(iSel,n,id){
-    GP_data("res",{data:{land:n,del:id}},function(list){
-        if (list.msg) {
-            const delLi = document.getElementById(id);
-            if(delLi) delLi.remove();
-            showToast(list.data);
-        } else {
-            showToast(list.data);
-        }
-    });
+    openModal(modalHtml, false, true);
+    setTimeout(() => {
+        drawVerifyCode('res');
+        const canvas = document.getElementById('res_code_canvas');
+        canvas.onclick = () => drawVerifyCode('res');
+    }, 0);
 }
 
-// ===================== 图片/视频预览 =====================
-function player(url,type,img) {
+function eject(url) {
     showLoad();
-    if (type == "pic"){
-        const pic = new Image();
-        pic.src = url;
-        pic.onload = function () {
-            const html = `<img width="100%" src="${url}" onclick="closeModal()">`;
-            openModal(html, false, true);
-            closeLoad();
-        }
-        pic.onerror = function() {
-            closeLoad();
-            showToast('图片加载失败');
-        }
-    }else if(type == "video"){
-        const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="${img}" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint">
-            <source src="${url}" type="video/mp4">
-        </video>`;
-        openModal(html, true);
+    const pic = new Image();
+    pic.src = url;
+    pic.onload = function () {
+        openModal(`<img width="100%" src="${url}" onclick="closeModal()">`, true);
         closeLoad();
-        setTimeout(()=>{
-            const video = document.getElementById('myVideo');
-            if(video){
-                video.play();
-                video.addEventListener('ended',()=>video.play());
-                video.addEventListener('touchstart',closeModal);
-            }
-        }, 100);
+    }
+    pic.onerror = function() {
+        closeLoad();
+        showToast('图片加载失败');
     }
 }
+
+function showToast(msg, delay = 1700) {
+    const toast = document.getElementById('toastBox');
+    toast.innerText = msg;
+    toast.style.display = 'block';
+    setTimeout(() => toast.style.display = 'none', delay);
+}
+function showLoad() { document.getElementById('loadBox').style.display = 'block';}
+function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
+
+function closeModal() {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    mask.style.display = 'none';
+    box.innerHTML = '';
+    box.className = 'modal-box';
+    document.body.classList.remove("modal-open");
+}
+
+function openModal(html, isPic = false, isFormModal = false) {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    box.innerHTML = html;
+    box.className = 'modal-box';
+    if(isPic) box.classList.add('pic-modal');
+    if(isFormModal) box.classList.add('form-modal');
+    mask.style.display = 'flex';
+    document.body.classList.add("modal-open");
+    mask.onclick = function(e){
+        if(e.target !== mask) return;
+        if(box.classList.contains('form-modal')) return;
+        closeModal();
+    }
+    box.onclick = function(e){ e.stopPropagation(); }
+}
+
+function getToday() {
+    let date = new Date();
+    let Y = date.getFullYear();
+    let M = date.getMonth()+1;
+    let D = date.getDate();
+    let H = date.getHours();
+    return `${Y}-${M}-${D}-${H}`;
+}
+
+function scrollToTop() {
+    let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    if (scrollTop > 0) {
+        window.requestAnimationFrame(scrollToTop);
+        window.scrollTo(0, scrollTop - scrollTop / 10);
+    }
+}
+
+function copyContent(divElement) {
+    const tempTextarea = document.createElement('textarea');
+    tempTextarea.value = divElement.innerText;
+    tempTextarea.style.position = 'fixed';
+    document.body.appendChild(tempTextarea);
+    tempTextarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextarea);
+    showToast('复制成功');
+}
+
 async function GP_data(txt, options = {}, callback) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
     const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
@@ -508,7 +500,7 @@ async function GP_data(txt, options = {}, callback) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
     try {
-        let fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
+        const fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
         if(method !== 'GET'){
             const params = new URLSearchParams();
             for(let k in data) params.append(k, data[k]);
