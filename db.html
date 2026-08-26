@@ -14,14 +14,12 @@ body{min-width:320px;font-size:15px;color:#051b28;background-color:#eee;}
 img{border:0;vertical-align:middle;}
 ul,ol,li{list-style:none;}
 a{color:#000;text-decoration:none}
-
 .login-wrap{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px;}
 .login-box{background:#fff;width:100%;max-width:420px;padding:24px 20px;border-radius:6px;}
 .login-box input{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;margin-bottom:16px;outline:none;}
 .login-box input:focus{border-color:#ff5983;}
 .login-box button{width:100%;padding:10px;background:#ff5983;color:#fff;border:none;border-radius:4px;font-size:15px;cursor:pointer;}
 .err-tip{color:#dc2626;font-size:14px;text-align:center;margin-top:8px;display:none;}
-
 .admin-wrap{display:none;min-height:100vh;}
 .admin-container{max-width:640px;min-width:320px;margin:0 auto;background:#fff;min-height:100vh;}
 .menu-box{display:flex;border-bottom:#ff5983 2px solid;flex-wrap:wrap;}
@@ -30,17 +28,14 @@ a{color:#000;text-decoration:none}
 .content-area{padding:16px;}
 .panel{display:none;padding-bottom: 35px !important;}
 .panel.show{display:block;}
-
-.form-item{margin-bottom:16px;}
+.form-item{margin-bottom:10px;}
 .form-item label{display:block;margin-bottom:6px;color:#333;}
 .form-item input,.form-item textarea{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;}
 .form-item input:focus,.form-item textarea:focus{border-color:#ff5983;}
 textarea{min-height:140px;resize:vertical;}
-
 .btn{padding:8px 18px;border:none;margin:0 4px 6px 0;border-radius:4px;cursor:pointer;font-size:15px;}
 .btn-primary{background:#ff5983;color:#fff;text-align:center;}
 #msgList{margin-top:12px;min-height:100px;}
-
 .msg-card{border-bottom:#EDEDED 1px solid;padding:12px 0;display:flex;gap:12px;align-items:flex-start;}
 .msg-del-btn{flex-shrink:0;width:30px;height:30px;background:#fee2e2;color:#dc2626;border-radius:50%;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
 .msg-body{flex:1;min-width:0;}
@@ -48,37 +43,29 @@ textarea{min-height:140px;resize:vertical;}
 .msg-time{color:#737373;font-size:13px;}
 .msg-content{color:#333;font-size:15px;line-height:1.55;word-break:break-all;overflow-wrap:anywhere;}
 .empty-tip{text-align:center;color:#737373;padding:35px 0;}
-
 .Pic-label{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
 .Pic-label label{display:flex;align-items:center;gap:6px;cursor:pointer;position:relative;}
 .Pic-label input[type="radio"]{appearance:none;width:18px;height:18px;border:2px solid #ddd;border-radius:50%;outline:none;position:relative;}
 .Pic-label input[type="radio"]:checked{border-color:#ff5983;}
 .Pic-label input[type="radio"]:checked::after{content:"";position:absolute;width:10px;height:10px;background:#ff5983;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
-
-
 #PicUpload{border:2px dashed #ddd;text-align:center;padding:20px;margin:10px 0;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:4px;}
 #PicUpload:hover{border:2px dashed #ff5983;}
 #PicUpload.highlight{border-color:#ff5983;background:#fff2f6;}
-
 .preview-wrap{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0;}
 .preview-item{width:100px;height:100px;border-radius:4px;overflow:hidden;position:relative;border:1px solid #ddd;}
 .preview-item img{width:100%;height:100%;object-fit:cover;}
 .preview-item .del-thumb{position:absolute;right:4px;top:4px;width:22px;height:22px;background:rgba(0,0,0,0.65);color:#fff;border-radius:50%;text-align:center;line-height:22px;cursor:pointer;font-size:16px;}
 #uploadProgressWrap{margin:8px 0;display:none;}
-
 .admin-img-grid {display:grid;grid-template-columns:repeat(4, minmax(0,1fr));grid-auto-rows:1fr;gap:8px;margin-top:8px;width:100%;}
 .admin-img-item{overflow:hidden;background:#f5f5f5;min-width:0;min-height:0; cursor: pointer;}
 .admin-img-item img{width:100%;height:100px;object-fit:cover;display:block;}
-
 #msgList {}
 #msgList li{display:inline-block;width:23%;margin:0 1% 8px 1%;position:relative;border-radius:8px;cursor:pointer;}
-
 .modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
 .modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;overflow:auto;display:flex;flex-direction:column;}
 .modal-box .content-wrap{margin:3px 0}
 .modal-box p {font-size: 14px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;overflow-wrap: break-word;}
 body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
-
 .toast-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 20px;border-radius:6px;z-index:10000;display:none;}
 .load-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10001;display:none;}
 .load-spin{width:36px;height:36px;border:4px solid #eee;border-top:4px solid #ff5983;border-radius:50%;animation:spin 0.8s linear infinite;}
@@ -86,6 +73,11 @@ body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
 .bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;left:50%;transform: translateX(-50%);    background:#ff5983;z-index:10000;}
 .bottom .childdiv{flex:1;text-align:center;}
 .bottom a{color:#fff;font-size:16px;display:block;width:100%;height:100%;}
+/* 新增手动图片地址行样式 */
+.manual-img-row{display:flex;gap:6px;margin-bottom:8px;align-items:center;}
+.manual-img-row input{flex:1;padding:8px 10px;border:1px solid #ddd;border-radius:4px;outline:none;}
+.manual-img-row input:focus{border-color:#ff5983;}
+.manual-img-row button{flex-shrink:0;padding:7px 10px;border:none;background:#dc2626;color:#fff;border-radius:4px;cursor:pointer;}
 </style>
 </head>
 <body>
@@ -96,7 +88,6 @@ body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
         <div class="err-tip" id="errTip">密码错误，请重新输入</div>
     </div>
 </div>
-
 <div class="admin-wrap" id="adminWrap">
     <div class="admin-container">
         <div class="menu-box">
@@ -123,24 +114,32 @@ body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
             <div class="panel" id="panel3">
                 <h3 style="margin-bottom:12px;color:#051b28;">发布文章</h3>
                 <div class="form-item">
-                    <input type="text" id="artTitle" placeholder="文章标题">
+                    <textarea id="artTitle" placeholder="填写文章内容"></textarea>
                 </div>
-                <div class="Pic-label">
-                    <label><input type="radio" name="type" value="sh">搜狐</label>
-                    <label><input checked type="radio" name="type" value="mt">美图</label>
-                    <label><input type="radio" name="type" value="tx">腾讯</label>
-                    <label><input type="radio" name="type" value="qt">其他</label>
+                <!-- 手动图片地址输入框容器 -->
+                <div id="manualImgUrlWrap"></div>
+
+                <!-- 上传层，默认隐藏 -->
+                <div id="uploadAreaWrap" style="display:none;">
+                    <div class="Pic-label">
+                        <label><input type="radio" name="type" value="sh">搜狐</label>
+                        <label><input checked type="radio" name="type" value="mt">美图</label>
+                        <label><input type="radio" name="type" value="tx">腾讯</label>
+                        <label><input type="radio" name="type" value="qt">其他</label>
+                    </div>
+                    <div id="PicUpload">
+                        <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="3 6 12 12"><path d="M11.61 8.57c.15.01.28.1.34.23l3 6.01c.07.13.06.29-.02.42-.08.13-.22.21-.37.21H3.43c-.16 0-.3-.08-.38-.22-.07-.14-.07-.3.01-.43l2.14-3.33c.07-.12.2-.19.33-.2.14-.01.27.06.36.16l1.8 2.16 3.53-4.71c.09-.12.23-.19.38-.18zM6.86 6c.71 0 1.29.58 1.29 1.29 0 .71-.58 1.29-1.29 1.29-.71 0-1.29-.58-1.29-1.29 0-.71.58-1.29 1.29-1.29z" fill="#ff5983"></path></svg>
+                        <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
+                        <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
+                    </div>
+                    <div class="preview-wrap" id="previewWrap"></div>
+                    <div id="uploadProgressWrap">
+                        <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
+                        <div style="text-align:center;margin-top:4px;font-size:13px;color:#737373;"><span id="uploadProgressText">0%</span></div>
+                    </div>
                 </div>
-                <div id="PicUpload">
-                    <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="3 6 12 12"><path d="M11.61 8.57c.15.01.28.1.34.23l3 6.01c.07.13.06.29-.02.42-.08.13-.22.21-.37.21H3.43c-.16 0-.3-.08-.38-.22-.07-.14-.07-.3.01-.43l2.14-3.33c.07-.12.2-.19.33-.2.14-.01.27.06.36.16l1.8 2.16 3.53-4.71c.09-.12.23-.19.38-.18zM6.86 6c.71 0 1.29.58 1.29 1.29 0 .71-.58 1.29-1.29 1.29-.71 0-1.29-.58-1.29-1.29 0-.71.58-1.29 1.29-1.29z" fill="#ff5983"></path></svg>
-                    <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
-                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
-                </div>
-                <div class="preview-wrap" id="previewWrap"></div>
-                <div id="uploadProgressWrap">
-                    <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
-                    <div style="text-align:center;margin-top:4px;font-size:13px;color:#737373;"><span id="uploadProgressText">0%</span></div>
-                </div>
+                    <button class="btn btn-primary" onclick="addManualImgInput()">添加图片</button>
+                    <button class="btn btn-primary" onclick="toggleUploadArea()">上传图片</button>
                 <button class="btn btn-primary" onclick="publishArticle()">发布文章</button>
             </div>
             <div class="panel" id="panel4">
@@ -149,7 +148,6 @@ body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
             </div>
         </div>
     </div>
-
     <div class="bottom">
         <div class="childdiv"><a href="./">主页</a></div>
         <div class="childdiv"><a href="ring.html"><b>圈子</b></a></div>
@@ -158,7 +156,6 @@ body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
 <div class="toast-box" id="toastBox"></div>
 <div class="load-box" id="loadBox"><div class="load-spin"></div></div>
 <div class="modal-mask" id="modalMask"><div class="modal-box" id="modalBox"></div></div>
-
 <script>
 let pwd = "";
 Api="https://api.rmbk.cc/";
@@ -174,6 +171,23 @@ const progressWrap = document.querySelector("#uploadProgressWrap");
 const progressBar = document.querySelector("#uploadProgressBar");
 const progressText = document.querySelector("#uploadProgressText");
 
+// 新增：切换上传区域显示隐藏
+function toggleUploadArea(){
+    const wrap=document.getElementById("uploadAreaWrap");
+    wrap.style.display = wrap.style.display === "none" ? "block":"none";
+}
+//新增：添加手动图片地址输入框
+function addManualImgInput(){
+    const container=document.getElementById("manualImgUrlWrap");
+    const div=document.createElement("div");
+    div.className="manual-img-row";
+    div.innerHTML=`
+        <input type="text" class="manual-img-url" placeholder="粘贴图片链接">
+        <button onclick="this.parentElement.remove()">删除</button>
+    `;
+    container.appendChild(div);
+}
+
 function showLoad(){document.getElementById('loadBox').style.display='block';}
 function closeLoad(){document.getElementById('loadBox').style.display='none';}
 function showToast(msg,delay=1500){
@@ -182,7 +196,6 @@ function showToast(msg,delay=1500){
     setTimeout(()=>t.style.display='none',delay);
 }
 function isEmpty(v){return v===null||v===undefined||v===''||(typeof v==='string'&&v.trim()==='');}
-
 function doLogin(){
     const val=pwdInput.value.trim();
     GP_data("key",{data:{val:val}},res=>{
@@ -195,7 +208,6 @@ function doLogin(){
     })
 }
 pwdInput.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();})
-
 document.querySelectorAll('.menu-item').forEach(btn=>{
     btn.onclick=()=>{
         const targetId=btn.dataset.panel;
@@ -205,7 +217,6 @@ document.querySelectorAll('.menu-item').forEach(btn=>{
         document.getElementById(targetId).classList.add('show');
     }
 })
-
 function loadMsg(p){
 	const page=isNaN(p)?1:Number(p);
 	document.getElementById('msgload').innerHTML="";
@@ -234,7 +245,6 @@ function loadMsg(p){
         }
     })
 }
-
 function loadlog(p){
     const page=isNaN(p)?1:Number(p);
 	document.getElementById('msgload').innerHTML="";
@@ -268,7 +278,6 @@ function loadlog(p){
         }
     })
 }
-
 function loadimg(p){
     const page=isNaN(p)?1:Number(p);
 	document.getElementById('msgload').innerHTML="";
@@ -287,13 +296,11 @@ function loadimg(p){
             html+=`<li id="pic_${item.id}" data-type="upimg" data-id="${item.id}" data-ip="${item.ip??''}" data-time="${item.time??''}" style="height:0;padding-bottom:25%;position:relative;">${check}<span style="background-image:url('${item.img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${item.img}','${item.ip??''}','${item.time??''}')"></span></li>`;
         }
         wrap.innerHTML+=html;
-
         if(list.page>page){
             document.getElementById('msgload').innerHTML=`<div class="btn btn-primary" onclick="loadimg(${page+1})">加载更多...</div>`;
         }
     })
 }
-
 document.addEventListener('click',e=>{
     if(e.target.id==='checkAllPic'){
         const checks=document.querySelectorAll('.pic-check');
@@ -314,7 +321,6 @@ function batchDeletePicOnce(){
         }else showToast(res.data||"批量删除失败");
     })
 }
-
 function resdel(btn){
     const dom=btn.closest('[data-type]');
     if(!dom)return;
@@ -326,7 +332,6 @@ function resdel(btn){
         else showToast(res.data||"删除失败");
     })
 }
-
 function addPhoto(){
     const info=document.getElementById("customerInfo").value.trim();
     if(!info){showToast("请填写客户信息");return;}
@@ -335,14 +340,12 @@ function addPhoto(){
         document.getElementById("customerInfo").value="";
     })
 }
-
 ['dragenter','dragover','dragleave','drop'].forEach(n=>PicUpload.addEventListener(n,e=>{e.preventDefault();e.stopPropagation();}));
 ['dragenter','dragover'].forEach(n=>PicUpload.addEventListener(n,()=>PicUpload.classList.add('highlight')));
 ['dragleave','drop'].forEach(n=>PicUpload.addEventListener(n,()=>PicUpload.classList.remove('highlight')));
 PicUpload.addEventListener('click',e=>{e.stopPropagation();fileInput.click();})
 fileInput.addEventListener('change',e=>{handleFiles(e);fileInput.value="";})
 PicUpload.addEventListener('drop',e=>handleFiles({target:{files:e.dataTransfer.files}}));
-
 async function handleFiles(e){
     const files=Array.from(e.target.files);
     for(const f of files){
@@ -363,13 +366,19 @@ function removeThumb(el){
     URL.revokeObjectURL(url);
     item.remove();
 }
-
 async function publishArticle(){
     const title=document.getElementById("artTitle").value.trim();
     if(!title){showToast("标题不能为空");return;}
     let uploadType="";
     document.querySelectorAll('input[name="type"]').forEach(r=>{if(r.checked)uploadType=r.value;})
     let imgUrlList=[];
+
+    //收集手动填写图片链接
+    document.querySelectorAll(".manual-img-url").forEach(input=>{
+        const val=input.value.trim();
+        if(!isEmpty(val)) imgUrlList.push(val);
+    });
+
     if(localImageFiles.length>0){
         if(!uploadType){showToast("请选择上传接口");return;}
         showLoad();
@@ -410,10 +419,11 @@ async function publishArticle(){
             document.getElementById("artTitle").value="";
             localImageFiles=[];
             previewWrap.innerHTML="";
+            //清空手动图片输入框
+            document.getElementById("manualImgUrlWrap").innerHTML="";
         }else showToast(res.data);
     })
 }
-
 function eject(u,i,a) {
     showLoad();
     let infoHtml='';
@@ -433,10 +443,8 @@ function eject(u,i,a) {
     pic.src = u;
 }
 let modalScrollTop = 0;
-
 function openModal(html) {
     modalScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-
     const mask = document.getElementById('modalMask');
     const box = document.getElementById('modalBox');
     box.innerHTML = html;
@@ -453,9 +461,7 @@ function closeModal() {
     box.innerHTML = '';
     document.body.classList.remove("modal-open");
     window.scrollTo(0, modalScrollTop);
-
 }
-
 function check_ip(ip){
     GP_data(`ip&ip=${encodeURIComponent(ip)}`,{method:'GET'},list=>{
         const wrap=document.querySelector("#ipres");
@@ -473,7 +479,6 @@ function copytxt(d) {
     document.body.removeChild(input);
     showToast("复制成功！");
 }
-
 async function GP_data(txt, options = {}, cb) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
     const APIurl = Api+"i6x.php?type=" + txt;
@@ -492,7 +497,7 @@ async function GP_data(txt, options = {}, cb) {
         cb(json);
     } catch (err) {
         if (err.name === 'AbortError') cb({ msg: false, data: '请求超时！' });
-        else {console.error("GP_data异常：", err); cb({ msg: false, data: '网络异常或数据解析失败' });}
+    else {console.error("GP_data异常：", err); cb({ msg: false, data: '网络异常或数据解析失败' });}
     } finally {
         clearTimeout(timer);
         closeLoad();
