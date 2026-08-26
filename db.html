@@ -208,6 +208,7 @@ document.querySelectorAll('.menu-item').forEach(btn=>{
 
 function loadMsg(p){
 	const page=isNaN(p)?1:Number(p);
+	document.getElementById('msgload').innerHTML="";
     GP_data("res",{data:{pwd:pwd,page:page}},res=>{
         const wrap=document.getElementById('msgList');
         wrap.innerHTML="";
@@ -228,7 +229,6 @@ function loadMsg(p){
                 </div>
             </div>`;
         })
-		document.getElementById('msgload').innerHTML="";
         if(list.page>page){
             document.getElementById('msgload').innerHTML+=`<div class="btn btn-primary" onclick="loadMsg(${page+1})">加载更多...</div>`;
         }
@@ -237,6 +237,7 @@ function loadMsg(p){
 
 function loadlog(p){
     const page=isNaN(p)?1:Number(p);
+	document.getElementById('msgload').innerHTML="";
     GP_data(`vlog&p=${page}`,{method:'GET'},res=>{
         const wrap=document.getElementById('msgList');
         wrap.innerHTML="";
@@ -262,7 +263,6 @@ function loadlog(p){
                 </div>
             </div>`;
         })
-		document.getElementById('msgload').innerHTML="";
         if(list.page>page){
             document.getElementById('msgload').innerHTML+=`<div class="btn btn-primary" onclick="loadlog(${page+1})">加载更多...</div>`;
         }
@@ -271,6 +271,7 @@ function loadlog(p){
 
 function loadimg(p){
     const page=isNaN(p)?1:Number(p);
+	document.getElementById('msgload').innerHTML="";
     GP_data("upimg",{data:{pwd:pwd,page:page}},list=>{
         const wrap=document.getElementById('msgList');
         if(list.msg===false){showToast(list.data);return;}
@@ -286,7 +287,7 @@ function loadimg(p){
             html+=`<li id="pic_${item.id}" data-type="upimg" data-id="${item.id}" data-ip="${item.ip??''}" data-time="${item.time??''}" style="height:0;padding-bottom:25%;position:relative;">${check}<span style="background-image:url('${item.img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${item.img}','${item.ip??''}','${item.time??''}')"></span></li>`;
         }
         wrap.innerHTML+=html;
-		document.getElementById('msgload').innerHTML="";
+
         if(list.page>page){
             document.getElementById('msgload').innerHTML=`<div class="btn btn-primary" onclick="loadimg(${page+1})">加载更多...</div>`;
         }
