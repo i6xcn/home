@@ -424,7 +424,11 @@ function eject(u,i,a) {
     }
     pic.src = u;
 }
+let modalScrollTop = 0;
+
 function openModal(html) {
+    modalScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
     const mask = document.getElementById('modalMask');
     const box = document.getElementById('modalBox');
     box.innerHTML = html;
@@ -439,8 +443,9 @@ function closeModal() {
     const box = document.getElementById('modalBox');
     mask.style.display = 'none';
     box.innerHTML = '';
-    box.className = 'modal-box';
     document.body.classList.remove("modal-open");
+    window.scrollTo(0, modalScrollTop);
+
 }
 
 function check_ip(ip){
