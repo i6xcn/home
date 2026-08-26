@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="renderer" content="webkit">
+<title>别来无恙</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{min-width:320px;font-size:15px;color:#051b28;background-color:#eee;}
+img{border:0;vertical-align:middle;}
+ul,ol,li{list-style:none;}
+a{color:#000;text-decoration:none}
+
+.login-wrap{width:100%;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:15px;}
+.login-box{background:#fff;width:100%;max-width:420px;padding:24px 20px;border-radius:6px;}
+.login-box input{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;margin-bottom:16px;outline:none;}
+.login-box input:focus{border-color:#ff5983;}
+.login-box button{width:100%;padding:10px;background:#ff5983;color:#fff;border:none;border-radius:4px;font-size:15px;cursor:pointer;}
+.err-tip{color:#dc2626;font-size:14px;text-align:center;margin-top:8px;display:none;}
+
+.admin-wrap{display:none;min-height:100vh;}
+.admin-container{max-width:640px;min-width:320px;margin:0 auto;background:#fff;min-height:100vh;}
+.menu-box{display:flex;border-bottom:#ff5983 2px solid;flex-wrap:wrap;}
+.menu-item{flex:1;min-width:80px;padding:10px 8px;cursor:pointer;border:none;background:transparent;font-size:15px;color:#858585;}
+.menu-item.active{background:#ff5983;color:#fff;}
+.content-area{padding:16px;}
+.panel{display:none;}
+.panel.show{display:block;}
+
+.form-item{margin-bottom:16px;}
+.form-item label{display:block;margin-bottom:6px;color:#333;}
+.form-item input,.form-item textarea{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;}
+.form-item input:focus,.form-item textarea:focus{border-color:#ff5983;}
+textarea{min-height:140px;resize:vertical;}
+
+.btn{padding:8px 18px;border:none;margin:0 4px 6px 0;border-radius:4px;cursor:pointer;font-size:15px;}
+.btn-primary{background:#ff5983;color:#fff;}
+#msgList{margin-top:12px;min-height:100px;}
+
+.msg-card{border-bottom:#EDEDED 1px solid;padding:12px 0;display:flex;gap:12px;align-items:flex-start;}
+.msg-del-btn{flex-shrink:0;width:30px;height:30px;background:#fee2e2;color:#dc2626;border-radius:50%;border:none;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.msg-body{flex:1;min-width:0;}
+.msg-header{display:flex;justify-content:space-between;margin-bottom:6px;}
+.msg-name{font-weight:700;color:#0c6ad4;font-size:15px;}
+.msg-time{color:#737373;font-size:13px;}
+.msg-content{color:#333;font-size:15px;line-height:1.55;word-break:break-all;overflow-wrap:anywhere;}
+.empty-tip{text-align:center;color:#737373;padding:35px 0;}
+
+.Pic-label{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:10px;}
+.Pic-label label{display:flex;align-items:center;gap:6px;cursor:pointer;position:relative;}
+.Pic-label input[type="radio"]{appearance:none;width:18px;height:18px;border:2px solid #ddd;border-radius:50%;outline:none;position:relative;}
+.Pic-label input[type="radio"]:checked{border-color:#ff5983;}
+.Pic-label input[type="radio"]:checked::after{content:"";position:absolute;width:10px;height:10px;background:#ff5983;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%);}
+
+#PicUpload{border:2px dashed #ddd;text-align:center;padding:20px;margin:10px 0;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:4px;}
+#PicUpload:hover{border:2px dashed #ff5983;}
+#PicUpload.highlight{border-color:#ff5983;background:#fff2f6;}
+
+.preview-wrap{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0;}
+.preview-item{width:110px;height:110px;border-radius:4px;overflow:hidden;position:relative;border:1px solid #ddd;}
+.preview-item img{width:100%;height:100%;object-fit:cover;}
+.preview-item .del-thumb{position:absolute;right:4px;top:4px;width:22px;height:22px;background:rgba(0,0,0,0.65);color:#fff;border-radius:50%;text-align:center;line-height:22px;cursor:pointer;font-size:16px;}
+#uploadProgressWrap{margin:8px 0;display:none;}
+
+.admin-img-grid {display:grid;grid-template-columns:repeat(4, minmax(0,1fr));grid-auto-rows:1fr;gap:8px;margin-top:8px;width:100%;}
+.admin-img-item{overflow:hidden;background:#f5f5f5;min-width:0;min-height:0;}
+.admin-img-item img{width:100%;height:100%;object-fit:cover;display:block;}
+
+#msgList {padding-bottom:35px !important;}
+#msgList li{display:inline-block;width:23%;margin:0 1% 8px 1%;position:relative;border-radius:8px;cursor:pointer;}
+
+.modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
+.modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;overflow:auto;display:flex;flex-direction:column;}
+.modal-box .content-wrap{margin:3px 0}
+.modal-box p{font-size:14px;}
+body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
+
+.toast-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 20px;border-radius:6px;z-index:10000;display:none;}
+.load-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10001;display:none;}
+.load-spin{width:36px;height:36px;border:4px solid #eee;border-top:4px solid #ff5983;border-radius:50%;animation:spin 0.8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+.bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;left:50%;transform: translateX(-50%);    background:#ff5983;z-index:10000;}
+.bottom .childdiv{flex:1;text-align:center;}
+.bottom a{color:#fff;font-size:16px;display:block;width:100%;height:100%;}
+</style>
+</head>
+<body>
+<div class="login-wrap" id="loginWrap">
+    <div class="login-box">
+        <input type="password" id="pwdInput" placeholder="请输入密码">
+        <button onclick="doLogin()">查看</button>
+        <div class="err-tip" id="errTip">密码错误，请重新输入</div>
+    </div>
+</div>
+
+<div class="admin-wrap" id="adminWrap">
+    <div class="admin-container">
+        <div class="menu-box">
+            <button class="menu-item active" data-panel="panel1">查看数据</button>
+            <button class="menu-item" data-panel="panel2">添加客片</button>
+            <button class="menu-item" data-panel="panel3">发布文章</button>
+            <button class="menu-item" data-panel="panel4">备用版块</button>
+        </div>
+        <div class="content-area">
+            <div class="panel show" id="panel1">
+                <button class="btn btn-primary" onclick="loadMessage()">加载留言</button>
+                <button class="btn btn-primary" onclick="loadvlog()">加载文章</button>
+                <button class="btn btn-primary" onclick="loadimg()">加载图床</button>
+                <div id="msgList"></div>
+            </div>
+            <div class="panel" id="panel2">
+                <h3 style="margin-bottom:12px;color:#051b28;">添加客片</h3>
+                <div class="form-item">
+                    <textarea id="customerInfo" placeholder="填写客户相关信息"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="addPhoto()">添加</button>
+            </div>
+            <div class="panel" id="panel3">
+                <h3 style="margin-bottom:12px;color:#051b28;">发布文章</h3>
+                <div class="form-item">
+                    <input type="text" id="artTitle" placeholder="文章标题">
+                </div>
+                <div class="Pic-label">
+                    <label data-hover="推荐使用"><input type="radio" name="type" value="sh">搜狐</label>
+                    <label data-hover="推荐使用"><input checked type="radio" name="type" value="mt">美图</label>
+                    <label data-hover="腾讯云存储"><input type="radio" name="type" value="tx">腾讯</label>
+                    <label data-hover="备用接口"><input type="radio" name="type" value="qt">其他</label>
+                </div>
+                <div id="PicUpload">
+                    <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="3 6 12 12"><path d="M11.61 8.57c.15.01.28.1.34.23l3 6.01c.07.13.06.29-.02.42-.08.13-.22.21-.37.21H3.43c-.16 0-.3-.08-.38-.22-.07-.14-.07-.3.01-.43l2.14-3.33c.07-.12.2-.19.33-.2.14-.01.27.06.36.16l1.8 2.16 3.53-4.71c.09-.12.23-.19.38-.18zM6.86 6c.71 0 1.29.58 1.29 1.29 0 .71-.58 1.29-1.29 1.29-.71 0-1.29-.58-1.29-1.29 0-.71.58-1.29 1.29-1.29z" fill="#ff5983"></path></svg>
+                    <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
+                </div>
+                <div class="preview-wrap" id="previewWrap"></div>
+                <div id="uploadProgressWrap">
+                    <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
+                    <div style="text-align:center;margin-top:4px;font-size:13px;color:#737373;"><span id="uploadProgressText">0%</span></div>
+                </div>
+                <button class="btn btn-primary" onclick="publishArticle()">发布文章</button>
+            </div>
+            <div class="panel" id="panel4">
+                <h3 style="margin-bottom:12px;color:#051b28;">备用版块</h3>
+                <p>预留功能区域，可以后续扩展表单或其他功能</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="bottom">
+        <div class="childdiv"><a href="./">主页</a></div>
+        <div class="childdiv"><a href="javascript:scroll(0,0)"><b>圈子</b></a></div>
+    </div>
+</div>
+<div class="toast-box" id="toastBox"></div>
+<div class="load-box" id="loadBox"><div class="load-spin"></div></div>
+<div class="modal-mask" id="modalMask"><div class="modal-box" id="modalBox"></div></div>
+
+<script>
+let pwd = "";
+const loginWrap = document.getElementById('loginWrap');
+const adminWrap = document.getElementById('adminWrap');
+const pwdInput = document.getElementById('pwdInput');
+const errTip = document.getElementById('errTip');
+let localImageFiles = [];
+const previewWrap = document.querySelector("#previewWrap");
+const PicUpload = document.querySelector("#PicUpload");
+const fileInput = document.querySelector("#fileInput");
+const progressWrap = document.querySelector("#uploadProgressWrap");
+const progressBar = document.querySelector("#uploadProgressBar");
+const progressText = document.querySelector("#uploadProgressText");
+
+function showLoad(){document.getElementById('loadBox').style.display='block';}
+function closeLoad(){document.getElementById('loadBox').style.display='none';}
+function showToast(msg,delay=1500){
+    const t=document.getElementById('toastBox');
+    t.innerText=msg;t.style.display='block';
+    setTimeout(()=>t.style.display='none',delay);
+}
+function isEmpty(v){return v===null||v===undefined||v===''||(typeof v==='string'&&v.trim()==='');}
+
+function doLogin(){
+    const val=pwdInput.value.trim();
+    GP_data("key",{data:{val:val}},res=>{
+        if(res.msg){
+            pwd=val;
+            loginWrap.style.display='none';
+            adminWrap.style.display='block';
+            errTip.style.display='none';
+        }else errTip.style.display='block';
+    })
+}
+pwdInput.addEventListener('keydown',e=>{if(e.key==='Enter')doLogin();})
+
+document.querySelectorAll('.menu-item').forEach(btn=>{
+    btn.onclick=()=>{
+        const targetId=btn.dataset.panel;
+        document.querySelectorAll('.menu-item').forEach(b=>b.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p=>p.classList.remove('show'));
+        btn.classList.add('active');
+        document.getElementById(targetId).classList.add('show');
+    }
+})
+
+function loadMessage(){
+    GP_data("res",{data:{pwd:pwd}},res=>{
+        const wrap=document.getElementById('msgList');
+        wrap.innerHTML="";
+        if(!(res.msg&&Array.isArray(res.data))){
+            wrap.innerHTML=`<div class="empty-tip">${res.data||'获取留言失败'}</div>`;
+            return;
+        }
+        const list=res.data;
+        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无留言数据</div>`;return;}
+        list.forEach(item=>{
+            wrap.innerHTML+=`
+            <div class="msg-card" data-type="res" data-id="${item.id}">
+                <button class="msg-del-btn" onclick="resdel(this)">×</button>
+                <div class="msg-body">
+                    <div class="msg-header">
+                        <span class="msg-name">${item.name??''}</span>
+                        <span class="msg-time">${item.time??''}</span>
+                    </div>
+                    <div class="msg-content">${item.txt??''}</div>
+                </div>
+            </div>`;
+        })
+    })
+}
+
+function loadvlog(p){
+    const page=isNaN(p)?1:Number(p);
+    GP_data(`vlog&p=${page}`,{method:'GET'},res=>{
+        const wrap=document.getElementById('msgList');
+        wrap.innerHTML="";
+        if(!(res.msg&&Array.isArray(res.data))){
+            wrap.innerHTML=`<div class="empty-tip">${res.data||'获取文章失败'}</div>`;
+            return;
+        }
+        const list=res.data;
+        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无数据</div>`;return;}
+        list.forEach(item=>{
+            let imgHtml='';
+            if(!isEmpty(item.img)){
+                const arr=item.img.split(',').filter(u=>u.trim());
+                imgHtml=`<div class="admin-img-grid">${arr.map(url=>`<div class="admin-img-item"><img src="${url.trim()}" loading="lazy" onclick="eject('${url.trim()}')"></div>`).join('')}</div>`;
+            }
+            wrap.innerHTML+=`
+            <div class="msg-card" data-type="vlog" data-id="${item.id}">
+                <button class="msg-del-btn" onclick="resdel(this)">×</button>
+                <div class="msg-body">
+                    <div class="msg-header">
+                        <span class="msg-name">${item.txt??''}</span>
+                        <span class="msg-time">${item.time??''}</span>
+                    </div>
+                    ${imgHtml}
+                </div>
+            </div>`;
+        })
+    })
+}
+
+function loadimg(p){
+    const page=isNaN(p)?1:Number(p);
+    GP_data("upimg",{data:{pwd:pwd,page:page}},list=>{
+        const wrap=document.getElementById('msgList');
+        if(list.msg===false){showToast(list.data);return;}
+        const data=list.data;
+        let html='';
+        if(page===1){
+            wrap.innerHTML="";
+            html+=`<div style="margin:10px 0;display:flex;gap:10px;align-items:center;"><button id="checkAllPic" class="btn">全选/取消</button><button id="batchDelPic" class="btn">批量删除</button></div>`;
+        }
+        for(const item of data){
+            if(isEmpty(item.img))continue;
+            const check=!isEmpty(item.id)?`<input type="checkbox" class="pic-check" data-imgid="${item.id}" style="position:absolute;top:4px;left:4px;z-index:100;width:16px;height:16px;cursor:pointer;">`:"";
+            html+=`<li id="pic_${item.id}" data-type="upimg" data-id="${item.id}" data-ip="${item.ip??''}" data-time="${item.time??''}" style="height:0;padding-bottom:30%;position:relative;">${check}<span style="background-image:url('${item.img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${item.img}','${item.ip??''}','${item.time??''}')"></span></li>`;
+        }
+        wrap.innerHTML+=html;
+        if(list.page>page){
+            wrap.innerHTML+=`<div class="btn btn-primary" onclick="loadimg(${page+1})">加载更多...</div>`;
+        }
+    })
+}
+
+document.addEventListener('click',e=>{
+    if(e.target.id==='checkAllPic'){
+        const checks=document.querySelectorAll('.pic-check');
+        const all=Array.from(checks).every(cb=>cb.checked);
+        checks.forEach(cb=>cb.checked=!all);
+    }
+    if(e.target.id==='batchDelPic') batchDeletePicOnce();
+})
+function batchDeletePicOnce(){
+    const checks=document.querySelectorAll('.pic-check:checked');
+    if(checks.length===0){showToast("请先勾选要删除的图片！");return;}
+    if(!confirm(`确定一次性删除选中 ${checks.length} 张图片？删除不可恢复！`))return;
+    const ids=Array.from(checks).map(cb=>cb.dataset.imgid).join(',');
+    GP_data("upimg",{data:{pwd:pwd,del:ids}},res=>{
+        if(res.msg){
+            showToast("批量删除成功");
+            checks.forEach(cb=>{const dom=cb.closest('[data-type="upimg"]');if(dom)dom.remove();})
+        }else showToast(res.data||"批量删除失败");
+    })
+}
+
+function resdel(btn){
+    const dom=btn.closest('[data-type]');
+    if(!dom)return;
+    const dbId=dom.dataset.id;
+    const tp=dom.dataset.type;
+    if(!confirm("确定删除该记录？"))return;
+    GP_data(tp,{data:{pwd:pwd,del:dbId}},res=>{
+        if(res.msg){dom.remove();showToast("删除成功");}
+        else showToast(res.data||"删除失败");
+    })
+}
+
+function addPhoto(){
+    const info=document.getElementById("customerInfo").value.trim();
+    if(!info){showToast("请填写客户信息");return;}
+    GP_data("wed",{data:{info:info,pwd:pwd}},res=>{
+        showToast(res.data);
+        document.getElementById("customerInfo").value="";
+    })
+}
+
+['dragenter','dragover','dragleave','drop'].forEach(n=>PicUpload.addEventListener(n,e=>{e.preventDefault();e.stopPropagation();}));
+['dragenter','dragover'].forEach(n=>PicUpload.addEventListener(n,()=>PicUpload.classList.add('highlight')));
+['dragleave','drop'].forEach(n=>PicUpload.addEventListener(n,()=>PicUpload.classList.remove('highlight')));
+PicUpload.addEventListener('click',e=>{e.stopPropagation();fileInput.click();})
+fileInput.addEventListener('change',e=>{handleFiles(e);fileInput.value="";})
+PicUpload.addEventListener('drop',e=>handleFiles({target:{files:e.dataTransfer.files}}));
+
+async function handleFiles(e){
+    const files=Array.from(e.target.files);
+    for(const f of files){
+        const objUrl=URL.createObjectURL(f);
+        localImageFiles.push(f);
+        const div=document.createElement('div');
+        div.className="preview-item";
+        div.dataset.objurl=objUrl;
+        div.innerHTML=`<img src="${objUrl}" /><span class="del-thumb" onclick="removeThumb(this)">×</span>`;
+        previewWrap.appendChild(div);
+    }
+}
+function removeThumb(el){
+    const item=el.parentElement;
+    const url=item.dataset.objurl;
+    const idx=Array.from(previewWrap.children).indexOf(item);
+    if(idx>-1)localImageFiles.splice(idx,1);
+    URL.revokeObjectURL(url);
+    item.remove();
+}
+
+async function publishArticle(){
+    const title=document.getElementById("artTitle").value.trim();
+    if(!title){showToast("标题不能为空");return;}
+    let uploadType="";
+    document.querySelectorAll('input[name="type"]').forEach(r=>{if(r.checked)uploadType=r.value;})
+    let imgUrlList=[];
+    if(localImageFiles.length>0){
+        if(!uploadType){showToast("请选择上传接口");return;}
+        showLoad();
+        progressWrap.style.display="block";
+        for(const file of localImageFiles){
+            await new Promise(resolve=>{
+                const fd=new FormData();
+                fd.append("file",file);fd.append("type",uploadType);
+                const xhr=new XMLHttpRequest();
+                xhr.open("POST","i6x.php?type=upimg");
+                xhr.upload.onprogress=ev=>{
+                    if(ev.lengthComputable){
+                        const p=Math.round((ev.loaded/ev.total)*100);
+                        progressBar.style.width=p+"%";
+                        progressText.innerText=p+"%";
+                    }
+                }
+                xhr.onload=()=>{
+                    try{
+                        const ret=JSON.parse(xhr.responseText);
+                        if(ret.msg) imgUrlList.push(ret.data.img);
+                        else showToast(file.name+"上传失败："+ret.data);
+                    }catch(err){showToast(file.name+"解析返回异常");}
+                    resolve();
+                }
+                xhr.onerror=()=>{showToast(file.name+"网络错误");resolve();}
+                xhr.send(fd);
+            })
+        }
+        progressWrap.style.display="none";
+        progressBar.style.width="0%";
+        progressText.innerText="0%";
+        closeLoad();
+    }
+    GP_data("vlog",{data:{txt:title,img:imgUrlList.join(','),pwd:pwd}},res=>{
+        if(res.msg){
+            showToast("发布成功！");
+            document.getElementById("artTitle").value="";
+            localImageFiles=[];
+            previewWrap.innerHTML="";
+        }else showToast(res.data);
+    })
+}
+
+function eject(u,i,a) {
+    showLoad();
+    let infoHtml='';
+    if(!isEmpty(i)||!isEmpty(a)) {
+        infoHtml=`<div class="content-wrap"><p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p><p>上传时间：${a??''}</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i??''}</a></span></div>`;
+    }
+    const pic = new Image();
+    pic.onload = function () {
+        const html = infoHtml +`<img src="${u}" onclick="closeModal()">`;
+        openModal(html);
+        closeLoad();
+    }
+    pic.onerror = function() {
+        closeLoad();
+        showToast("图片加载失败！");
+    }
+    pic.src = u;
+}
+function openModal(html) {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    box.innerHTML = html;
+    box.className = 'modal-box';
+    mask.style.display = 'flex';
+    document.body.classList.add("modal-open");
+    mask.onclick = function(e){ if(e.target === mask) closeModal(); }
+    box.onclick = function(e){ e.stopPropagation(); }
+}
+function closeModal() {
+    const mask = document.getElementById('modalMask');
+    const box = document.getElementById('modalBox');
+    mask.style.display = 'none';
+    box.innerHTML = '';
+    box.className = 'modal-box';
+    document.body.classList.remove("modal-open");
+}
+
+function check_ip(ip){
+    GP_data(`ip&ip=${encodeURIComponent(ip)}`,{method:'GET'},list=>{
+        const wrap=document.querySelector("#ipres");
+        if(!wrap)return;
+        wrap.innerText=isEmpty(list.data.address)?"未查到地址信息！":list.data.address;
+    });
+}
+function copytxt(d) {
+    const input = document.createElement('input');
+    input.setAttribute('readonly', 'readonly');
+    input.value = d;
+    document.body.appendChild(input);
+    input.select();
+    document.execCommand('Copy');
+    document.body.removeChild(input);
+    showToast("复制成功！");
+}
+
+async function GP_data(txt, options = {}, cb) {
+    const {method = 'POST',data = {},timeout = 30000 } = options;
+    const APIurl = "i6x.php?type=" + txt;
+    showLoad();
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeout);
+    try {
+        let fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
+        if(method !== 'GET'){
+            const params = new URLSearchParams();
+            for(let k in data) params.append(k, data[k]);
+            fetchOpt.body = params.toString();
+        }
+        const res = await fetch(APIurl, fetchOpt);
+        const json = await res.json();
+        cb(json);
+    } catch (err) {
+        if (err.name === 'AbortError') cb({ msg: false, data: '请求超时！' });
+        else {console.error("GP_data异常：", err); cb({ msg: false, data: '网络异常或数据解析失败' });}
+    } finally {
+        clearTimeout(timer);
+        closeLoad();
+    }
+}
+</script>
+</body>
+</html>
