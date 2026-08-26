@@ -12,27 +12,23 @@
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <style type="text/css">
-/* 全局基础 */
 *{margin:0;padding:0;box-sizing:border-box;}
 body{color:#051b28;font-size:15px;background-color:#eee;}
 img{border:0;vertical-align:middle;object-fit:cover;}
-ul,li{list-style:none;-webkit-margin-before:0;-webkit-margin-after:0;-webkit-margin-start:0;-webkit-margin-end:0;-webkit-padding-start:0}
+ul,li{list-style:none;}
 a{text-decoration:none}
 button{border:none;cursor:pointer;font-size:15px;white-space:nowrap;}
 input{outline:none;border:none;font-family:inherit;}
 @keyframes spin{to{transform:rotate(360deg);}}
-/* 页面容器 */
 .contant{background:#fff;max-width:640px;min-width:320px;margin:0 auto;position:relative;padding-bottom:40px;}
 .header{padding-top:60px;background:#ff5983;}
 .top{background:#fff;height:60px;overflow:hidden;}
 .logo{position:absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;border-radius:100%;margin:0 auto;overflow:hidden;transform:translate(-50%,-50%);}
-/* 导航栏 */
 .navbar{border-bottom:#EDEDED 1px solid;overflow:hidden;}
 .navbar li{float:left;width:25%;text-align:center}
 .navbar li a{display:block;padding:8px 0;font-size:17px;color:#858585}
 .navbar li a:hover{color:#ff5983;background:#eeeeee;}
 .navbar li a.xhx{color:#ff5983!important;border-bottom:#ff5983 2px solid;display:block}
-/* 内容卡片 itemg */
 .itemg { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid #eee; }
 .itemg_lf{float:left;}
 .itemg_lf img { width: 48px; height: 48px; border-radius: 50%; }
@@ -43,19 +39,17 @@ input{outline:none;border:none;font-family:inherit;}
 .itemg_rg_sm {color: #666; margin:10px 0; }
 .itemg_rg_main{overflow:hidden;}
 .itemg_rg_main ul{display:flex;flex-wrap: wrap;}
-/* 底部固定导航 */
 .bottom{max-width:640px;min-width:320px;width:100%;position:fixed;display:flex;line-height:40px;height:40px;bottom:0;background:#ff5983;z-index:10000;}
 .bottom .childdiv{flex:1;text-align:center;}
 .bottom a{color:#fff;}
-/* 搜索容器 wrapper */
 .wrapper {margin:10px;display:none;}
 .wrapper .search{display: flex;align-items: center;justify-content:center;width:315px;height:50px;margin:15px auto;box-sizing: border-box;}
 .wrapper .search-input{flex: 1;box-sizing:border-box;padding:10px;height:100%;background-color:#f7f7f7;border-radius: 9px 0 0 9px;border: 1px solid #ff5983;display:block;overflow:hidden;}
-.input-wrapper{display:flex;position:relative;width:100%;height:100%;-webkit-box-orient: vertical;-webkit-box-direction: normal;flex-direction: column;-webkit-box-pack: center;justify-content:center;}
+.input-wrapper{display:flex;position:relative;width:100%;height:100%;flex-direction:column;justify-content:center;}
 .input{background:none;font-size:16px;height:28px;line-height:28px;width:100%;}
 .wrapper .search-btn{display:flex;align-items:center;justify-content:center;height:100%;width:75px;background-color:#ff5983;color:#fff;font-size:16px;font-weight: 700;border-radius: 0 9px 9px 0;cursor: pointer;}
-.wrapper .result-list{margin-top:10px;border-radius:10px;background-color:#eeeeee;color:#1e80ff;border: 1px dashed #ccc;}
-.wrapper .result-list-item{padding:10px;position:relative;}
+.wrapper .result-list{}
+.wrapper .result-list-item{padding:10px;position:relative;margin-top:10px;color:#1e80ff;border: 1px dashed #ccc;border-radius:10px;}
 .wrapper .result-content {display:flex;}
 .wrapper .result-content-left {width: calc(100% - 50px);display:flex;gap: 5px;align-items: center;}
 .wrapper .result-value{width:100%;}
@@ -66,32 +60,27 @@ input{outline:none;border:none;font-family:inherit;}
 .wrapper li{display:inline-block;width:23%;margin: 0 1% 8px 1%;position:relative;border-radius:8px;cursor:pointer;}
 .wrapper span{overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:1;}
 @media (max-width: 599px) { .wrapper li {width:31%;} }
-/* 图片上传区域 */
 .Pic-label{text-align:center;line-height:30px;}
-#PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 10px auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#PicUpload {border: 2px dashed #ccc;text-align:center;padding:20px;margin: 10px auto;height:100px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:4px;}
+#PicUpload:hover { border: 2px dashed #ff5983;}
 #PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}
-/* 表单fieldset */
 fieldset{padding:0 10px 10px;margin: 10px 0;border:1px solid #ccc;}
 legend{text-align:center;padding:0 10px;}
 label{position:relative;cursor:pointer;padding:0 6px;}
 label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;}
 label:hover::after {display:block;}
-/* 加载更多 */
 .loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
 .load-more-btn { text-align: center; padding: 14px; cursor: pointer; }
-/* 全局提示、加载 */
 #toast-box{position:fixed;top:40%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 16px;border-radius:4px;z-index:9999;display:none;white-space:nowrap;}
 #loading-box{position:fixed;top:0;left:0;width:100%;height:100%;z-index:10000;display:none;align-items:center;justify-content:center;}
 .load-spin{width:30px;height:30px;border:3px solid #ff5983;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;}
-/* 弹窗核心 + 滚动锁定（合并重复规则） */
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
-#modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:9999; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
+#modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:10; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
 #modal-box { width: calc(640px * 0.9); background: #ffffff; max-width: 90vw; max-height: 85vh; border-radius: 6px; box-sizing: border-box; overflow: hidden !important; display: flex; flex-direction: column; }
 #modal-box .modal-scroll-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
 #modal-box .modal-scroll-wrap p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 #modal-box.video-modal { background: transparent !important; padding: 0 !important; overflow: hidden !important; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 #modal-box.video-modal video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
-/* 弹窗表单样式 */
 .prompt-wrap { padding: 10px; }
 .prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
 .prompt-row-flex { display: flex; align-items: center; gap: 10px; }
@@ -99,7 +88,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 .prompt-input:focus { border-color: #ff5983; }
 .btn-cancel { background: #eeeeee; color: #333333; padding: 8px 18px;border-radius: 4px;}
 .btn-confirm { background: #ff5983; color: #ffffff; padding: 8px 18px;border-radius: 4px;}
-/* 缩略图列表 */
 .video-thumbs { list-style: none; padding: 0; margin: 0; }
 .thumb-li { padding-bottom: 20%; height: 70px; flex-shrink: 0; background-position: center; background-size: cover; background-repeat: no-repeat; overflow: hidden; position:relative; }
 .thumb-li.single-card { width:65%; height: auto; padding-bottom: 35%; }
@@ -156,7 +144,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             <p>2、禁止上传违规图片，造成后果自负；</p>
             <p>3、<a href="https://s.qiniu.com/eEFNBz" target="_blank" style="color:red;">七牛云存储</a>
             <a href="https://mp34.lanzout.com/iP8pR230laif" target="_blank" style="color:#0c6ad4;">七牛图床源码下载</a>
-            <a href="javascript:void(0);" onclick="picdata()">；</a>
             </p>
         </fieldset>
         <div class="Pic-label">
@@ -170,8 +157,11 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
             <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
         </div>
+        <div id="uploadProgressWrap" style="margin:8px 10px;display:none;">
+            <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
+            <div style="text-align:center;margin-top:4px;font-size:13px;color:#666;"><span id="uploadProgressText">0%</span></div>
+        </div>
         <div id="Pic-data"></div>
-        <div id="Pic-loadMore" class="loadMore"></div>
     </div>
     <div class="bottom">
         <div class="childdiv"><a href="./">主页</a></div>
@@ -188,12 +178,12 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 <script>
 if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
 
-// ===================== 页面切换入口 =====================
 window.onload = function(){
     const hash = location.hash.replace("#","");
     const handler = {"v":Flv,"s":LOL,"m":Mid};
     (handler[hash] || Pic)();
 }
+
 function search_click(keySel){
     const input = document.querySelector(keySel);
     const txt = input.value.trim();
@@ -202,13 +192,10 @@ function search_click(keySel){
         input.focus();
         return false;
     }
-    if(keySel === '#Mid-input'){
-        Mid_so(txt);
-    } else if (keySel === '#Flv-input'){
-        Flv_search(txt);
-    }
+    if(keySel === '#Mid-input') Mid_so(txt);
+    else if (keySel === '#Flv-input') Flv_search(txt);
 }
-// ===================== 音乐模块 Mid =====================
+Api="https://api.rmbk.cc/";
 let canExecute = true;
 function Mid(){
     document.querySelector("#LOL-assort").style.display = "none";
@@ -226,36 +213,24 @@ function Mid(){
     document.title = "搜音库-你想要的的歌曲库";
     document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3244688120,588283986&fm=253')";
     const Midkey = document.querySelector("#Mid-key").innerHTML.trim();
-    if(Midkey.length === 0){
-        CATCH("Mid_hot","music&ac=hot");
-    }
+    if(Midkey.length === 0) CATCH("Mid_hot","music&ac=hot");
 }
+
 function Mid_hot(list) {
     if (list.msg){
         const data  = list.data;
-        const Total = data.length;
-		window.localStorage.setItem('Kimg', list.Kimg);
+        window.localStorage.setItem('Kimg', list.Kimg);
         let html = "";
-        for (let i = 0; i < Total; i++) {
+        for (let i = 0; i < data.length; i++) {
             const item = data[i];
-            const img = item.img;
-            const author = item.author;
-            const s_name = item.name;
-            const s_id = item.id;
-            const s_Key = item.Key;
-            if (s_name && s_name.trim().length !== 0){
-                html += `<li>
-                    <div onclick="Mid_url('${s_id}','${s_Key}')" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${img});"></div>
-                    <span>${s_name}</span>
-                    <span>${author}</span>
-                </li>`;
+            if (item.name && item.name.trim().length !== 0){
+                html += `<li><div onclick="Mid_url('${item.id}','${item.Key}')" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${item.img});"></div><span>${item.name}</span><span>${item.author}</span></li>`;
             }
         }
         document.querySelector("#Mid-key").innerHTML = html;
-    } else {
-        showToast(list.data);
-    }
+    } else showToast(list.data);
 }
+
 function Mid_so(txt){
     const tk = localStorage.getItem('tk');
     if (tk === null) {
@@ -266,84 +241,47 @@ function Mid_so(txt){
 		    Mid_data(txt,rVal);
 	    };
 	    openModal(modalHtml);
-	    setTimeout(function(){
-		    const inputEl = document.querySelector("#tk-input");
-		    if(inputEl) inputEl.focus();
-	    }, 50);
-    } else {
-		Mid_data(txt,tk);
-    }
+	    setTimeout(()=>{const inputEl = document.querySelector("#tk-input");if(inputEl) inputEl.focus();}, 50);
+    } else Mid_data(txt,tk);
 }
+
 function Mid_data(txt,key) {
 	closeModal();
-        GP_data("music&wd="+encodeURIComponent(txt)+"&key="+key,{method:'GET'},function(list){
-            if (list.msg){
-                const json = list.data;
-                const number = json.length;
-                let html = "";
-                for (let i = 0; i < number; i++) {
-                    const d = json[i].id;
-                    if (!d) continue;
-                    const n = json[i].name;
-                    const a = json[i].artists;
-                    const k = json[i].Key;
-                    const s = json[i].duration;
-                    html += `<div class="result-list">
-                        <div class="result-list-item">
-                            <div class="result-content">
-                                <div class="result-content-left">
-                                    <div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div>
-                                    <div class="result-value"><a href="javascript:void(0);" onclick="Mid_url('${d}','${k}')">${a} - ${n}</a></div>
-                                </div>
-                                <div class="result-list-right">
-                                    <div class="result-list-value">${s}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>`;
-                }
-                document.querySelector("#Mid-data").innerHTML = html;
-                document.querySelector("#Mid-data").style.display = "block";
-                document.querySelector("#Mid-key").style.display = "none";
-				localStorage.setItem('tk', key);
-				document.querySelector("#Mid-input").value = '';
-            } else {
-                if (list.key){
-                    localStorage.removeItem('tk');
-                }
-                showToast(list.data);
-                document.querySelector("#Mid-input").value = '';
+    GP_data("music&wd="+encodeURIComponent(txt)+"&key="+key,{method:'GET'},res=>{
+        if (res.msg){
+            const json = res.data;
+            let html = "";
+            for (let i = 0; i < json.length; i++) {
+                const d = json[i];
+                if (!d.id) continue;
+                html += `<div class="result-list-item"><div class="result-content"><div class="result-content-left"><div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div><div class="result-value"><a href="javascript:void(0);" onclick="Mid_url('${d.id}','${d.Key}')">${d.artists} - ${d.name}</a></div></div><div class="result-list-right"><div class="result-list-value">${d.duration}</div></div></div></div>`;
             }
-        });
+            document.querySelector("#Mid-data").innerHTML = html;
+            document.querySelector("#Mid-data").style.display = "block";
+            document.querySelector("#Mid-key").style.display = "none";
+			localStorage.setItem('tk', key);
+			document.getElementById("Mid-input").value = '';
+        }else{
+            if (res.key) localStorage.removeItem('tk');
+            showToast(res.data);
+            document.getElementById("Mid-input").value = '';
+        }
+    })
 }
 
 function Mid_url(id,tk) {
     if (!canExecute) { showToast("请稍后..."); return; }
     canExecute = false;
-    GP_data("music&id="+id+"&key="+tk,{method:'GET'},function(list){
+    GP_data("music&id="+id+"&key="+tk,{method:'GET'},list=>{
         if (list.msg){
             const d = list.data;
-            const content = `
-            <div style="display:flex;gap:10px;align-items:center;padding:10px;">
-                <div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;">
-                    <img src="${d.img}" style="width:100%;height:100%;object-fit:cover;">
-                </div>
-                <div style="flex:1;">
-                    <h4>${d.artist} - ${d.name}</h4>
-                    <div style="padding-top:10px;display:flex;align-items:center;">
-                        <audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></audio>
-                    </div>
-                </div>
-            </div>
-            `;
+            const content = `<div style="display:flex;gap:10px;align-items:center;padding:10px;"><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
             openModal(content);
-        } else {
-            showToast(list.data);
-        }
-    });
-    setTimeout(() => { canExecute = true; },4000);
+        } else showToast(list.data);
+    })
+    setTimeout(()=>{ canExecute = true; },4000);
 }
-// ===================== 短剧模块 Flv =====================
+
 function Flv(){
     document.querySelector("#Mid").classList.remove("xhx");
     document.querySelector("#Mid-assort").style.display = "none";
@@ -360,54 +298,38 @@ function Flv(){
     document.title = "短剧池-全网短剧集聚地";
     document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=3599983424,3153659671&fm=253')";
     const playkey = document.querySelector("#Flv-key").innerHTML.trim();
-    if(playkey.length === 0){
-        CATCH("Flv_hot","vod&ac=hot");
-    }
+    if(playkey.length === 0) CATCH("Flv_hot","vod&ac=hot");
 }
+
 function Flv_hot(list) {
     document.querySelector("#Flv-key").innerHTML = "";
     document.querySelector("#Flv-key").style.display = "block";
     document.querySelector("#Flv-data").style.display = "none";
     if (list.msg){
         const data  = list.data;
-        const Total = data.length;
         let html = "";
-        for (let i = 0; i < Total; i++) {
+        for (let i = 0; i < data.length; i++) {
             const item = data[i];
-            const img = item.cover;
-            const remarks = item.marks;
-            const title = item.name;
-            let rawJson = JSON.stringify(item);
-            rawJson = rawJson.replace(/"/g, "&quot;");
-            html += `<li>
-                <div class="flv-item-click" data-raw="${rawJson}" style="width:100%;padding-bottom:139%;border-radius:8px;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${img});">
-                    <svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg>
-                </div>
-                <span>${title}</span>
-                <span>${remarks}</span>
-            </li>`;
+            let rawJson = JSON.stringify(item).replace(/"/g, "&quot;");
+            html += `<li><div class="flv-item-click" data-raw="${rawJson}" style="width:100%;padding-bottom:139%;border-radius:8px;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${item.cover});"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></div><span>${item.name}</span><span>${item.marks}</span></li>`;
         }
         document.querySelector("#Flv-key").innerHTML = html;
-        document.querySelector("#Flv-key").onclick = function(e) {
+        document.querySelector("#Flv-key").onclick = e=>{
             const target = e.target.closest(".flv-item-click");
             if (!target) return;
-            let jsonStr = target.dataset.raw;
-            jsonStr = jsonStr.replace(/&quot;/g, '"');
+            let jsonStr = target.dataset.raw.replace(/&quot;/g, '"');
             Flv_data(jsonStr);
         }
-    } else {
-        showToast(list.data);
-    }
+    } else showToast(list.data);
 }
+
 function Flv_search(txt) {
-    GP_data("vod&wd="+encodeURIComponent(txt),{method:'GET'},function(list){
-        if (list.msg){
-            Flv_hot(list);
-        } else {
-            showToast(list.data);
-        }
-    });
+    GP_data("vod&wd="+encodeURIComponent(txt),{method:'GET'},res=>{
+        if (res.msg) Flv_hot(res);
+        else showToast(res.data);
+    })
 }
+
 function Flv_data(jsonStr) {
     document.querySelector("#Flv-data").innerHTML = "";
     document.querySelector("#Flv-data").style.display = "block";
@@ -415,23 +337,9 @@ function Flv_data(jsonStr) {
     document.querySelector("#Flv-input").value = "";
     try {
         const item = JSON.parse(jsonStr);
-        const list = [item];
         let htmlAll = "";
-        for (let i = 0; i < list.length; i++) {
-            const vod = list[i].episode;
-            const txt = list[i].name.replace(/\d+[-,、.]/g, '');
-            if (!vod) continue;
-            let html = '';
-            for (let k = 0; k < vod.length; k++) {
-                html += `<a href="${vod[k].url}" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">${vod[k].name}</a>`;
-            }
-            htmlAll += `<div class="result-list">
-                <div class="result-list-item">
-                    <p style="color:#0c6ad4;font-weight:700;font-size:16px;">${txt}-${list[i].type}</p>
-                    <p>视频来自网络,别信视频广告,谨防上当受骗!</p>
-                    ${html}
-                </div>
-            </div>`;
+        for (let k = 0; k < item.episode.length; k++) {
+            htmlAll += `<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">${item.name.replace(/\d+[-,、.]/g, '')}-${item.type}</p><p>视频来自网络,别信视频广告,谨防上当受骗!</p><a href="${item.episode[k].url}" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">${item.episode[k].name}</a></div></div>`;
         }
         document.querySelector("#Flv-data").innerHTML = htmlAll;
     } catch (err) {
@@ -439,7 +347,7 @@ function Flv_data(jsonStr) {
         showToast("短剧数据解析失败");
     }
 }
-// ===================== 搞笑圈子 LOL =====================
+
 function LOL(){
     document.querySelector("#Mid-assort").style.display = "none";
     document.querySelector("#Mid").classList.remove("xhx");
@@ -453,17 +361,15 @@ function LOL(){
     document.title = "搞笑圈子-我的快乐源泉";
     document.querySelector("#logo").style.backgroundImage = "url('https://img0.baidu.com/it/u=2203015616,2177196308&fm=253')";
     const data = document.querySelector("#LOL-data").innerHTML.trim();
-    if(data.length === 0){
-        LOL_data();
-    }
+    if(data.length === 0) LOL_data();
 }
-// 全局加载锁，防止重复点击加载更多
+
 let isLoadingLOL = false;
 function LOL_data(num) {
     if (isLoadingLOL) return;
     const page = isNaN(num) ? 1 : Number(num);
     isLoadingLOL = true;
-    GP_data("other&pg=" + page, { method: 'GET' }, function (list) {
+    GP_data("other&pg=" + page, { method: 'GET' }, list=>{
         isLoadingLOL = false;
         const loadMoreBox = document.querySelector("#LOL-loadMore");
         const dataWrap = document.querySelector("#LOL-data");
@@ -471,52 +377,31 @@ function LOL_data(num) {
             showToast(list.data);
             if (loadMoreBox) loadMoreBox.innerHTML = list.data;
         } else {
-            const LOLdata = list.data;
             let htmlWrap = "";
-            for (let i = 0; i < LOLdata.length; i++) {
-                const item = LOLdata[i];
-                const user = item.user;
-                const cards = item.cards;
-                const title = item.title;
-                const avatar = item.avatar;
+            for (let i = 0; i < list.data.length; i++) {
+                const item = list.data[i];
                 let outimg = "";
-                const singleCss = cards.length === 1 ? 'single-card' : '';
-                for (let ii = 0; ii < cards.length; ii++) {
-                    const c = cards[ii];
-                    const imgurl = c.img_url;
-                    const origin = c.img_url_big;
-                    const video = c.mp4_url || '';
-                    const safeImg = imgurl.replace(/"/g, '&quot;');
-                    const safeOrigin = origin.replace(/"/g, '&quot;');
-                    const safeVideo = video.replace(/"/g, '&quot;');
-                    if (video.trim() === "") {
+                const singleCss = item.cards.length === 1 ? 'single-card' : '';
+                for (let ii = 0; ii < item.cards.length; ii++) {
+                    const c = item.cards[ii];
+                    const safeImg = c.img_url.replace(/"/g, '&quot;');
+                    const safeOrigin = c.img_url_big.replace(/"/g, '&quot;');
+                    const safeVideo = (c.mp4_url||'').replace(/"/g, '&quot;');
+                    if (safeVideo.trim() === "") {
                         outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeOrigin}','pic')"></li>`;
                     } else {
-                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeVideo}','video','${safeImg}')">
-                            <svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg>
-                        </li>`;
+                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeVideo}','video','${safeImg}')"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>`;
                     }
                 }
-                htmlWrap += `<div class="itemg">
-                    <div class="itemg_lf"><img src="${avatar}" alt=""></div>
-                    <div class="itemg_rg">
-                        <div class="itemg_rg_tp"><h4>${user}</h4></div>
-                        <div class="itemg_rg_sm">${title}</div>
-                        <div class="itemg_rg_main">
-                            <ul class="video-thumbs">${outimg}</ul>
-                        </div>
-                    </div>
-                </div>`;
+                htmlWrap += `<div class="itemg"><div class="itemg_lf"><img src="${item.avatar}" alt=""></div><div class="itemg_rg"><div class="itemg_rg_tp"><h4>${item.user}</h4></div><div class="itemg_rg_sm">${item.title}</div><div class="itemg_rg_main"><ul class="video-thumbs">${outimg}</ul></div></div></div>`;
             }
             if (dataWrap) dataWrap.innerHTML += htmlWrap;
             const nextPage = page + 1;
-            if (loadMoreBox) {
-                loadMoreBox.innerHTML = `<div class="load-more-btn" onclick="LOL_data(${nextPage})">加载更多...</div>`;
-            }
+            if (loadMoreBox) loadMoreBox.innerHTML = `<div class="load-more-btn" onclick="LOL_data(${nextPage})">加载更多...</div>`;
         }
-    });
+    })
 }
-// ===================== 图床模块 Pic =====================
+
 function Pic(){
     document.querySelector("#Mid-assort").style.display = "none";
     document.querySelector("#Mid").classList.remove("xhx");
@@ -532,7 +417,7 @@ function Pic(){
     if (localStorage.getItem("img")){
         const arrr = localStorage.getItem("img").split(",");
         let data = '';
-        for (let i=0;i<arrr.length;i++ ){
+        for (let i = 0; i < arrr.length; i++ ){
             const url = arrr[i];
             data += `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${url}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${url}')" title="点击复制图链"></span></li>`;
         }
@@ -542,197 +427,123 @@ function Pic(){
     const PicUpload = document.querySelector("#PicUpload");
     const fileInput = document.querySelector("#fileInput");
     const uploadTip = document.querySelector("#uploadTip");
+    const progressWrap = document.querySelector("#uploadProgressWrap");
+    const progressBar = document.querySelector("#uploadProgressBar");
+    const progressText = document.querySelector("#uploadProgressText");
     const originTipText = "选择或拖拽图片到此处，支持多图上传";
+
     function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
     function highlight() { PicUpload.classList.add('highlight'); }
     function unhighlight() { PicUpload.classList.remove('highlight'); }
     ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
     ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
     ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
-    function handleDrop(e) { const files = e.dataTransfer.files; handleFiles({ target: { files } }); }
-    PicUpload.addEventListener('click', function (e) { e.stopPropagation(); fileInput.click(); });
-    fileInput.addEventListener('change', function (e) { handleFiles(e); this.value = ""; });
-    PicUpload.addEventListener('drop', handleDrop, false);
-    function handleFiles(e) {
+    PicUpload.addEventListener('click', e=>{ e.stopPropagation(); fileInput.click(); });
+    fileInput.addEventListener('change', e=>{ handleFiles(e); fileInput.value = ""; });
+    PicUpload.addEventListener('drop', e=> handleFiles({ target: { files: e.dataTransfer.files } }));
+
+    async function handleFiles(e) {
         const files = Array.from(e.target.files);
+		const MAX_SIZE=10*1024*1024;
         let uploadType = "";
-        document.querySelectorAll('input[name="type"]').forEach(radio => {
-           if (radio.checked) uploadType = radio.value;
-        });
+        document.querySelectorAll('input[name="type"]').forEach(radio=>{ if (radio.checked) uploadType = radio.value; });
         if (files.length === 0) return showToast("未选择文件！");
         if (!uploadType) return showToast("请选择上传接口！");
-        async function uploadQueue(fileList) {
-            uploadTip.textContent = "正在上传中，请耐心等待...";
-            for (const file of fileList) {
-                await new Promise(resolve => {
-                    const formData = new FormData();
-                    formData.append("file", file);
-                    formData.append("type", uploadType);
-                    GP_data("upimg", { upfile: 'upfile', data: formData }, function (list) {
+        uploadTip.textContent = "正在上传中，请耐心等待...";
+        progressWrap.style.display = "block";
+        for (const file of files) {
+			if(file.size>MAX_SIZE){
+                showToast(`【${file.name}】超过限制，无法添加`);
+                continue;
+            }
+            await new Promise(resolve=>{
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("type", uploadType);
+                const xhr = new XMLHttpRequest();
+                xhr.open("POST", Api+"i6x.php?type=upimg");
+                xhr.upload.onprogress = ev=>{
+                    if(ev.lengthComputable){
+                        const p = Math.round((ev.loaded / ev.total) * 100);
+                        progressBar.style.width = p + "%";
+                        progressText.innerText = p + "%";
+                    }
+                };
+                xhr.onload = ()=>{
+                    try{
+                        const list = JSON.parse(xhr.responseText);
                         if (list.msg) {
                             showToast("上传成功，点击图片复制！");
                             const imgUrl = list.data.img;
                             document.querySelector("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${imgUrl}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></span></li>`);
                             addlocal('img', imgUrl);
-                        } else {
-                            showToast(`${file.name}：${list.data}`);
-							console.error(`${file.name}：${list.data}`);
-                        }
-                        resolve();
-                    });
-                })
-            }
-            uploadTip.textContent = originTipText;
+                        } else showToast(`${file.name}：${list.data}`);
+                    }catch(err){ showToast(`${file.name}：接口返回解析异常`); }
+                    resolve();
+                };
+                xhr.onerror = ()=>{ showToast(`${file.name}：网络请求失败`); resolve(); }
+                xhr.send(formData);
+            })
         }
-        uploadQueue(files);
+        uploadTip.textContent = originTipText;
+        progressWrap.style.display = "none";
+        progressBar.style.width = "0%";
+        progressText.innerText = "0%";
     }
-}
-function picdata(){
-	const modalHtml = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="prompt-input" class="prompt-input"><button type="button" class="btn-confirm" onclick="submitPrompt()">确定</button></div></div>`;
-	window.submitPrompt = function(){
-		const val = document.querySelector("#prompt-input").value.trim();
-		if(isEmpty(val)){ closeModal(); return; }
-		closeModal();
-		pic_data(val);
-	};
-	openModal(modalHtml);
-	setTimeout(function(){
-		const inputEl = document.querySelector("#prompt-input");
-		if(inputEl) inputEl.focus();
-	}, 50);
-}
-function pic_data(n,p){
-    const page = isNaN(p) ? 1 : Number(p);
-    document.querySelector("#Pic-loadMore").innerHTML = '';
-	Picn = n;
-    GP_data("upimg",{data:{land:n,p:page}},function(list){
-        if (list.msg == false){
-            showToast(list.data);
-            document.querySelector("#Pic-loadMore").innerHTML = '';
-        } else {
-            const data = list.data;
-            const total= list.total;
-            let imgHtml = '';
-            if(page === 1){
-                imgHtml += `
-                <div style="margin:10px 0;display:flex;gap:10px;align-items:center;">
-                    <button id="checkAllPic" style="padding:5px 12px;background:#eee;border-radius:4px;">全选/取消</button>
-                    <button id="batchDelPic" style="padding:5px 12px;background:#ff5983;color:#fff;border-radius:4px;">批量删除</button>
-                </div>
-                `;
-            }
-            for (let i = 0; i < data.length; i++) {
-                const item = data[i];
-                const img = item.img;
-                if (!img || img.trim() === "") continue;
-                const id = item.id;
-                const at = item.time;
-                const ip = item.ip;
-                let checkHtml = "";
-				const idStr = String(id ?? "");
-                if (idStr.trim() !== "") {
-                    checkHtml = `<input type="checkbox" class="pic-check" data-imgid="${id}" style="position:absolute;top:4px;left:4px;z-index:100;width:16px;height:16px;cursor:pointer;">`;
-                }
-                imgHtml += `<li id="${id}" style="height:0;padding-bottom:30%;">${checkHtml}<span style="background-image:url('${img}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="eject('${img}','pic','${ip}','${at}')"></span></li>`;
-            }
-            document.querySelector("#Pic-data").innerHTML += imgHtml;
-            if (list.page > page){
-                const next = page+1;
-                document.querySelector("#Pic-loadMore").innerHTML = `<div onclick="pic_data('${n}',${next})">加载更多...</div>`;
-            }
-        }
-    });
-}
-document.addEventListener('click', function(e){
-    if(e.target.id === 'checkAllPic'){
-        const checks = document.querySelectorAll('.pic-check');
-        let allChecked = Array.from(checks).every(cb => cb.checked);
-        checks.forEach(cb => cb.checked = !allChecked);
-    }
-    if(e.target.id === 'batchDelPic'){
-        batchDeletePicOnce();
-    }
-});
-function batchDeletePicOnce(){
-    if(typeof window._batchDelCount === 'undefined'){
-        window._batchDelCount = 0;
-    }
-    const checkedBoxs = document.querySelectorAll('.pic-check:checked');
-    if(checkedBoxs.length === 0){
-        showToast("请先勾选要删除的图片！");
-        return;
-    }
-    const count = checkedBoxs.length;
-    if(!confirm(`确定一次性删除选中 ${count} 张图片？删除不可恢复！`)) return;
-    const delIdList = Array.from(checkedBoxs).map(cb => cb.dataset.imgid);
-    const delIdsStr = delIdList.join(',');
-	const landVal = Picn;
-    GP_data("upimg", {
-        data: {land: landVal,del: delIdsStr }
-    }, function (list) {
-        if (list.msg === true) {
-            window._batchDelCount += count;
-			if (Math.max(window._batchDelCount, count) >= 60) {
-                document.querySelector("#Pic-data").innerHTML = "";
-                pic_data(landVal, 1);
-                window._batchDelCount = 0;
-            } else {
-                checkedBoxs.forEach(cb => {
-                    const imgLi = document.getElementById(cb.dataset.imgid);
-                    if(imgLi) imgLi.remove();
-                });
-            }
-            showToast(`成功删除 ${count} 张图片`);
-        } else {
-            showToast(list.data || "批量删除失败");
-        }
-    });
 }
 
 function addlocal(type,value){
     let old = localStorage.getItem(type);
-    if(old === null){
-        localStorage.setItem(type, value);
-    }else{
-        localStorage.setItem(type, value + ',' + old);
-    }
+    let arr = old ? old.split(',') : [];
+    arr.unshift(value);
+    arr = [...new Set(arr)];
+    if(arr.length>50) arr.length=50;
+    localStorage.setItem(type, arr.join(','));
 }
-// ===================== 函数 =====================
+
 function eject(u,t,i,a) {
     showLoading();
+    let loadingClosed = false;
+    function safeHideLoading(){
+        if(!loadingClosed){
+            loadingClosed = true;
+            hideLoading();
+        }
+    }
     if (t == "pic"){
         let x = '';
         if(i||a) {
-            x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p>
-            <p>上传时间：${a}</p>
-            <p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`;
+            x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p><p>上传时间：${a}</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`;
         }
         const pic = new Image();
-        pic.src = u;
         pic.onload = function () {
             const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`;
             openModal(html, false);
+            safeHideLoading();
         }
         pic.onerror = function() {
-            showToast("加载失败！");
+            safeHideLoading();
+            showToast("图片加载失败！");
         }
-		hideLoading();
+        pic.src = u;
     }else if(t == "video"){
-        const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true" x-webkit-airplay="true" x5-video-orientation="portraint">
-            <source src="${u}" type="video/mp4">
-        </video>`;
+        const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true"><source src="${u}" type="video/mp4"></video>`;
         openModal(html, true);
         setTimeout(()=>{
             const video = document.getElementById('myVideo');
-            if(video){
-                video.play();
-                video.addEventListener('ended',()=>video.play());
-                video.addEventListener('touchstart',closeModal);
-            }
-        }, 100);
-		hideLoading();
+            if(!video){ safeHideLoading(); return; }
+            function onVideoReady(){ safeHideLoading(); video.removeEventListener('loadedmetadata', onVideoReady);video.removeEventListener('canplay', onVideoReady);video.removeEventListener('error', onVideoError); }
+            function onVideoError(){ safeHideLoading(); showToast("视频加载失败");video.removeEventListener('loadedmetadata', onVideoReady);video.removeEventListener('canplay', onVideoReady);video.removeEventListener('error', onVideoError); }
+            video.addEventListener('loadedmetadata', onVideoReady);
+            video.addEventListener('canplay', onVideoReady);
+            video.addEventListener('error', onVideoError);
+            video.play().catch(e=>{});
+            video.addEventListener('ended',()=>{ video.currentTime=0; video.play().catch(e=>{}); });
+            video.addEventListener('touchstart',closeModal);
+        }, 50);
     }
 }
+
 function copytxt(d) {
     const input = document.createElement('input');
     input.setAttribute('readonly', 'readonly');
@@ -741,48 +552,42 @@ function copytxt(d) {
     input.select();
     input.setSelectionRange(0, 9999);
     document.execCommand('Copy');
-    document.body.removeChild(input);
+    input.remove();
     showToast("复制成功！");
 }
+
 function isEmpty(value) {
     return value === null || value === undefined || value === "" || (typeof value === "string" && value.trim() === "");
 }
+
 function getToday() {
-    const date = new Date();
-    const Y = date.getFullYear();
-    const M = date.getMonth()+1;
-    const D = date.getDate();
-    return `${Y}-${M}-${D}`;
+    const d = new Date();
+    return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
 }
+
 function CATCH(KEY, URL) {
-    let CATCH_DATA = localStorage.getItem(KEY);
+    let cacheRaw = localStorage.getItem(KEY);
     let data = null;
-    try{ data = JSON.parse(CATCH_DATA); }catch(e){}
+    try{ data = JSON.parse(cacheRaw); }catch(e){}
     if (data !== null && data.validDate === getToday()) {
-        if(typeof window[KEY] === 'function') {
-            window[KEY](data.list);
-        }
+        if(typeof window[KEY] === 'function') window[KEY](data.list);
     } else {
-        GP_data(URL,{method:'GET'},function(list){
+        GP_data(URL,{method:'GET'},list=>{
             if (list.msg){
                 localStorage.setItem(KEY, JSON.stringify({ list, validDate: getToday() }));
-                if(typeof window[KEY] === 'function') {
-                    window[KEY](list);
-                }
-            } else {
-                showToast(list.data);
-            }
-        });
+                if(typeof window[KEY] === 'function') window[KEY](list);
+            } else showToast(list.data);
+        })
     }
 }
+
 function showToast(text, delay = 1500) {
     const toast = document.querySelector("#toast-box");
     toast.innerText = text;
     toast.style.display = "block";
-    setTimeout(() => toast.style.display = "none", delay);
+    setTimeout(()=>toast.style.display = "none", delay);
 }
-function showLoading() { document.querySelector("#loading-box").style.display = "flex"; }
-function hideLoading() { document.querySelector("#loading-box").style.display = "none"; }
+
 function openModal(html, isVideo = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
@@ -790,41 +595,49 @@ function openModal(html, isVideo = false) {
     if (isVideo) {
         box.innerHTML = html;
         box.classList.add('video-modal');
-        box.onclick = function() {
-            closeModal();
-        }
+        box.onclick = ()=> closeModal();
     } else {
         box.innerHTML = `<div class="modal-scroll-wrap">${html}</div>`;
         box.classList.remove('video-modal');
         box.onclick = null;
     }
     document.body.classList.add("modal-open");
-    mask.onclick = (e) => {
-        if (e.target === mask) closeModal();
-    }
+    mask.onclick = e=>{ if (e.target === mask) closeModal(); }
 }
+
 function closeModal() {
-    document.querySelector("#modal-mask").style.display = "none";
-    document.querySelector("#modal-box").innerHTML = "";
-    document.querySelector("#modal-box").classList.remove('video-modal');
+    const mask = document.querySelector("#modal-mask");
+    const box = document.querySelector("#modal-box");
+    mask.style.display = "none";
+    box.innerHTML = "";
+    box.classList.remove('video-modal');
     document.body.classList.remove("modal-open");
 }
+
 function check_ip(ip){
-    GP_data("ip&ip="+encodeURIComponent(ip),{method:'GET'},function(list){
-        const wrap = document.querySelector("#ipres");
-        if (isEmpty(list.data.address)){
-            wrap.innerText = "未查到地址信息！";
-        } else {
-            wrap.innerText = list.data.address;
-        }
+    GP_data(`ip&ip=${encodeURIComponent(ip)}`,{method:'GET'},list=>{
+        const wrap=document.querySelector("#ipres");
+        if(!wrap)return;
+        wrap.innerText=isEmpty(list.data.address)?"未查到地址信息！":list.data.address;
     });
 }
+
+let _loadingTimer = null;
+function showLoading() {
+    document.querySelector("#loading-box").style.display = "flex";
+    clearTimeout(_loadingTimer);
+    _loadingTimer = setTimeout(()=> hideLoading(),8000);
+}
+function hideLoading() {
+    clearTimeout(_loadingTimer);
+    document.querySelector("#loading-box").style.display = "none";
+}
+
 async function GP_data(txt, options, callback) {
 	showLoading();
     const opts = options || {};
-    const {method = 'POST' , data = {} , headers = {} , upfile = '' , dataType = 'json' } = opts;
-    const baseUrl = "https://api.rmbk.cc/i6x.php?type=";
-    const apiUrl = baseUrl + txt;
+    const {method = 'POST' , data = {} , headers = {} , upfile = '' } = opts;
+    const apiUrl = Api+"i6x.php?type=" + txt;
 	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), finalTimeout);
@@ -835,23 +648,14 @@ async function GP_data(txt, options, callback) {
                 fetchConfig.body = data;
             } else {
                 const params = new URLSearchParams();
-                for (const key in data) {
-                    params.append(key, data[key]);
-                }
+                for (const key in data) params.append(key, data[key]);
                 fetchConfig.body = params.toString();
                 fetchConfig.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
         }
         const res = await fetch(apiUrl, fetchConfig);
         if (!res.ok) throw new Error('http error');
-        let result;
-        if (dataType === 'json') {
-            result = await res.json();
-        } else if (dataType === 'text') {
-            result = await res.text();
-        } else {
-            result = await res.blob();
-        }
+        const result = await res.json();
         callback(result);
     } catch (err) {
 		console.log(err);
