@@ -76,7 +76,7 @@ textarea{min-height:140px;resize:vertical;}
 .modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
 .modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;overflow:auto;display:flex;flex-direction:column;}
 .modal-box .content-wrap{margin:3px 0}
-.modal-box p{font-size:14px;}
+.modal-box p {font-size: 14px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;vertical-align: bottom;overflow-wrap: break-word;}
 body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
 
 .toast-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:rgba(0,0,0,0.75);color:#fff;padding:10px 20px;border-radius:6px;z-index:10000;display:none;}
