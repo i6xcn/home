@@ -160,6 +160,7 @@ body.modal-open{overflow:hidden !important;position:fixed;width:100%;}
 
 <script>
 let pwd = "";
+Api="https://api.rmbk.cc/";
 const loginWrap = document.getElementById('loginWrap');
 const adminWrap = document.getElementById('adminWrap');
 const pwdInput = document.getElementById('pwdInput');
@@ -370,7 +371,7 @@ async function publishArticle(){
                 const fd=new FormData();
                 fd.append("file",file);fd.append("type",uploadType);
                 const xhr=new XMLHttpRequest();
-                xhr.open("POST","i6x.php?type=upimg");
+                xhr.open("POST",Api+"i6x.php?type=upimg");
                 xhr.upload.onprogress=ev=>{
                     if(ev.lengthComputable){
                         const p=Math.round((ev.loaded/ev.total)*100);
@@ -462,7 +463,7 @@ function copytxt(d) {
 
 async function GP_data(txt, options = {}, cb) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
-    const APIurl = "i6x.php?type=" + txt;
+    const APIurl = Api+"i6x.php?type=" + txt;
     showLoad();
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
