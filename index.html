@@ -21,7 +21,7 @@ em{font-style:normal}
 a{color:#000;text-decoration:none}
 .header{padding-top:60px;overflow:hidden;background:#ff5983;}
 .top{background:#fff;overflow:hidden;}
-.logo{position:absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;background-image:url('//bd-tbfile.izuiyou.com/img/webp/id/2416581862/sz/src');border-radius:100%;transform:translate(-50%,-50%);}
+.logo{position:absolute;left:50%;width:75px;height:75px;background-repeat:no-repeat;background-position:center;background-size:cover;background-image:url('https://bd-tbfile.izuiyou.com/img/webp/id/2416581862/sz/src');border-radius:100%;transform:translate(-50%,-50%);}
 .titleIcon{text-align:center}
 .title_t{margin-top:40px;text-align:center;font-size:1.2em;word-spacing:8px;letter-spacing:1px;display:inline-block}
 .title_ms{text-align:center;color:#BFBFBF;margin-top:9px}
@@ -54,10 +54,10 @@ a{color:#000;text-decoration:none}
 .bottom .childdiv{flex:1;text-align:center;}.bottom a{color:#fff;}
 #othe{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#ff5983}
 .modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
-.modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;padding:20px;overflow:hidden;display:flex;flex-direction:column;}
+.modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;padding:20px;overflow-y:auto;display:flex;flex-direction:column;}
 .modal-box.pic-modal{background:transparent;padding:0;}
 .modal-box.pic-modal img{width:100%;height:auto;}
-.prompt-input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;}
+.prompt-input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;min-width:120px;}
 .prompt-input:focus{border-color:#ff5983;}
 .prompt-btn-box{display:flex;gap:8px;}
 .prompt-btn-box button{padding:8px 18px;border:none;border-radius:4px;cursor:pointer;font-size:15px;white-space:nowrap;}
@@ -69,6 +69,8 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 .load-box{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:10001;display:none;}
 .load-spin{width:36px;height:36px;border:4px solid #eee;border-top:4px solid #ff5983;border-radius:50%;animation:spin 0.8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
+.verify-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.verify-row canvas{min-width:100px !important;flex-shrink:0;}
 </style>
 <script language="javascript">if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");</script>
 </head>
@@ -185,7 +187,6 @@ window.onload = function(){
         images[pos].style.display = 'inline';
     },1500);
 };
-
 let page = 0;
 let isClick = true;
 window.addEventListener('scroll', function () {
@@ -214,7 +215,6 @@ window.addEventListener('scroll', function () {
         }
     }
 });
-
 function renderList(List) {
     if (List.msg == false){
         showToast(List.data);
@@ -268,7 +268,6 @@ function drawVerifyCode(type) {
     ctx.textAlign = 'center';
     ctx.fillText(text, canvas.width / 2, 25);
 }
-
 // ========== 客片查询 ==========
 function wedList() {
     const modalHtml = `
@@ -276,7 +275,7 @@ function wedList() {
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="temp_riqi" class="prompt-input" placeholder="请输入拍摄日期，如20090101">
             <input type="text" id="temp_kehu" class="prompt-input" placeholder="请输入客户姓名">
-            <div style="display:flex;gap:10px;align-items:center;">
+            <div class="verify-row">
                 <input type="text" id="wed_code_input" class="prompt-input" placeholder="请输入算式结果">
                 <canvas id="wed_code_canvas" width="100" height="36" style="border:1px solid #ddd;border-radius:4px;cursor:pointer;"></canvas>
             </div>
@@ -289,13 +288,10 @@ function wedList() {
     window.wedSubmitHandler = function () {
         const btn = document.getElementById('wed_submit_btn');
         if (btn.disabled) return;
-
         const rVal = document.getElementById('temp_riqi').value.trim();
         const kVal = document.getElementById('temp_kehu').value.trim();
         const userCode = document.getElementById('wed_code_input').value.trim();
         const rightAnswer = (window._verify || {}).wed;
-
-        //日期校验
         if (!/^\d{8}$/.test(rVal)) {
             showToast('日期格式错误');
             document.getElementById("temp_riqi").value = "";
@@ -328,7 +324,6 @@ function wedList() {
             document.getElementById('wed_code_input').focus();
             return;
         }
-
         btn.disabled = true;
         btn.style.opacity = '0.6';
         closeModal();
@@ -341,7 +336,6 @@ function wedList() {
             }
         })
     };
-
     openModal(modalHtml, false, true);
     setTimeout(() => {
         drawVerifyCode('wed');
@@ -349,7 +343,6 @@ function wedList() {
         canvas.onclick = () => drawVerifyCode('wed');
     }, 0);
 }
-
 // ========== 预约留言 ==========
 function reserve() {
     const modalHtml = `
@@ -357,7 +350,7 @@ function reserve() {
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:20px;">
             <input type="text" id="res_xm" class="prompt-input" placeholder="请输入您的姓名">
             <input type="text" id="res_tt" class="prompt-input" placeholder="请输入预约内容 及 联系方式">
-            <div style="display:flex;gap:10px;align-items:center;">
+            <div class="verify-row">
                 <input type="text" id="res_code_input" class="prompt-input" placeholder="请输入算式结果">
                 <canvas id="res_code_canvas" width="100" height="36" style="border:1px solid #ddd;border-radius:4px;cursor:pointer;"></canvas>
             </div>
@@ -370,12 +363,10 @@ function reserve() {
     window.reserveSubmit = function () {
         const btn = document.getElementById('res_submit_btn');
         if (btn.disabled) return;
-
         const name = document.getElementById('res_xm').value.trim();
         const content = document.getElementById('res_tt').value.trim();
         const userCode = document.getElementById('res_code_input').value.trim();
         const rightAnswer = (window._verify || {}).res;
-
         const chineseReg = /^[\u4e00-\u9fa5]{2,}$/;
         if (!chineseReg.test(name)) {
             showToast('请填写至少2个汉字的真实姓名');
@@ -399,7 +390,6 @@ function reserve() {
             document.getElementById('res_code_input').focus();
             return;
         }
-
         btn.disabled = true;
         btn.style.opacity = '0.6';
         closeModal();
@@ -415,7 +405,6 @@ function reserve() {
         canvas.onclick = () => drawVerifyCode('res');
     }, 0);
 }
-
 function eject(url) {
     showLoad();
     const pic = new Image();
@@ -429,7 +418,6 @@ function eject(url) {
         showToast('图片加载失败');
     }
 }
-
 function showToast(msg, delay = 1700) {
     const toast = document.getElementById('toastBox');
     toast.innerText = msg;
@@ -438,7 +426,6 @@ function showToast(msg, delay = 1700) {
 }
 function showLoad() { document.getElementById('loadBox').style.display = 'block';}
 function closeLoad() { document.getElementById('loadBox').style.display = 'none';}
-
 function closeModal() {
     const mask = document.getElementById('modalMask');
     const box = document.getElementById('modalBox');
@@ -447,7 +434,6 @@ function closeModal() {
     box.className = 'modal-box';
     document.body.classList.remove("modal-open");
 }
-
 function openModal(html, isPic = false, isFormModal = false) {
     const mask = document.getElementById('modalMask');
     const box = document.getElementById('modalBox');
@@ -464,7 +450,6 @@ function openModal(html, isPic = false, isFormModal = false) {
     }
     box.onclick = function(e){ e.stopPropagation(); }
 }
-
 function getToday() {
     let date = new Date();
     let Y = date.getFullYear();
@@ -473,7 +458,6 @@ function getToday() {
     let H = date.getHours();
     return `${Y}-${M}-${D}-${H}`;
 }
-
 function scrollToTop() {
     let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     if (scrollTop > 0) {
@@ -481,7 +465,6 @@ function scrollToTop() {
         window.scrollTo(0, scrollTop - scrollTop / 10);
     }
 }
-
 function copyContent(divElement) {
     const tempTextarea = document.createElement('textarea');
     tempTextarea.value = divElement.innerText;
@@ -492,7 +475,6 @@ function copyContent(divElement) {
     document.body.removeChild(tempTextarea);
     showToast('复制成功');
 }
-
 async function GP_data(txt, options = {}, callback) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
     const APIurl = "https://api.rmbk.cc/i6x.php?type=" + txt;
