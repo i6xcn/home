@@ -54,9 +54,12 @@ a{color:#000;text-decoration:none}
 .bottom .childdiv{flex:1;text-align:center;}.bottom a{color:#fff;}
 #othe{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#ff5983}
 .modal-mask{position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.8);z-index:9999;display:none;align-items:center;justify-content:center;padding:15px;}
-.modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;padding:20px;overflow-y:auto;display:flex;flex-direction:column;}
+.modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;background:#fff;border-radius:6px;padding:20px;overflow-y:auto;display:flex;flex-direction:column;position:relative;}
 .modal-box.pic-modal{background:transparent;padding:0;}
 .modal-box.pic-modal img{width:100%;height:auto;}
+.modal-box.pic-modal .modal-close-btn{display:none;}
+.modal-close-btn:hover{color:#ff5983;}
+.modal-close-btn{position:absolute;top:8px;right:10px;width:32px;height:32px;font-size:26px;line-height:32px;text-align:center;cursor:pointer;color:#999;z-index:2;    border:none;background:transparent;}
 .prompt-input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;min-width:120px;}
 .prompt-input:focus{border-color:#ff5983;}
 .prompt-btn-box{display:flex;gap:8px;}
@@ -266,7 +269,7 @@ function drawVerifyCode(type) {
     ctx.font = '15px Arial';
     ctx.fillStyle = '#222';
     ctx.textAlign = 'center';
-    ctx.fillText(text, canvas.width / 2, 25);
+    ctx.fillText(text, canvas.width / 2, 24);
 }
 // ========== 客片查询 ==========
 function wedList() {
@@ -330,7 +333,7 @@ function wedList() {
         GP_data("wed", { data: { time: rVal, name: kVal } }, res => {
             delete window._verify.wed;
             if (res.msg) {
-                openModal(`<div onclick="copyContent(this)"><p>${res.data.txt}</p><p style="word-break: break-all;">${res.data.url}</p><p>${res.data.key}</p><p>${res.data.marks}</p></div>`);
+                openModal(`<div onclick="copyContent(this)"><p>${res.data.txt}</p><p style="word-break: break-all;">${res.data.url}</p><p>${res.data.key}</p><p>${res.data.marks}</p></div>`, false, true);
             } else {
                 showToast(res.data);
             }
@@ -437,7 +440,8 @@ function closeModal() {
 function openModal(html, isPic = false, isFormModal = false) {
     const mask = document.getElementById('modalMask');
     const box = document.getElementById('modalBox');
-    box.innerHTML = html;
+    const closeBtnHtml = isPic ? '' : `<button class="modal-close-btn" onclick="closeModal()">×</button>`;
+    box.innerHTML = closeBtnHtml + html;
     box.className = 'modal-box';
     if(isPic) box.classList.add('pic-modal');
     if(isFormModal) box.classList.add('form-modal');
