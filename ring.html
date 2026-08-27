@@ -157,10 +157,12 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
             <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
         </div>
-        <div id="uploadProgressWrap" style="margin:8px 10px;display:none;">
-            <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
-            <div style="text-align:center;margin-top:4px;font-size:13px;color:#666;"><span id="uploadProgressText">0%</span></div>
-        </div>
+<div id="uploadProgressWrap" style="margin:8px 10px;display:none;">
+    <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
+    <div style="text-align:center;margin-top:4px;font-size:13px;color:#666;">
+        <span id="uploadProgressText">0%</span>
+    </div>
+</div>
         <div id="Pic-data"></div>
     </div>
     <div class="bottom">
@@ -177,7 +179,9 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 </div>
 <script>
 if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
-
+let canExecute = true;
+let picEventBind = false;
+let _loadingTimer = null;
 window.onload = function(){
     const hash = location.hash.replace("#","");
     const handler = {"v":Flv,"s":LOL,"m":Mid};
@@ -195,8 +199,7 @@ function search_click(keySel){
     if(keySel === '#Mid-input') Mid_so(txt);
     else if (keySel === '#Flv-input') Flv_search(txt);
 }
-Api="https://api.rmbk.cc/";
-let canExecute = true;
+
 function Mid(){
     document.querySelector("#LOL-assort").style.display = "none";
     document.querySelector("#LOL").classList.remove("xhx");
@@ -275,9 +278,11 @@ function Mid_url(id,tk) {
     GP_data("music&id="+id+"&key="+tk,{method:'GET'},list=>{
         if (list.msg){
             const d = list.data;
-            const content = `<div style="display:flex;gap:10px;align-items:center;padding:10px;"><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
+            const content = `<div class="audio-player-modal" style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;"><button onclick="closeModal()" style="position:absolute;top:4px;right:10px;border:none;background:transparent;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
             openModal(content);
-        } else showToast(list.data);
+        } else{
+			showToast(list.data);
+		} 
     })
     setTimeout(()=>{ canExecute = true; },4000);
 }
@@ -432,27 +437,33 @@ function Pic(){
     const progressText = document.querySelector("#uploadProgressText");
     const originTipText = "选择或拖拽图片到此处，支持多图上传";
 
-    function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
-    function highlight() { PicUpload.classList.add('highlight'); }
-    function unhighlight() { PicUpload.classList.remove('highlight'); }
-    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
-    ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
-    ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
-    PicUpload.addEventListener('click', e=>{ e.stopPropagation(); fileInput.click(); });
-    fileInput.addEventListener('change', e=>{ handleFiles(e); fileInput.value = ""; });
-    PicUpload.addEventListener('drop', e=> handleFiles({ target: { files: e.dataTransfer.files } }));
+    if(!picEventBind){
+        picEventBind = true;
+        function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
+        function highlight() { PicUpload.classList.add('highlight'); }
+        function unhighlight() { PicUpload.classList.remove('highlight'); }
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
+        ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
+        ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
 
-    async function handleFiles(e) {
+        PicUpload.addEventListener('click', e=>{
+            e.stopPropagation();
+            fileInput.click();
+        });
+        fileInput.addEventListener('change', e=>{ handleFiles(e); fileInput.value = ""; });
+        PicUpload.addEventListener('drop', e=> handleFiles({ target: { files: e.dataTransfer.files } }));
+    }
+
+	async function handleFiles(e) {
         const files = Array.from(e.target.files);
-		const MAX_SIZE=10*1024*1024;
+        const MAX_SIZE=10*1024*1024;
         let uploadType = "";
         document.querySelectorAll('input[name="type"]').forEach(radio=>{ if (radio.checked) uploadType = radio.value; });
         if (files.length === 0) return showToast("未选择文件！");
         if (!uploadType) return showToast("请选择上传接口！");
-        uploadTip.textContent = "正在上传中，请耐心等待...";
         progressWrap.style.display = "block";
         for (const file of files) {
-			if(file.size>MAX_SIZE){
+            if(file.size>MAX_SIZE){
                 showToast(`【${file.name}】超过限制，无法添加`);
                 continue;
             }
@@ -460,35 +471,53 @@ function Pic(){
                 const formData = new FormData();
                 formData.append("file", file);
                 formData.append("type", uploadType);
-                const xhr = new XMLHttpRequest();
-                xhr.open("POST", Api+"i6x.php?type=upimg");
-                xhr.upload.onprogress = ev=>{
-                    if(ev.lengthComputable){
-                        const p = Math.round((ev.loaded / ev.total) * 100);
-                        progressBar.style.width = p + "%";
-                        progressText.innerText = p + "%";
+                let progress = 0;
+                const progressTextEl = document.querySelector("#uploadProgressText");
+                const progressBarEl = document.querySelector("#uploadProgressBar");
+                progressBarEl.style.width = '0%';
+                progressTextEl.innerText = '0%';
+                uploadTip.textContent = '开始上传...';
+                const progressInterval = setInterval(() => {
+                    if (progress < 95) {
+                        progress += 2;
+                        progressBarEl.style.width = progress + '%';
+                        progressTextEl.innerText = progress + '%';
+                        if (progress < 10) {
+                            uploadTip.textContent = '正在准备上传...';
+                        } else if (progress < 50) {
+                            uploadTip.textContent = '正在上传文件...';
+                        } else {
+                            uploadTip.textContent = '正在处理图片...';
+                        }
                     }
-                };
-                xhr.onload = ()=>{
+                },1000);
+		    	GP_data("upimg",{upfile:'upfile',data:formData,timeout:0},(list)=>{
+                    clearInterval(progressInterval);
+                    progressBarEl.style.width = '100%';
+                    progressTextEl.innerText = '100%';
                     try{
-                        const list = JSON.parse(xhr.responseText);
-                        if (list.msg) {
+                        if(list.msg){
+                            uploadTip.textContent = '上传完成';
                             showToast("上传成功，点击图片复制！");
                             const imgUrl = list.data.img;
                             document.querySelector("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${imgUrl}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></span></li>`);
                             addlocal('img', imgUrl);
-                        } else showToast(`${file.name}：${list.data}`);
-                    }catch(err){ showToast(`${file.name}：接口返回解析异常`); }
+                        }else{
+                            uploadTip.textContent = '上传失败';
+                            showToast(`${file.name}：${list.data}`);
+                        }
+                    }catch(err){
+                        uploadTip.textContent = '上传失败';
+                        showToast(`${file.name}：接口返回解析异常`);
+                    }
                     resolve();
-                };
-                xhr.onerror = ()=>{ showToast(`${file.name}：网络请求失败`); resolve(); }
-                xhr.send(formData);
+                });
             })
         }
         uploadTip.textContent = originTipText;
         progressWrap.style.display = "none";
-        progressBar.style.width = "0%";
-        progressText.innerText = "0%";
+        document.querySelector("#uploadProgressBar").style.width = "0%";
+        document.querySelector("#uploadProgressText").innerText = "0%";
     }
 }
 
@@ -503,39 +532,37 @@ function addlocal(type,value){
 
 function eject(u,t,i,a) {
     showLoading();
-    let loadingClosed = false;
-    function safeHideLoading(){
-        if(!loadingClosed){
-            loadingClosed = true;
-            hideLoading();
-        }
-    }
     if (t == "pic"){
         let x = '';
-        if(i||a) {
-            x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p><p>上传时间：${a}</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`;
-        }
+        if(i||a) { x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p><p>上传时间：${a}</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`; }
         const pic = new Image();
-        pic.onload = function () {
-            const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`;
-            openModal(html, false);
-            safeHideLoading();
-        }
-        pic.onerror = function() {
-            safeHideLoading();
-            showToast("图片加载失败！");
-        }
+        pic.onload = function () { const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`; openModal(html, false); hideLoading(); }
+        pic.onerror = function() { hideLoading(); showToast("图片加载失败！"); }
         pic.src = u;
     }else if(t == "video"){
         const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true"><source src="${u}" type="video/mp4"></video>`;
         openModal(html, true);
         setTimeout(()=>{
             const video = document.getElementById('myVideo');
-            if(!video){ safeHideLoading(); return; }
-            function onVideoReady(){ safeHideLoading(); video.removeEventListener('loadedmetadata', onVideoReady);video.removeEventListener('canplay', onVideoReady);video.removeEventListener('error', onVideoError); }
-            function onVideoError(){ safeHideLoading(); showToast("视频加载失败");video.removeEventListener('loadedmetadata', onVideoReady);video.removeEventListener('canplay', onVideoReady);video.removeEventListener('error', onVideoError); }
+            if(!video){ hideLoading(); return; }
+            function onVideoReady(){
+                hideLoading();
+                video.removeEventListener('loadedmetadata', onVideoReady);
+                video.removeEventListener('canplay', onVideoReady);
+                video.removeEventListener('playing', onVideoReady);
+                video.removeEventListener('error', onVideoError);
+            }
+            function onVideoError(){
+                hideLoading();
+                showToast("视频加载失败");
+                video.removeEventListener('loadedmetadata', onVideoReady);
+                video.removeEventListener('canplay', onVideoReady);
+                video.removeEventListener('playing', onVideoReady);
+                video.removeEventListener('error', onVideoError);
+            }
             video.addEventListener('loadedmetadata', onVideoReady);
             video.addEventListener('canplay', onVideoReady);
+            video.addEventListener('playing', onVideoReady);
             video.addEventListener('error', onVideoError);
             video.play().catch(e=>{});
             video.addEventListener('ended',()=>{ video.currentTime=0; video.play().catch(e=>{}); });
@@ -576,7 +603,9 @@ function CATCH(KEY, URL) {
             if (list.msg){
                 localStorage.setItem(KEY, JSON.stringify({ list, validDate: getToday() }));
                 if(typeof window[KEY] === 'function') window[KEY](list);
-            } else showToast(list.data);
+            } else{
+                showToast(list.data);
+			}
         })
     }
 }
@@ -602,7 +631,13 @@ function openModal(html, isVideo = false) {
         box.onclick = null;
     }
     document.body.classList.add("modal-open");
-    mask.onclick = e=>{ if (e.target === mask) closeModal(); }
+    mask.onclick = e=>{
+        const scrollWrap = box.querySelector(".modal-scroll-wrap");
+        if(scrollWrap && scrollWrap.querySelector(".audio-player-modal")){
+            return;
+        }
+        if (e.target === mask) closeModal();
+    }
 }
 
 function closeModal() {
@@ -622,7 +657,7 @@ function check_ip(ip){
     });
 }
 
-let _loadingTimer = null;
+
 function showLoading() {
     document.querySelector("#loading-box").style.display = "flex";
     clearTimeout(_loadingTimer);
@@ -637,7 +672,7 @@ async function GP_data(txt, options, callback) {
 	showLoading();
     const opts = options || {};
     const {method = 'POST' , data = {} , headers = {} , upfile = '' } = opts;
-    const apiUrl = Api+"i6x.php?type=" + txt;
+    const apiUrl = "https://api.rmbk.cc/i6x.php?type=" + txt;
 	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), finalTimeout);
