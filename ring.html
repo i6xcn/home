@@ -174,12 +174,33 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
     <div id="modal-box"></div>
 </div>
 <div id="toast-box"></div>
-
 <script>
 if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
 let canExecute = true;
 let picEventBind = false;
 let _loadingTimer = null;
+// 全局事件委托
+document.addEventListener('click',function(e){
+    const midItem = e.target.closest('[data-mid-item]');
+    if(midItem){
+        const id = midItem.dataset.midId;
+        const key = midItem.dataset.midKey;
+        Mid_url(id,key);
+    }
+    const picCopyEl = e.target.closest('[data-copy-url]');
+    if(picCopyEl){
+        const url = picCopyEl.dataset.copyUrl;
+        copytxt(url);
+    }
+    const flvItem = e.target.closest('.flv-item-click');
+    if(flvItem){
+        const idx = Number(flvItem.dataset.flvIdx);
+        if(window._flvList && window._flvList[idx]){
+            Flv_data(JSON.stringify(window._flvList[idx]));
+        }
+    }
+})
+
 window.onload = function(){
     const hash = location.hash.replace("#","");
     const handler = {"v":Flv,"s":LOL,"m":Mid};
@@ -222,7 +243,7 @@ function Mid_hot(list) {
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
             if (item.name && item.name.trim().length !== 0){
-                html += `<li><div onclick="Mid_url('${item.id}','${item.Key}')" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${item.img});"></div><span>${item.name}</span><span>${item.author}</span></li>`;
+                html += `<li><div data-mid-item data-mid-id="${item.id}" data-mid-key="${item.Key}" style="width:100%;padding-bottom:100%;border-radius:8px;overflow:hidden;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${item.img});"></div><span>${item.name}</span><span>${item.author}</span></li>`;
             }
         }
         document.querySelector("#Mid-key").innerHTML = html;
@@ -250,7 +271,7 @@ function Mid_data(txt,key) {
             for (let i = 0; i < json.length; i++) {
                 const d = json[i];
                 if (!d.id) continue;
-                html += `<div class="result-list-item"><div class="result-content"><div class="result-content-left"><div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div><div class="result-value"><a href="javascript:void(0);" onclick="Mid_url('${d.id}','${d.Key}')">${d.artists} - ${d.name}</a></div></div><div class="result-list-right"><div class="result-list-value">${d.duration}</div></div></div></div>`;
+                html += `<div class="result-list-item"><div class="result-content"><div class="result-content-left"><div class="result-logo" style="background-image:url(https://img0.baidu.com/it/u=2529435642,894436921&fm=253);"></div><div class="result-value"><a href="javascript:void(0);" data-mid-item data-mid-id="${d.id}" data-mid-key="${d.Key}">${d.artists} - ${d.name}</a></div></div><div class="result-list-right"><div class="result-list-value">${d.duration}</div></div></div></div>`;
             }
             document.querySelector("#Mid-data").innerHTML = html;
             document.querySelector("#Mid-data").style.display = "block";
@@ -302,19 +323,13 @@ function Flv_hot(list) {
     document.querySelector("#Flv-data").style.display = "none";
     if (list.msg){
         const data  = list.data;
+        window._flvList = data;
         let html = "";
         for (let i = 0; i < data.length; i++) {
             const item = data[i];
-            let rawJson = JSON.stringify(item).replace(/"/g, "&quot;");
-            html += `<li><div class="flv-item-click" data-raw="${rawJson}" style="width:100%;padding-bottom:139%;border-radius:8px;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${item.cover});"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></div><span>${item.name}</span><span>${item.marks}</span></li>`;
+            html += `<li><div class="flv-item-click" data-flv-idx="${i}" style="width:100%;padding-bottom:139%;border-radius:8px;background-repeat:no-repeat;background-position:center;background-size:cover;position:relative;display:block;background-image:url(${item.cover});"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></div><span>${item.name}</span><span>${item.marks}</span></li>`;
         }
         document.querySelector("#Flv-key").innerHTML = html;
-        document.querySelector("#Flv-key").onclick = e=>{
-            const target = e.target.closest(".flv-item-click");
-            if (!target) return;
-            let jsonStr = target.dataset.raw.replace(/&quot;/g, '"');
-            Flv_data(jsonStr);
-        }
     } else showToast(list.data);
 }
 function Flv_search(txt) {
@@ -380,9 +395,9 @@ function LOL_data(num) {
                     const idx = c.ii;
                     const type = c.type;					
                     if (type === "img") {
-                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeThumb});" onclick="clickThumbItem('${tid}',${idx},'${type}')"></li>`;
+                        outimg += `<li class="thumb-li ${singleCss}" data-eject data-eject-tid="${tid}" data-eject-idx="${idx}" data-eject-type="${type}" style="background-image:url(${safeThumb});"></li>`;
                     } else {
-                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeThumb});" onclick="clickThumbItem('${tid}',${idx},'${type}')"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>`;
+                        outimg += `<li class="thumb-li ${singleCss}" data-eject data-eject-tid="${tid}" data-eject-idx="${idx}" data-eject-type="${type}" style="background-image:url(${safeThumb});"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>`;
                     }
                 }
                 htmlWrap += `<div class="itemg"><div class="itemg_lf"><img src="${item.avatar}" alt=""></div><div class="itemg_rg"><div class="itemg_rg_tp"><h4>${item.user}</h4></div><div class="itemg_rg_sm">${item.title}</div><div class="itemg_rg_main"><ul class="video-thumbs">${outimg}</ul></div></div></div>`;
@@ -393,9 +408,18 @@ function LOL_data(num) {
         }
     })
 }
+// 图片视频点击委托
+document.addEventListener('click',function(e){
+    const el = e.target.closest('[data-eject]');
+    if(el){
+        const tid = el.dataset.ejectTid;
+        const idx = el.dataset.ejectIdx;
+        const type = el.dataset.ejectType;
+        clickThumbItem(tid,idx,type);
+    }
+})
 
 function clickThumbItem(tid, ii, type){
-
 	GP_data("other_card", {method:'GET',data:{tid: tid,ii: ii,act: type}}, res=>{
         if(!res.msg){
             showToast(res.data||"获取资源失败");
@@ -404,7 +428,6 @@ function clickThumbItem(tid, ii, type){
 		eject(res.data.url,type);
     });
 }
-
 function Pic(){
     document.querySelector("#Mid-assort").style.display = "none";
     document.querySelector("#Mid").classList.remove("xhx");
@@ -422,7 +445,7 @@ function Pic(){
         let data = '';
         for (let i = 0; i < arrr.length; i++ ){
             const url = arrr[i];
-            data += `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${url}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${url}')" title="点击复制图链"></span></li>`;
+            data += `<li style="height:0;padding-bottom:30%;"><span data-copy-url="${url}" style="background-image:url('${url}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" title="点击复制图链"></span></li>`;
         }
         document.querySelector("#Pic-data").innerHTML = data;
         document.querySelector("#Pic-data").style.display = "block";
@@ -495,7 +518,7 @@ function Pic(){
                             uploadTip.textContent = '上传完成';
                             showToast("上传成功，点击图片复制！");
                             const imgUrl = list.data.img;
-                            document.querySelector("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="height:0;padding-bottom:30%;"><span style="background-image:url('${imgUrl}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" onclick="copytxt('${imgUrl}')" title="点击复制图链"></span></li>`);
+                            document.querySelector("#Pic-data").insertAdjacentHTML('afterbegin', `<li style="height:0;padding-bottom:30%;"><span data-copy-url="${imgUrl}" style="background-image:url('${imgUrl}');background-position:center;background-size:cover;position:absolute;width:100%;height:100%;cursor:pointer;" title="点击复制图链"></span></li>`);
                             addlocal('img', imgUrl);
                         }else{
                             uploadTip.textContent = '上传失败';
@@ -563,35 +586,48 @@ function eject(u,t,i,a) {
         }, 50);
     }
 }
-function copytxt(d) {
-    const input = document.createElement('input');
-    input.setAttribute('readonly', 'readonly');
-    input.value = d;
-    document.body.appendChild(input);
-    input.select();
-    input.setSelectionRange(0, 9999);
-    document.execCommand('Copy');
-    input.remove();
-    showToast("复制成功！");
+async function copytxt(d) {
+    try {
+        await navigator.clipboard.writeText(d);
+        showToast("复制成功！");
+    } catch(e) {
+        const input = document.createElement('input');
+        input.setAttribute('readonly', 'readonly');
+        input.value = d;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('Copy');
+        document.body.removeChild(input);
+        showToast("复制成功！");
+    }
 }
 function isEmpty(value) {
     return value === null || value === undefined || value === "" || (typeof value === "string" && value.trim() === "");
 }
+// 补零日期
 function getToday() {
-    const d = new Date();
-    return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+    let date = new Date();
+    let Y = date.getFullYear();
+    let M = String(date.getMonth()+1).padStart(2,'0');
+    let D = String(date.getDate()).padStart(2,'0');
+    let H = String(date.getHours()).padStart(2,'0');
+    return `${Y}-${M}-${D}-${H}`;
 }
 function CATCH(KEY, URL) {
     let cacheRaw = localStorage.getItem(KEY);
     let data = null;
     try{ data = JSON.parse(cacheRaw); }catch(e){}
     if (data !== null && data.validDate === getToday()) {
-        if(typeof window[KEY] === 'function') window[KEY](data.list);
+        try{
+            if(typeof window[KEY] === 'function') window[KEY](data.list);
+        }catch(err){ console.warn("缓存回调异常",err); }
     } else {
         GP_data(URL,{method:'GET'},list=>{
             if (list.msg){
                 localStorage.setItem(KEY, JSON.stringify({ list, validDate: getToday() }));
-                if(typeof window[KEY] === 'function') window[KEY](list);
+                try{
+                    if(typeof window[KEY] === 'function') window[KEY](list);
+                }catch(err){ console.warn("接口回调异常",err); }
             } else{
                 showToast(list.data);
 			}
@@ -601,47 +637,40 @@ function CATCH(KEY, URL) {
 function showToast(text, delay = 1700) {
     const toast = document.querySelector("#toast-box");
     toast.innerText = text;
-    toast.style.display = "block";
-    setTimeout(()=>toast.style.display = "none", delay);
+    toast.style.display = 'block';
+    setTimeout(()=>toast.style.display = 'none', delay);
 }
 function openModal(html, isVideo = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
-    mask.style.display = "flex";
-    if (isVideo) {
-        box.innerHTML = html;
-        box.classList.add('video-modal');
-        box.onclick = ()=> closeModal();
-    } else {
-        box.innerHTML = `<div class="modal-scroll-wrap">${html}</div>`;
-        box.classList.remove('video-modal');
-        box.onclick = null;
-    }
+    const closeBtnHtml = isVideo ? '' : `<button class="modal-close-btn" onclick="closeModal()">×</button>`;
+    box.innerHTML = closeBtnHtml + html;
+    box.className = 'modal-box';
+    if(isVideo) box.classList.add('video-modal');
+    mask.style.display = 'flex';
     document.body.classList.add("modal-open");
-    mask.onclick = e=>{
-        const scrollWrap = box.querySelector(".modal-scroll-wrap");
-        if(scrollWrap && scrollWrap.querySelector(".audio-player-modal")){
-            return;
-        }
-        if (e.target === mask) closeModal();
+    mask.onclick = function(e){
+        if(e.target !== mask) return;
+        if(box.classList.contains('video-modal')) return;
+        closeModal();
     }
+    box.onclick = function(e){ e.stopPropagation(); }
 }
 function closeModal() {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
     mask.style.display = "none";
-    box.innerHTML = "";
-    box.classList.remove('video-modal');
+    box.innerHTML = '';
+    box.className = 'modal-box';
     document.body.classList.remove("modal-open");
 }
 function check_ip(ip){
-    GP_data("ip",{method:'GET',data:{ip:ip}},list=>{
+    GP_data(`ip&ip=${encodeURIComponent(ip)}`,{method:'GET'},list=>{
         const wrap=document.querySelector("#ipres");
         if(!wrap)return;
         wrap.innerText=isEmpty(list.data.address)?"未查到地址信息！":list.data.address;
     });
 }
-
 function showLoading(tid) {
     if(tid === undefined){
         tid = 'load_' + Math.random().toString(36).slice(2);
@@ -654,7 +683,6 @@ function showLoading(tid) {
     document.body.insertAdjacentHTML('beforeend', html);
     return tid;
 }
-
 function hideLoading(taskId) {
     if(!taskId) return;
     const el = document.getElementById(taskId);
@@ -662,24 +690,20 @@ function hideLoading(taskId) {
         el.remove();
     }
 }
-
 async function GP_data(txt, options, callback) {
 	const taskId = showLoading();
     const opts = options || {};
     const {method = 'POST' , data = {} , headers = {} , upfile = '' } = opts;
-    let apiUrl = "https://api.rmbk.cc/i6x.php?type=" + txt;
-
+    let apiUrl = "i6x.php?type=" + txt;
 	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), finalTimeout);
-
     try {
         const fetchConfig = {
             method: method.toUpperCase(),
             signal: controller.signal,
             headers: { ...headers }
         };
-
         if (fetchConfig.method === 'GET') {
             const urlParams = new URLSearchParams();
             for(const k in data){
@@ -699,7 +723,6 @@ async function GP_data(txt, options, callback) {
                 fetchConfig.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
         }
-
         const res = await fetch(apiUrl, fetchConfig);
         if (!res.ok) throw new Error('http status:' + res.status);
         const result = await res.json();
@@ -712,7 +735,6 @@ async function GP_data(txt, options, callback) {
         clearTimeout(timer);
     }
 }
-
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
 </body>
