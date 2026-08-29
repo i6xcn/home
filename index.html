@@ -180,7 +180,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 </div>
 <script language="javascript">if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");</script>
 <script type="text/javascript">
-//全局事件委托图片预览
 document.addEventListener('click',function(e){
     const el = e.target.closest('[data-eject]');
     if(el){
@@ -345,20 +344,7 @@ function wedList() {
         GP_data("wed", { data: { time: rVal, name: kVal } }, res => {
             delete window._verify.wed;
             if (res.msg) {
-                // 使用DOM textContent 防XSS，不拼接HTML
-                const box = document.getElementById('modalBox');
-                box.innerHTML = `<div style="padding:10px;cursor:pointer;" onclick="copyContent(this)">
-                    <p></p><p></p><p></p><p></p>
-                </div>`;
-                const divWrap = box.querySelector('div');
-                divWrap.querySelectorAll('p')[0].textContent = res.data.txt||'';
-                divWrap.querySelectorAll('p')[1].textContent = res.data.url||'';
-                divWrap.querySelectorAll('p')[2].textContent = res.data.key||'';
-                divWrap.querySelectorAll('p')[3].textContent = res.data.marks||'';
-                box.className = 'modal-box';
-                const mask = document.getElementById('modalMask');
-                mask.style.display='flex';
-                document.body.classList.add("modal-open");
+				openModal(`<div onclick="copyContent(this)"><p>${res.data.txt||''}</p><p style="word-break: break-all;">${res.data.url||''}</p><p>${res.data.key||''}</p><p>${res.data.marks||''}</p></div>`, false, true);
             } else {
                 showToast(res.data);
             }
@@ -470,7 +456,6 @@ function openModal(html, isPic = false, isFormModal = false) {
     document.body.classList.add("modal-open");
     mask.onclick = function(e){
         if(e.target !== mask) return;
-        //表单弹窗禁止点击背景关闭
         if(isFormModal) return;
         closeModal();
     }
