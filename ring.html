@@ -77,7 +77,7 @@ label:hover::after {display:block;}
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:10; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
 #modal-box { width: calc(640px * 0.9); background: #ffffff; max-width: 90vw; max-height: 85vh; border-radius: 6px; box-sizing: border-box; overflow: hidden !important; display: flex; flex-direction: column; }
-#modal-box .modal-scroll-wrap { flex: 1; overflow-y: auto; overflow-x: hidden; }
+#modal-box .modal-scroll-wrap { flex: 1; overflow-y: auto; overflow-x: hidden;cursor: pointer;}
 #modal-box .modal-scroll-wrap p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 #modal-box.video-modal { background: transparent !important; padding: 0 !important; overflow: hidden !important; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 #modal-box.video-modal video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
@@ -174,9 +174,7 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
     <div id="modal-box"></div>
 </div>
 <div id="toast-box"></div>
-<div id="loading-box">
-    <div class="load-spin"></div>
-</div>
+
 <script>
 if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");
 let canExecute = true;
@@ -187,7 +185,6 @@ window.onload = function(){
     const handler = {"v":Flv,"s":LOL,"m":Mid};
     (handler[hash] || Pic)();
 }
-
 function search_click(keySel){
     const input = document.querySelector(keySel);
     const txt = input.value.trim();
@@ -199,7 +196,6 @@ function search_click(keySel){
     if(keySel === '#Mid-input') Mid_so(txt);
     else if (keySel === '#Flv-input') Flv_search(txt);
 }
-
 function Mid(){
     document.querySelector("#LOL-assort").style.display = "none";
     document.querySelector("#LOL").classList.remove("xhx");
@@ -218,7 +214,6 @@ function Mid(){
     const Midkey = document.querySelector("#Mid-key").innerHTML.trim();
     if(Midkey.length === 0) CATCH("Mid_hot","music&ac=hot");
 }
-
 function Mid_hot(list) {
     if (list.msg){
         const data  = list.data;
@@ -233,11 +228,10 @@ function Mid_hot(list) {
         document.querySelector("#Mid-key").innerHTML = html;
     } else showToast(list.data);
 }
-
 function Mid_so(txt){
     const tk = localStorage.getItem('tk');
     if (tk === null) {
-        const modalHtml = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"><button type="button" class="btn-confirm" onclick="wedSubmitHandler()">确定</button><button type="button" class="btn-cancel" onclick="eject(localStorage.getItem('Kimg'),'pic');">获取秘钥</button></div></div>`;
+        const modalHtml = `<div class="prompt-wrap"><div class="prompt-row-flex"><input type="text" id="tk-input" class="prompt-input" placeholder="请输入秘钥"><button type="button" class="btn-confirm" onclick="wedSubmitHandler()">确定</button><button type="button" class="btn-cancel" onclick="eject(localStorage.getItem('Kimg'),'img');">获取秘钥</button></div></div>`;
         window.wedSubmitHandler = function(){
             const rVal = document.querySelector("#tk-input").value.trim();
             if(isEmpty(rVal)){ closeModal(); return; }
@@ -247,10 +241,9 @@ function Mid_so(txt){
 	    setTimeout(()=>{const inputEl = document.querySelector("#tk-input");if(inputEl) inputEl.focus();}, 50);
     } else Mid_data(txt,tk);
 }
-
 function Mid_data(txt,key) {
 	closeModal();
-    GP_data("music&wd="+encodeURIComponent(txt)+"&key="+key,{method:'GET'},res=>{
+    GP_data("music",{method:'GET',data:{wd:txt,key:key}},res=>{
         if (res.msg){
             const json = res.data;
             let html = "";
@@ -271,11 +264,10 @@ function Mid_data(txt,key) {
         }
     })
 }
-
 function Mid_url(id,tk) {
     if (!canExecute) { showToast("请稍后..."); return; }
     canExecute = false;
-    GP_data("music&id="+id+"&key="+tk,{method:'GET'},list=>{
+    GP_data("music",{method:'GET',data:{id:id,key:tk}},list=>{
         if (list.msg){
             const d = list.data;
             const content = `<div class="audio-player-modal" style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;"><button onclick="closeModal()" style="position:absolute;top:4px;right:10px;border:none;background:transparent;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
@@ -286,7 +278,6 @@ function Mid_url(id,tk) {
     })
     setTimeout(()=>{ canExecute = true; },4000);
 }
-
 function Flv(){
     document.querySelector("#Mid").classList.remove("xhx");
     document.querySelector("#Mid-assort").style.display = "none";
@@ -305,7 +296,6 @@ function Flv(){
     const playkey = document.querySelector("#Flv-key").innerHTML.trim();
     if(playkey.length === 0) CATCH("Flv_hot","vod&ac=hot");
 }
-
 function Flv_hot(list) {
     document.querySelector("#Flv-key").innerHTML = "";
     document.querySelector("#Flv-key").style.display = "block";
@@ -327,14 +317,12 @@ function Flv_hot(list) {
         }
     } else showToast(list.data);
 }
-
 function Flv_search(txt) {
-    GP_data("vod&wd="+encodeURIComponent(txt),{method:'GET'},res=>{
+    GP_data("vod",{method:'GET',data:{wd:txt}},res=>{
         if (res.msg) Flv_hot(res);
         else showToast(res.data);
     })
 }
-
 function Flv_data(jsonStr) {
     document.querySelector("#Flv-data").innerHTML = "";
     document.querySelector("#Flv-data").style.display = "block";
@@ -352,7 +340,6 @@ function Flv_data(jsonStr) {
         showToast("短剧数据解析失败");
     }
 }
-
 function LOL(){
     document.querySelector("#Mid-assort").style.display = "none";
     document.querySelector("#Mid").classList.remove("xhx");
@@ -368,13 +355,12 @@ function LOL(){
     const data = document.querySelector("#LOL-data").innerHTML.trim();
     if(data.length === 0) LOL_data();
 }
-
 let isLoadingLOL = false;
 function LOL_data(num) {
     if (isLoadingLOL) return;
     const page = isNaN(num) ? 1 : Number(num);
     isLoadingLOL = true;
-    GP_data("other&pg=" + page, { method: 'GET' }, list=>{
+    GP_data("other", { method: 'GET', data:{pg:page} }, list=>{
         isLoadingLOL = false;
         const loadMoreBox = document.querySelector("#LOL-loadMore");
         const dataWrap = document.querySelector("#LOL-data");
@@ -389,13 +375,14 @@ function LOL_data(num) {
                 const singleCss = item.cards.length === 1 ? 'single-card' : '';
                 for (let ii = 0; ii < item.cards.length; ii++) {
                     const c = item.cards[ii];
-                    const safeImg = c.img_url.replace(/"/g, '&quot;');
-                    const safeOrigin = c.img_url_big.replace(/"/g, '&quot;');
-                    const safeVideo = (c.mp4_url||'').replace(/"/g, '&quot;');
-                    if (safeVideo.trim() === "") {
-                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeOrigin}','pic')"></li>`;
+                    const safeThumb = c.img_url.replace(/"/g, '&quot;');
+                    const tid = c.tid;
+                    const idx = c.ii;
+                    const type = c.type;					
+                    if (type === "img") {
+                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeThumb});" onclick="clickThumbItem('${tid}',${idx},'${type}')"></li>`;
                     } else {
-                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeImg});" onclick="eject('${safeVideo}','video','${safeImg}')"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>`;
+                        outimg += `<li class="thumb-li ${singleCss}" style="background-image:url(${safeThumb});" onclick="clickThumbItem('${tid}',${idx},'${type}')"><svg class="play-btn" width="36" height="36"><circle cx="18" cy="18" fill="#FFF" fill-opacity=".80" r="18"></circle><path d="M25.417 18.53L14.738 24.985a0.6 0.6 0 0 1-.832-.215 0.625 0.625 0 0 1-.085-.315V11.545c0-.341.271-.617.606-.617.11 0 .216.03.31.086l10.68 6.455a0.622 0.622 0 0 1 0 1.06z" fill="#444" fill-rule="nonzero"></path></svg></li>`;
                     }
                 }
                 htmlWrap += `<div class="itemg"><div class="itemg_lf"><img src="${item.avatar}" alt=""></div><div class="itemg_rg"><div class="itemg_rg_tp"><h4>${item.user}</h4></div><div class="itemg_rg_sm">${item.title}</div><div class="itemg_rg_main"><ul class="video-thumbs">${outimg}</ul></div></div></div>`;
@@ -405,6 +392,17 @@ function LOL_data(num) {
             if (loadMoreBox) loadMoreBox.innerHTML = `<div class="load-more-btn" onclick="LOL_data(${nextPage})">加载更多...</div>`;
         }
     })
+}
+
+function clickThumbItem(tid, ii, type){
+
+	GP_data("other_card", {method:'GET',data:{tid: tid,ii: ii,act: type}}, res=>{
+        if(!res.msg){
+            showToast(res.data||"获取资源失败");
+            return;
+        }
+		eject(res.data.url,type);
+    });
 }
 
 function Pic(){
@@ -436,7 +434,6 @@ function Pic(){
     const progressBar = document.querySelector("#uploadProgressBar");
     const progressText = document.querySelector("#uploadProgressText");
     const originTipText = "选择或拖拽图片到此处，支持多图上传";
-
     if(!picEventBind){
         picEventBind = true;
         function preventDefaults(e) { e.preventDefault(); e.stopPropagation(); }
@@ -445,7 +442,6 @@ function Pic(){
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, preventDefaults, false); });
         ['dragenter', 'dragover'].forEach(eventName => { PicUpload.addEventListener(eventName, highlight, false); });
         ['dragleave', 'drop'].forEach(eventName => { PicUpload.addEventListener(eventName, unhighlight, false); });
-
         PicUpload.addEventListener('click', e=>{
             e.stopPropagation();
             fileInput.click();
@@ -453,7 +449,6 @@ function Pic(){
         fileInput.addEventListener('change', e=>{ handleFiles(e); fileInput.value = ""; });
         PicUpload.addEventListener('drop', e=> handleFiles({ target: { files: e.dataTransfer.files } }));
     }
-
 	async function handleFiles(e) {
         const files = Array.from(e.target.files);
         const MAX_SIZE=10*1024*1024;
@@ -491,7 +486,7 @@ function Pic(){
                         }
                     }
                 },1000);
-		    	GP_data("upimg",{upfile:'upfile',data:formData,timeout:0},(list)=>{
+		    	GP_data("upimg",{upfile:'upfile',data:formData},(list)=>{
                     clearInterval(progressInterval);
                     progressBarEl.style.width = '100%';
                     progressTextEl.innerText = '100%';
@@ -520,7 +515,6 @@ function Pic(){
         document.querySelector("#uploadProgressText").innerText = "0%";
     }
 }
-
 function addlocal(type,value){
     let old = localStorage.getItem(type);
     let arr = old ? old.split(',') : [];
@@ -529,31 +523,30 @@ function addlocal(type,value){
     if(arr.length>50) arr.length=50;
     localStorage.setItem(type, arr.join(','));
 }
-
 function eject(u,t,i,a) {
-    showLoading();
-    if (t == "pic"){
+	const taskeject = showLoading();
+    if (t == "img"){
         let x = '';
         if(i||a) { x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p><p>上传时间：${a}</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`; }
         const pic = new Image();
-        pic.onload = function () { const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`; openModal(html, false); hideLoading(); }
-        pic.onerror = function() { hideLoading(); showToast("图片加载失败！"); }
+        pic.onload = function () { const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`; openModal(html, false); hideLoading(taskeject); }
+        pic.onerror = function() { hideLoading(taskeject); showToast("图片加载失败！"); }
         pic.src = u;
     }else if(t == "video"){
         const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true"><source src="${u}" type="video/mp4"></video>`;
         openModal(html, true);
         setTimeout(()=>{
             const video = document.getElementById('myVideo');
-            if(!video){ hideLoading(); return; }
+            if(!video){ hideLoading(taskeject); return; }
             function onVideoReady(){
-                hideLoading();
+                hideLoading(taskeject);
                 video.removeEventListener('loadedmetadata', onVideoReady);
                 video.removeEventListener('canplay', onVideoReady);
                 video.removeEventListener('playing', onVideoReady);
                 video.removeEventListener('error', onVideoError);
             }
             function onVideoError(){
-                hideLoading();
+                hideLoading(taskeject);
                 showToast("视频加载失败");
                 video.removeEventListener('loadedmetadata', onVideoReady);
                 video.removeEventListener('canplay', onVideoReady);
@@ -570,7 +563,6 @@ function eject(u,t,i,a) {
         }, 50);
     }
 }
-
 function copytxt(d) {
     const input = document.createElement('input');
     input.setAttribute('readonly', 'readonly');
@@ -582,16 +574,13 @@ function copytxt(d) {
     input.remove();
     showToast("复制成功！");
 }
-
 function isEmpty(value) {
     return value === null || value === undefined || value === "" || (typeof value === "string" && value.trim() === "");
 }
-
 function getToday() {
     const d = new Date();
     return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
 }
-
 function CATCH(KEY, URL) {
     let cacheRaw = localStorage.getItem(KEY);
     let data = null;
@@ -609,14 +598,12 @@ function CATCH(KEY, URL) {
         })
     }
 }
-
-function showToast(text, delay = 1500) {
+function showToast(text, delay = 1700) {
     const toast = document.querySelector("#toast-box");
     toast.innerText = text;
     toast.style.display = "block";
     setTimeout(()=>toast.style.display = "none", delay);
 }
-
 function openModal(html, isVideo = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
@@ -639,7 +626,6 @@ function openModal(html, isVideo = false) {
         if (e.target === mask) closeModal();
     }
 }
-
 function closeModal() {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
@@ -648,37 +634,62 @@ function closeModal() {
     box.classList.remove('video-modal');
     document.body.classList.remove("modal-open");
 }
-
 function check_ip(ip){
-    GP_data(`ip&ip=${encodeURIComponent(ip)}`,{method:'GET'},list=>{
+    GP_data("ip",{method:'GET',data:{ip:ip}},list=>{
         const wrap=document.querySelector("#ipres");
         if(!wrap)return;
         wrap.innerText=isEmpty(list.data.address)?"未查到地址信息！":list.data.address;
     });
 }
 
-
-function showLoading() {
-    document.querySelector("#loading-box").style.display = "flex";
-    clearTimeout(_loadingTimer);
-    _loadingTimer = setTimeout(()=> hideLoading(),8000);
+function showLoading(tid) {
+    if(tid === undefined){
+        tid = 'load_' + Math.random().toString(36).slice(2);
+    }else{
+        tid = 'load_' + tid;
+    }
+    let el = document.getElementById(tid);
+    if(el){ return tid; }
+    const html = `<div id="${tid}" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.2);z-index:10000;display:flex;align-items:center;justify-content:center;"><div style="width:30px;height:30px;border:3px solid #ff5983;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;"></div></div>`;
+    document.body.insertAdjacentHTML('beforeend', html);
+    return tid;
 }
-function hideLoading() {
-    clearTimeout(_loadingTimer);
-    document.querySelector("#loading-box").style.display = "none";
+
+function hideLoading(taskId) {
+    if(!taskId) return;
+    const el = document.getElementById(taskId);
+    if(el){
+        el.remove();
+    }
 }
 
 async function GP_data(txt, options, callback) {
-	showLoading();
+	const taskId = showLoading();
     const opts = options || {};
     const {method = 'POST' , data = {} , headers = {} , upfile = '' } = opts;
-    const apiUrl = "https://api.rmbk.cc/i6x.php?type=" + txt;
+    let apiUrl = "i6x.php?type=" + txt;
+
 	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), finalTimeout);
+
     try {
-        const fetchConfig = { method: method.toUpperCase() , signal: controller.signal , headers: { ...headers } };
-        if (fetchConfig.method !== 'GET') {
+        const fetchConfig = {
+            method: method.toUpperCase(),
+            signal: controller.signal,
+            headers: { ...headers }
+        };
+
+        if (fetchConfig.method === 'GET') {
+            const urlParams = new URLSearchParams();
+            for(const k in data){
+                urlParams.append(k, data[k]);
+            }
+            const appendQuery = urlParams.toString();
+            if(appendQuery){
+                apiUrl += "&" + appendQuery;
+            }
+        }else{
             if (upfile === 'upfile') {
                 fetchConfig.body = data;
             } else {
@@ -688,18 +699,20 @@ async function GP_data(txt, options, callback) {
                 fetchConfig.headers['Content-Type'] = 'application/x-www-form-urlencoded';
             }
         }
+
         const res = await fetch(apiUrl, fetchConfig);
-        if (!res.ok) throw new Error('http error');
+        if (!res.ok) throw new Error('http status:' + res.status);
         const result = await res.json();
         callback(result);
     } catch (err) {
 		console.log(err);
-		callback({ msg: false, data: err });
+        callback({ msg: false, data: err.message || String(err) });
     } finally {
+		hideLoading(taskId);
         clearTimeout(timer);
     }
-	hideLoading();
 }
+
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
 </body>
