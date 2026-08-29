@@ -57,6 +57,7 @@ a{color:#000;text-decoration:none}
 .modal-box.pic-modal{background:transparent;padding:0;}
 .modal-box.pic-modal img{width:100%;height:auto;}
 .modal-box.pic-modal .modal-close-btn{display:none;}
+.modal-box.form-modal{pointer-events:auto;}
 .modal-close-btn:hover{color:#ff5983;}
 .modal-close-btn{position:absolute;top:8px;right:10px;width:32px;height:32px;font-size:26px;line-height:32px;text-align:center;cursor:pointer;color:#999;z-index:2;    border:none;background:transparent;}
 .prompt-input{flex:1;padding:9px 12px;border:1px solid #ddd;border-radius:4px;font-size:15px;outline:none;min-width:120px;}
@@ -74,7 +75,6 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 .verify-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
 .verify-row canvas{min-width:100px !important;flex-shrink:0;}
 </style>
-<script language="javascript">if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");</script>
 </head>
 <body>
 <div class="contant">
@@ -116,9 +116,9 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             <div class="itemg_rg_sm"><p>摄像、跟拍、主持、化妆、设备，档期所剩不多，欢迎预定！</p></div>
             <div class="itemg_rg_main">
                 <ul>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn')"></li>
-                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/540')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4')"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn" style="background-image:url(https://qnm.hunliji.com/Fofet5nYQXTv_KBnFzWFg00_llCn);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/540" style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2304672634/sz/360);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4" style="background-image:url(https://qnm.hunliji.com/FhTK7BKfCSA87HyYZSzMmg2sjpN4);background-position:center;background-size:cover;"></li>
                 </ul>
             </div>
         </div>
@@ -135,12 +135,12 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             <div class="itemg_rg_sm"><p>海报、照片墙、幕布设计制作！</p></div>
             <div class="itemg_rg_main">
                 <ul>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq')"></li>
-                    <li style="background-image:url(https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr);background-position:center;background-size:cover;" onclick="eject('https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr')"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN" style="background-image:url(https://qnm.hunliji.com/Fk2PqZ-opqI0QDtPMkZHwFhn5EeN);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO" style="background-image:url(https://qnm.hunliji.com/Fpj961ZAGDzo_hiG9ewsmttDIaMO);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc" style="background-image:url(https://qnm.hunliji.com/FnJpoSq4ibXfXG0M1uUrM9RHOdOc);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1" style="background-image:url(https://qnm.hunliji.com/FswpA1ZCKCYizfoScXXLojqBsNj1);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq" style="background-image:url(https://qnm.hunliji.com/Fk3S6swgrDAuYA-DlrBhCMJDYgXq);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr" style="background-image:url(https://qnm.hunliji.com/Fgv7AuBUvCJsop4j5P3tkmeZg4Tr);background-position:center;background-size:cover;"></li>
                 </ul>
             </div>
         </div>
@@ -157,9 +157,9 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
             <div class="itemg_rg_sm"><p>红富士苹果，8月-11月新鲜当季，现摘现发，其余时间果库冷藏，详情请咨询客服!</p></div>
             <div class="itemg_rg_main">
                 <ul>
-                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/540')"></li>
-                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/540')"></li>
-                    <li style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/360);background-position:center;background-size:cover;" onclick="eject('https://bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/540')"></li>
+                    <li data-eject data-eject-url="https://bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/540" style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813801/sz/360);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/540" style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813802/sz/360);background-position:center;background-size:cover;"></li>
+                    <li data-eject data-eject-url="https://bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/540" style="background-image:url(https://bd-tbfile.izuiyou.com/img/frame/id/2287813803/sz/360);background-position:center;background-size:cover;"></li>
                 </ul>
             </div>
         </div>
@@ -178,7 +178,17 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
 <div class="load-box" id="loadBox">
     <div class="load-spin"></div>
 </div>
+<script language="javascript">if (/\/\/www\./i.test(location.href)) location.href = location.href.replace(/\/\/www\./i,"//");</script>
 <script type="text/javascript">
+//全局事件委托图片预览
+document.addEventListener('click',function(e){
+    const el = e.target.closest('[data-eject]');
+    if(el){
+        const url = el.dataset.ejectUrl;
+        eject(url);
+    }
+})
+
 window.onload = function(){
     const images = document.getElementById("slideshow").getElementsByTagName("img");
     let pos = 0;
@@ -186,7 +196,7 @@ window.onload = function(){
     setInterval(function(){
         images[pos].style.display = 'none';
         pos = ++pos == len ? 0 : pos;
-        images[pos].style.display = 'inline';
+        images[pos].style.display = 'block';
     },1500);
 };
 let page = 0;
@@ -205,14 +215,12 @@ window.addEventListener('scroll', function () {
         try{ data = JSON.parse(CATCH_DATA); }catch(e){}
         if (data && data.validDate === getToday()) {
             renderList(data.vlog);
-            const Click = data.vlog.msg;
-            setTimeout(function() {isClick = Click;}, 5000);
+            setTimeout(function() {isClick = true;}, 5000);
         } else {
             GP_data("vlog&p="+page,{method:'GET'},function(vlog){
                 window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ vlog, validDate: getToday() }));
                 renderList(vlog);
-                const Click = vlog.msg;
-                setTimeout(function() {isClick = Click;}, 5000);
+                setTimeout(function() {isClick = true;}, 5000);
             });
         }
     }
@@ -231,8 +239,7 @@ function renderList(List) {
             let outimg = "";
             for (let ii = 0; ii < imgArr.length; ii++) {
                 const imgurl = imgArr[ii].trim();
-                const safeImg = imgurl.replace(/"/g,'&quot;');
-                outimg += `<li style="background-image:url(${safeImg});background-position:center;background-size:cover;" onclick="eject('${safeImg}')"></li>`;
+                outimg += `<li data-eject data-eject-url="${imgurl}" style="background-image:url(${imgurl});background-position:center;background-size:cover;"></li>`;
             }
             const itemHtml = `<div class="itemg">
                 <div class="itemg_lf"><img src="https://qnm.hunliji.com/FmXDfI8uZWhVnt9Bpc6ueJLXVHw4"></div>
@@ -282,10 +289,18 @@ function wedList() {
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
             <button class="btn-cancel" onclick="closeModal()">取消</button>
-            <button id="wed_submit_btn" class="btn-confirm" onclick="wedSubmitHandler()">确定</button>
+            <button id="wed_submit_btn" class="btn-confirm">确定</button>
         </div>
     `;
-    window.wedSubmitHandler = function () {
+    openModal(modalHtml, false, true);
+    setTimeout(() => {
+        drawVerifyCode('wed');
+        const canvas = document.getElementById('wed_code_canvas');
+        canvas.onclick = () => drawVerifyCode('wed');
+        document.getElementById('wed_submit_btn').onclick = wedSubmitHandler;
+    }, 0);
+
+    function wedSubmitHandler(){
         const btn = document.getElementById('wed_submit_btn');
         if (btn.disabled) return;
         const rVal = document.getElementById('temp_riqi').value.trim();
@@ -330,18 +345,25 @@ function wedList() {
         GP_data("wed", { data: { time: rVal, name: kVal } }, res => {
             delete window._verify.wed;
             if (res.msg) {
-                openModal(`<div onclick="copyContent(this)"><p>${res.data.txt}</p><p style="word-break: break-all;">${res.data.url}</p><p>${res.data.key}</p><p>${res.data.marks}</p></div>`, false, true);
+                // 使用DOM textContent 防XSS，不拼接HTML
+                const box = document.getElementById('modalBox');
+                box.innerHTML = `<div style="padding:10px;cursor:pointer;" onclick="copyContent(this)">
+                    <p></p><p></p><p></p><p></p>
+                </div>`;
+                const divWrap = box.querySelector('div');
+                divWrap.querySelectorAll('p')[0].textContent = res.data.txt||'';
+                divWrap.querySelectorAll('p')[1].textContent = res.data.url||'';
+                divWrap.querySelectorAll('p')[2].textContent = res.data.key||'';
+                divWrap.querySelectorAll('p')[3].textContent = res.data.marks||'';
+                box.className = 'modal-box';
+                const mask = document.getElementById('modalMask');
+                mask.style.display='flex';
+                document.body.classList.add("modal-open");
             } else {
                 showToast(res.data);
             }
         })
-    };
-    openModal(modalHtml, false, true);
-    setTimeout(() => {
-        drawVerifyCode('wed');
-        const canvas = document.getElementById('wed_code_canvas');
-        canvas.onclick = () => drawVerifyCode('wed');
-    }, 0);
+    }
 }
 // ========== 预约留言 ==========
 function reserve() {
@@ -357,10 +379,18 @@ function reserve() {
         </div>
         <div class="prompt-btn-box" style="justify-content:flex-end;">
             <button class="btn-cancel" onclick="closeModal()">取消</button>
-            <button id="res_submit_btn" class="btn-confirm" onclick="reserveSubmit()">确定</button>
+            <button id="res_submit_btn" class="btn-confirm">确定</button>
         </div>
     `;
-    window.reserveSubmit = function () {
+    openModal(modalHtml, false, true);
+    setTimeout(() => {
+        drawVerifyCode('res');
+        const canvas = document.getElementById('res_code_canvas');
+        canvas.onclick = () => drawVerifyCode('res');
+        document.getElementById('res_submit_btn').onclick = reserveSubmit;
+    }, 0);
+
+    function reserveSubmit(){
         const btn = document.getElementById('res_submit_btn');
         if (btn.disabled) return;
         const name = document.getElementById('res_xm').value.trim();
@@ -397,13 +427,7 @@ function reserve() {
             showToast(res.data);
             delete window._verify.res;
         });
-    };
-    openModal(modalHtml, false, true);
-    setTimeout(() => {
-        drawVerifyCode('res');
-        const canvas = document.getElementById('res_code_canvas');
-        canvas.onclick = () => drawVerifyCode('res');
-    }, 0);
+    }
 }
 function eject(url) {
     showLoad();
@@ -446,7 +470,8 @@ function openModal(html, isPic = false, isFormModal = false) {
     document.body.classList.add("modal-open");
     mask.onclick = function(e){
         if(e.target !== mask) return;
-        if(box.classList.contains('form-modal')) return;
+        //表单弹窗禁止点击背景关闭
+        if(isFormModal) return;
         closeModal();
     }
     box.onclick = function(e){ e.stopPropagation(); }
@@ -466,15 +491,20 @@ function scrollToTop() {
         window.scrollTo(0, scrollTop - scrollTop / 10);
     }
 }
-function copyContent(divElement) {
-    const tempTextarea = document.createElement('textarea');
-    tempTextarea.value = divElement.innerText;
-    tempTextarea.style.position = 'fixed';
-    document.body.appendChild(tempTextarea);
-    tempTextarea.select();
-    document.execCommand('copy');
-    document.body.removeChild(tempTextarea);
-    showToast('复制成功');
+async function copyContent(divElement) {
+    try {
+        await navigator.clipboard.writeText(divElement.innerText);
+        showToast('复制成功');
+    } catch(e) {
+        const tempTextarea = document.createElement('textarea');
+        tempTextarea.value = divElement.innerText;
+        tempTextarea.style.position = 'fixed';
+        document.body.appendChild(tempTextarea);
+        tempTextarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextarea);
+        showToast('复制成功');
+    }
 }
 async function GP_data(txt, options = {}, callback) {
     const {method = 'POST',data = {},timeout = 30000 } = options;
@@ -483,17 +513,19 @@ async function GP_data(txt, options = {}, callback) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeout);
     try {
-        const fetchOpt = {method,signal: controller.signal,headers: {'Content-Type': 'application/x-www-form-urlencoded'} };
+        const fetchOpt = {method,signal: controller.signal };
         if(method !== 'GET'){
+            fetchOpt.headers = {'Content-Type': 'application/x-www-form-urlencoded'};
             const params = new URLSearchParams();
             for(let k in data) params.append(k, data[k]);
             fetchOpt.body = params.toString();
         }
         const res = await fetch(APIurl, fetchOpt);
+        if(!res.ok) throw new Error('http status:'+res.status);
         const list = await res.json();
         callback(list);
     } catch (err) {
-        callback({msg:false,data:'请求超时！'});
+        callback({msg:false,data:'请求异常：'+String(err.message)});
     } finally {
         clearTimeout(timer);
         closeLoad();
