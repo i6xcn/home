@@ -76,11 +76,8 @@ label:hover::after {display:block;}
 .load-spin{width:30px;height:30px;border:3px solid #ff5983;border-top-color:transparent;border-radius:50%;animation:spin 0.8s linear infinite;}
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:10; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
-#modal-box { width: calc(640px * 0.9); background: #ffffff; max-width: 90vw; max-height: 85vh; border-radius: 6px; box-sizing: border-box; overflow: hidden !important; display: flex; flex-direction: column; }
-#modal-box .modal-scroll-wrap { flex: 1; overflow-y: auto; overflow-x: hidden;cursor: pointer;}
-#modal-box .modal-scroll-wrap p{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-#modal-box.video-modal { background: transparent !important; padding: 0 !important; overflow: hidden !important; height: 100%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
-#modal-box.video-modal video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
+#modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;overflow-y:auto;display:flex;flex-direction:column;position:relative;}
+#modal-box. video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
 .prompt-wrap { padding: 10px; }
 .prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
 .prompt-row-flex { display: flex; align-items: center; gap: 10px; }
@@ -258,7 +255,7 @@ function Mid_so(txt){
             if(isEmpty(rVal)){ closeModal(); return; }
 		    Mid_data(txt,rVal);
 	    };
-	    openModal(modalHtml);
+	    openModal(modalHtml,true);
 	    setTimeout(()=>{const inputEl = document.querySelector("#tk-input");if(inputEl) inputEl.focus();}, 50);
     } else Mid_data(txt,tk);
 }
@@ -291,8 +288,8 @@ function Mid_url(id,tk) {
     GP_data("music",{method:'GET',data:{id:id,key:tk}},list=>{
         if (list.msg){
             const d = list.data;
-            const content = `<div class="audio-player-modal" style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;"><button onclick="closeModal()" style="position:absolute;top:4px;right:10px;border:none;background:transparent;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
-            openModal(content);
+            const content = `<div style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;background:#fff;"><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
+            openModal(content,true);
         } else{
 			showToast(list.data);
 		} 
@@ -558,32 +555,7 @@ function eject(u,t,i,a) {
     }else if(t == "video"){
         const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true"><source src="${u}" type="video/mp4"></video>`;
         openModal(html, true);
-        setTimeout(()=>{
-            const video = document.getElementById('myVideo');
-            if(!video){ hideLoading(taskeject); return; }
-            function onVideoReady(){
-                hideLoading(taskeject);
-                video.removeEventListener('loadedmetadata', onVideoReady);
-                video.removeEventListener('canplay', onVideoReady);
-                video.removeEventListener('playing', onVideoReady);
-                video.removeEventListener('error', onVideoError);
-            }
-            function onVideoError(){
-                hideLoading(taskeject);
-                showToast("视频加载失败");
-                video.removeEventListener('loadedmetadata', onVideoReady);
-                video.removeEventListener('canplay', onVideoReady);
-                video.removeEventListener('playing', onVideoReady);
-                video.removeEventListener('error', onVideoError);
-            }
-            video.addEventListener('loadedmetadata', onVideoReady);
-            video.addEventListener('canplay', onVideoReady);
-            video.addEventListener('playing', onVideoReady);
-            video.addEventListener('error', onVideoError);
-            video.play().catch(e=>{});
-            video.addEventListener('ended',()=>{ video.currentTime=0; video.play().catch(e=>{}); });
-            video.addEventListener('touchstart',closeModal);
-        }, 50);
+		hideLoading(taskeject);
     }
 }
 async function copytxt(d) {
@@ -640,18 +612,17 @@ function showToast(text, delay = 1700) {
     toast.style.display = 'block';
     setTimeout(()=>toast.style.display = 'none', delay);
 }
-function openModal(html, isVideo = false) {
+function openModal(html, close = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
-    const closeBtnHtml = isVideo ? '' : `<button class="modal-close-btn" onclick="closeModal()">×</button>`;
-    box.innerHTML = closeBtnHtml + html;
+	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:4px;right:10px;border:none;background:transparent;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button>${html}</div>` : html;
+    box.innerHTML =  closeBtnHtml;
     box.className = 'modal-box';
-    if(isVideo) box.classList.add('video-modal');
     mask.style.display = 'flex';
-    document.body.classList.add("modal-open");
+    document.body.classList.add("modal-open"); 
     mask.onclick = function(e){
         if(e.target !== mask) return;
-        if(box.classList.contains('video-modal')) return;
+		if(close) return;
         closeModal();
     }
     box.onclick = function(e){ e.stopPropagation(); }
