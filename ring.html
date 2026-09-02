@@ -77,7 +77,6 @@ label:hover::after {display:block;}
 body.modal-open { overflow: hidden !important; height: 100vh !important; }
 #modal-mask{ position:fixed; top:0;left:0; width:100%;height:100%; background:rgba(0,0,0,0.8); z-index:10; display:none; align-items:center; justify-content:center; padding:15px; box-sizing:border-box; }
 #modal-box{width:calc(640px * 0.9);max-width:90vw;max-height:85vh;overflow-y:auto;display:flex;flex-direction:column;position:relative;}
-#modal-box. video { width: auto; height: auto; max-width: 100%; max-height: 100%; object-fit: contain; display: block; pointer-events: none; }
 .prompt-wrap { padding: 10px; }
 .prompt-title { font-size: 16px; margin: 0 0 12px 0; color: #333; }
 .prompt-row-flex { display: flex; align-items: center; gap: 10px; }
@@ -549,12 +548,28 @@ function eject(u,t,i,a) {
         let x = '';
         if(i||a) { x = `<p>图片链接：<a href="javascript:void(0);" onclick="copytxt('${u}')">${u}</a></p><p>上传时间：${a}</p><p>上传地址：<span id="ipres"><a href="javascript:void(0);" onclick="check_ip('${i}')">${i}</a></span></p>`; }
         const pic = new Image();
-        pic.onload = function () { const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`; openModal(html, false); hideLoading(taskeject); }
-        pic.onerror = function() { hideLoading(taskeject); showToast("图片加载失败！"); }
+        pic.onload = function () { 
+            const html = x +`<img width="100%" src="${u}" onclick="closeModal()">`; 
+            openModal(html, false); 
+            hideLoading(taskeject); 
+        }
+        pic.onerror = function() { 
+            hideLoading(taskeject); 
+            showToast("图片加载失败！"); 
+        }
         pic.src = u;
     }else if(t == "video"){
-        const html = `<video id="myVideo" controls width="100%" height="100%" oncontextmenu="return false;" controlslist="nodownload" poster="" x5-playsinline="true" playsinline="true" webkit-playsinline="true"><source src="${u}" type="video/mp4"></video>`;
-        openModal(html, true);
+        const html = `<video id="myVideo" controls style="width:100%;max-height:80vh;height:auto;object-fit:contain;" oncontextmenu="return false;" controlslist="nodownload" x5-playsinline="true" playsinline="true" webkit-playsinline="true"><source src="${u}" type="video/mp4"></video>`;
+        openModal(html, false);
+        setTimeout(()=>{
+            const video = document.getElementById('myVideo');
+            if(!video) return;
+            video.play().catch(e=>{});
+            video.addEventListener('ended',()=>{ 
+                video.currentTime=0; 
+                video.play().catch(e=>{}); 
+            });
+        },0);
 		hideLoading(taskeject);
     }
 }
@@ -709,4 +724,4 @@ async function GP_data(txt, options, callback) {
 </script>
 <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js?id=Kka10BqOTeAASZd4&ck=Kka10BqOTeAASZd4&autoTrack=true&screenRecord=true"></script>
 </body>
-</html>
+</html>       
