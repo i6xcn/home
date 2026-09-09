@@ -287,7 +287,7 @@ function Mid_url(id,tk) {
     GP_data("music",{method:'GET',data:{id:id,key:tk}},list=>{
         if (list.msg){
             const d = list.data;
-            const content = `<div style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;background:#fff;"><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
+            const content = `<div style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;background:#fff;"><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><a href="${d.url}" target="_blank" rel="noopener noreferrer"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></a></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
             openModal(content,true);
         } else{
 			showToast(list.data);
@@ -630,7 +630,7 @@ function showToast(text, delay = 1700) {
 function openModal(html, close = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
-	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:4px;right:10px;border:none;background:transparent;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button>${html}</div>` : html;
+	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:-5px;right:1px;border:none;background:#fff;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button>${html}</div>` : html;
     box.innerHTML =  closeBtnHtml;
     box.className = 'modal-box';
     mask.style.display = 'flex';
