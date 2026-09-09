@@ -630,7 +630,7 @@ function showToast(text, delay = 1700) {
 function openModal(html, close = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
-	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:0px;right:0px;font-size:10px;background:#fff;cursor:pointer;z-index:10;">❌</button>${html}</div>` : html;
+	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:1px;right:1px;font-size:10px;background:#fff;cursor:pointer;z-index:10;">❌</button>${html}</div>` : html;
     box.innerHTML =  closeBtnHtml;
     box.className = 'modal-box';
     mask.style.display = 'flex';
