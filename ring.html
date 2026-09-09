@@ -66,7 +66,7 @@ input{outline:none;border:none;font-family:inherit;}
 #PicUpload.highlight {border-color: #4CAF50;background-color: #f8f8f8;}
 fieldset{padding:0 10px 10px;margin: 10px 0;border:1px solid #ccc;}
 legend{text-align:center;padding:0 10px;}
-label{position:relative;cursor:pointer;}
+label{position:relative;cursor:pointer;display:inline-flex;align-items:center;}
 label::after{content:attr(data-hover);display:none;position:absolute;left:50%;top:100%;transform:translateX(-50%);background-color:#ff5983;padding:0 6px;color:#FFF;font-size:12px;border-radius:4px;white-space:nowrap;}
 label:hover::after {display:block;}
 .loadMore{cursor:pointer;display:block;position:relative;line-height:57px;text-align:center;width:100%;color:#10aae4}
@@ -630,7 +630,7 @@ function showToast(text, delay = 1700) {
 function openModal(html, close = false) {
     const mask = document.querySelector("#modal-mask");
     const box = document.querySelector("#modal-box");
-	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:-5px;right:1px;border:none;background:#fff;font-size:24px;color:#999;cursor:pointer;z-index:10;">×</button>${html}</div>` : html;
+	const closeBtnHtml = close ? `<div style="position:relative;"><button onclick="closeModal()" style="position:absolute;top:0px;right:0px;font-size:10px;background:#fff;cursor:pointer;z-index:10;">❌</button>${html}</div>` : html;
     box.innerHTML =  closeBtnHtml;
     box.className = 'modal-box';
     mask.style.display = 'flex';
