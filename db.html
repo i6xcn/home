@@ -240,7 +240,6 @@ function loadMsg(p){
             return;
         }
         const list=res.data;
-        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无留言</div>`;return;}
         if(page === 1 && list.length > 1){
             wrap.innerHTML+=`<div style="margin:10px 0;display:flex;gap:10px;align-items:center;">
                 <button id="checkAllPic" class="btn btn-primary">全选/取消</button>
@@ -282,7 +281,6 @@ function loadwed(p){
             return;
         }
         const list=res.data;
-        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无客片数据</div>`;return;}
         list.forEach(item=>{
             const name = item.txt != null ? item.txt : '';
             const url = item.url ? `地址：${item.url}` : '';
@@ -315,7 +313,6 @@ function loadlog(p){
             return;
         }
         const list=res.data;
-        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无数据</div>`;return;}
         list.forEach(item=>{
             let imgHtml='';
             if(!isEmpty(item.img)){
@@ -350,7 +347,6 @@ function loaddoc(p){
             return;
         }
         const list=res.data;
-        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无数据</div>`;return;}
         list.forEach(item=>{
             const codeVal = item.code != null ? item.code : '';
             const txtVal = item.txt != null ? item.txt : '';
@@ -386,10 +382,12 @@ function loadimg(p){
 	document.getElementById('msgload').innerHTML="";
     GP_data("upimg",{data:{pwd:pwd,page:page}},list=>{
         const wrap=document.getElementById('msgList');
-        if(list.msg===false){showToast(list.data);return;}
+        if(!(list.msg&&Array.isArray(list.data))){
+            wrap.innerHTML=`<div class="empty-tip">${list.data||'获取图片失败'}</div>`;
+            return;
+        }
         const data=list.data;
         let html='';
-        if(list.length===0){wrap.innerHTML=`<div class="empty-tip">暂无图片</div>`;return;}
         if(page === 1 && data.length > 1){
             wrap.innerHTML="";
             html+=`<div style="margin:10px 0;display:flex;gap:10px;align-items:center;"><button id="checkAllPic" class="btn btn-primary">全选/取消</button><button id="batchDelPic" class="btn btn-primary">批量删除</button></div>`;
@@ -582,10 +580,8 @@ let selectedDocFile = null;
 const docUploadBox = document.getElementById('docUploadBox');
 const docFileInput = document.getElementById('docFileInput');
 const docFileNameDom = document.getElementById('docFileName');
-
 document.body.addEventListener("dragover",e=>e.preventDefault());
 document.body.addEventListener("drop",e=>e.preventDefault());
-
 docUploadBox.addEventListener('click',()=>{docFileInput.click();});
 docFileInput.addEventListener('change',(e)=>{
     const f = e.target.files[0];
@@ -708,7 +704,6 @@ async function copytxt(d) {
         showToast("复制成功！");
     }
 }
-//
 async function GP_data(txt, options, callback) {
 	showLoad();
     const opts = options || {};
@@ -735,11 +730,15 @@ async function GP_data(txt, options, callback) {
         callback(result);
     } catch (err) {
 		console.log(err);
-		callback({ msg: false, data: String(err.message) });
+        if (err.name === 'AbortError') {
+            callback({ msg: false, data: "请求超时" });
+        } else {
+            callback({ msg: false, data: String(err.message) });
+        }
     } finally {
         clearTimeout(timer);
+		closeLoad();
     }
-	closeLoad();
 }
 </script>
 </body>
