@@ -343,10 +343,11 @@ function Flv_data(jsonStr) {
     document.querySelector("#Flv-input").value = "";
     try {
         const item = JSON.parse(jsonStr);
-        let htmlAll = "";
+        let htmlAll = `<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">${item.name.replace(/\d+[-,、.]/g, '')}-${item.type}</p><p>视频来自网络,别信视频广告,谨防上当受骗!</p>`;
         for (let k = 0; k < item.episode.length; k++) {
-            htmlAll += `<div class="result-list"><div class="result-list-item"><p style="color:#0c6ad4;font-weight:700;font-size:16px;">${item.name.replace(/\d+[-,、.]/g, '')}-${item.type}</p><p>视频来自网络,别信视频广告,谨防上当受骗!</p><a href="${item.episode[k].url}" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">${item.episode[k].name}</a></div></div>`;
+            htmlAll += `<a href="${item.episode[k].url}" target="_blank" style="background-color:#ff5983;color:white;text-align:center;display:inline-block;padding:2px 5px;margin:3px;border-radius:5px;">${item.episode[k].name}</a>`;
         }
+		htmlAll += "</div></div>";
         document.querySelector("#Flv-data").innerHTML = htmlAll;
     } catch (err) {
         console.error("短剧解析错误：", err);
