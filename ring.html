@@ -144,21 +144,23 @@ body.modal-open { overflow: hidden !important; height: 100vh !important; }
         </fieldset>
         <div class="Pic-label">
             <label data-hover="推荐使用"><input type="radio" name="type" value="sh">搜狐</label>
-            <label data-hover="推荐使用"><input checked type="radio" name="type" value="mt">美图</label>
-            <label data-hover="腾讯云存储"><input type="radio" name="type" value="tx">腾讯</label>
-            <label data-hover="备用接口"><input type="radio" name="type" value="qt">其他</label>
+            <label data-hover="推荐使用"><input type="radio" name="type" value="mt">美图</label>
+            <label data-hover="推荐使用"><input type="radio" name="type" value="tx">腾讯</label>
+            <label data-hover="推荐使用"><input type="radio" name="type" value="hl">婚记</label>
+            <label data-hover="9月26日可用"><input type="radio" name="type" value="al">阿里</label>
+            <label data-hover="9月26日可用"><input type="radio" name="type" value="wd">微店</label>
         </div>
         <div id="PicUpload">
             <svg width="48" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="3 6 12 12"><path d="M11.61 8.57c.15.01.28.1.34.23l3 6.01c.07.13.06.29-.02.42-.08.13-.22.21-.37.21H3.43c-.16 0-.3-.08-.38-.22-.07-.14-.07-.3.01-.43l2.14-3.33c.07-.12.2-.19.33-.2.14-.01.27.06.36.16l1.8 2.16 3.53-4.71c.09-.12.23-.19.38-.18zM6.86 6c.71 0 1.29.58 1.29 1.29 0 .71-.58 1.29-1.29 1.29-.71 0-1.29-.58-1.29-1.29 0-.71.58-1.29 1.29-1.29z" fill="#ff5983" fill-rule="nonzero"></path></svg>
             <p id="uploadTip">选择或拖拽图片到此处，支持多图上传</p>
             <input type="file" id="fileInput" multiple accept="image/*" style="display:none;">
         </div>
-<div id="uploadProgressWrap" style="margin:8px 10px;display:none;">
-    <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
-    <div style="text-align:center;margin-top:4px;font-size:13px;color:#666;">
-        <span id="uploadProgressText">0%</span>
-    </div>
-</div>
+        <div id="uploadProgressWrap" style="margin:8px 10px;display:none;">
+            <div style="height:8px;background:#eee;border-radius:4px;overflow:hidden;"><div id="uploadProgressBar" style="width:0%;height:100%;background:#ff5983;transition:0.15s;"></div></div>
+            <div style="text-align:center;margin-top:4px;font-size:13px;color:#666;">
+            <span id="uploadProgressText">0%</span>
+        </div>
+        </div>
         <div id="Pic-data"></div>
     </div>
     <div class="bottom">
@@ -260,7 +262,7 @@ function Mid_so(txt){
 }
 function Mid_data(txt,key) {
 	closeModal();
-    GP_data("music",{method:'GET',data:{wd:txt,key:key}},res=>{
+    GP_data(`music&wd=${txt}&key=${key}`,{method:'GET'},res=>{
         if (res.msg){
             const json = res.data;
             let html = "";
@@ -284,7 +286,7 @@ function Mid_data(txt,key) {
 function Mid_url(id,tk) {
     if (!canExecute) { showToast("请稍后..."); return; }
     canExecute = false;
-    GP_data("music",{method:'GET',data:{id:id,key:tk}},list=>{
+    GP_data(`music&id=${id}&key=${tk}`,{method:'GET'},list=>{
         if (list.msg){
             const d = list.data;
             const content = `<div style="position:relative;display:flex;gap:10px;align-items:center;padding:10px;background:#fff;"><div style="width:70px;height:70px;border-radius:8px;overflow:hidden;flex-shrink:0;"><a href="${d.url}" target="_blank" rel="noopener noreferrer"><img src="${d.img}" style="width:100%;height:100%;object-fit:cover;"></a></div><div style="flex:1;"><h4>${d.artist} - ${d.name}</h4><div style="padding-top:10px;display:flex;align-items:center;"><audio style="height:30px;width:100%;" controls preload="auto" oncontextmenu="return false;"><source src="${d.url}" type="audio/mpeg"></div></div></div>`;
@@ -329,7 +331,7 @@ function Flv_hot(list) {
     } else showToast(list.data);
 }
 function Flv_search(txt) {
-    GP_data("vod",{method:'GET',data:{wd:txt}},res=>{
+    GP_data(`vod&wd=${txt}`,{method:'GET'},res=>{
         if (res.msg) Flv_hot(res);
         else showToast(res.data);
     })
@@ -371,7 +373,7 @@ function LOL_data(num) {
     if (isLoadingLOL) return;
     const page = isNaN(num) ? 1 : Number(num);
     isLoadingLOL = true;
-    GP_data("other", { method: 'GET', data:{pg:page} }, list=>{
+    GP_data(`other&pg=${page}`, {method:'GET'}, list=>{
         isLoadingLOL = false;
         const loadMoreBox = document.querySelector("#LOL-loadMore");
         const dataWrap = document.querySelector("#LOL-data");
@@ -416,7 +418,7 @@ document.addEventListener('click',function(e){
 })
 
 function clickThumbItem(tid, ii, type){
-	GP_data("other_card", {method:'GET',data:{tid: tid,ii: ii,act: type}}, res=>{
+	GP_data(`other_card&tid=${tid}&ii=${ii}&act=${type}`, {method:'GET'}, res=>{
         if(!res.msg){
             showToast(res.data||"获取资源失败");
             return;
@@ -680,26 +682,13 @@ async function GP_data(txt, options, callback) {
 	const taskId = showLoading();
     const opts = options || {};
     const {method = 'POST' , data = {} , headers = {} , upfile = '' } = opts;
-    let apiUrl = "https://api.rmbk.cc/i6x.php?type=" + txt;
+    const apiUrl = "https://api.rmbk.cc/i6x.php?type=" + txt;
 	const finalTimeout = upfile === 'upfile' ? 90000 : 30000;
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), finalTimeout);
     try {
-        const fetchConfig = {
-            method: method.toUpperCase(),
-            signal: controller.signal,
-            headers: { ...headers }
-        };
-        if (fetchConfig.method === 'GET') {
-            const urlParams = new URLSearchParams();
-            for(const k in data){
-                urlParams.append(k, data[k]);
-            }
-            const appendQuery = urlParams.toString();
-            if(appendQuery){
-                apiUrl += "&" + appendQuery;
-            }
-        }else{
+        const fetchConfig = { method: method.toUpperCase() , signal: controller.signal , headers: { ...headers } };
+        if (fetchConfig.method !== 'GET') {
             if (upfile === 'upfile') {
                 fetchConfig.body = data;
             } else {
@@ -710,12 +699,16 @@ async function GP_data(txt, options, callback) {
             }
         }
         const res = await fetch(apiUrl, fetchConfig);
-        if (!res.ok) throw new Error('http status:' + res.status);
+        if (!res.ok) throw new Error('http status:'+res.status);
         const result = await res.json();
         callback(result);
     } catch (err) {
 		console.log(err);
-        callback({ msg: false, data: err.message || String(err) });
+        if (err.name === 'AbortError') {
+            callback({ msg: false, data: "请求超时" });
+        } else {
+            callback({ msg: false, data: String(err.message) });
+        }
     } finally {
 		hideLoading(taskId);
         clearTimeout(timer);
