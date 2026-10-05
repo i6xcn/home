@@ -382,6 +382,7 @@ function loadimg(p){
 	document.getElementById('msgload').innerHTML="";
     GP_data("upimg",{data:{pwd:pwd,page:page}},list=>{
         const wrap=document.getElementById('msgList');
+		wrap.innerHTML="";
         if(!(list.msg&&Array.isArray(list.data))){
             wrap.innerHTML=`<div class="empty-tip">${list.data||'获取图片失败'}</div>`;
             return;
@@ -389,7 +390,6 @@ function loadimg(p){
         const data=list.data;
         let html='';
         if(page === 1 && data.length > 1){
-            wrap.innerHTML="";
             html+=`<div style="margin:10px 0;display:flex;gap:10px;align-items:center;"><button id="checkAllPic" class="btn btn-primary">全选/取消</button><button id="batchDelPic" class="btn btn-primary">批量删除</button></div>`;
         }
         for(const item of data){
