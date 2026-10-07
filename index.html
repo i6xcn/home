@@ -198,8 +198,9 @@ window.onload = function(){
         images[pos].style.display = 'block';
     },1500);
 };
-let page = 0;
+let maxp = 1;
 let isClick = true;
+let page = 1;
 window.addEventListener('scroll', function () {
     const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
     const scrollHeight = document.documentElement.scrollHeight;
@@ -207,7 +208,7 @@ window.addEventListener('scroll', function () {
     const totalHeight = parseFloat(clientHeight) + parseFloat(scrollTop);
     if ((scrollHeight - totalHeight < 100) && isClick) {
         isClick = false;
-        ++page;
+		if (maxp < page) {return;}
         const CATCH_DATA_KEY = 'vlog_' + page;
         const CATCH_DATA = window.localStorage.getItem(CATCH_DATA_KEY);
         let data = null;
@@ -217,11 +218,13 @@ window.addEventListener('scroll', function () {
             setTimeout(function() {isClick = true;}, 5000);
         } else {
             GP_data("vlog&p="+page,{method:'GET'},function(vlog){
+				maxp = vlog.page;
                 window.localStorage.setItem(CATCH_DATA_KEY, JSON.stringify({ vlog, validDate: getToday() }));
                 renderList(vlog);
                 setTimeout(function() {isClick = true;}, 5000);
             });
         }
+		++page;
     }
 });
 function renderList(List) {
